@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/tyam/work/JH_LVDS/clksk2017/0030_iodelay/ise/tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="18" />
+   <wvobject fp_name="/tb/dut/clk_in" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk_in</obj_property>
+      <obj_property name="ObjectShortName">clk_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/pll_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pll_clk</obj_property>
+      <obj_property name="ObjectShortName">pll_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/BUSY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BUSY</obj_property>
+      <obj_property name="ObjectShortName">BUSY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/DATAOUT2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DATAOUT2</obj_property>
+      <obj_property name="ObjectShortName">DATAOUT2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/DATAOUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DATAOUT</obj_property>
+      <obj_property name="ObjectShortName">DATAOUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/DOUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DOUT</obj_property>
+      <obj_property name="ObjectShortName">DOUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/TOUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TOUT</obj_property>
+      <obj_property name="ObjectShortName">TOUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/CAL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CAL</obj_property>
+      <obj_property name="ObjectShortName">CAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/CE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CE</obj_property>
+      <obj_property name="ObjectShortName">CE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/IDATAIN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">IDATAIN</obj_property>
+      <obj_property name="ObjectShortName">IDATAIN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/INC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC</obj_property>
+      <obj_property name="ObjectShortName">INC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/IOCLK0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">IOCLK0</obj_property>
+      <obj_property name="ObjectShortName">IOCLK0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/IOCLK1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">IOCLK1</obj_property>
+      <obj_property name="ObjectShortName">IOCLK1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/ODATAIN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ODATAIN</obj_property>
+      <obj_property name="ObjectShortName">ODATAIN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/delay/T" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">T</obj_property>
+      <obj_property name="ObjectShortName">T</obj_property>
+   </wvobject>
+</wave_config>

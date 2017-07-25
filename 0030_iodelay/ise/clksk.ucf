@@ -1,0 +1,46 @@
+
+# PlanAhead Generated physical constraints 
+
+NET "dinp" LOC = B2;
+NET "dinn" LOC = B1;
+NET "clk_in" LOC = L4;
+NET "pll_clk_out_p" LOC = B6;
+NET "dout[0]" LOC = C1;
+NET "dout[1]" LOC = C3;
+NET "dout[2]" LOC = D1;
+NET "dout[3]" LOC = D2;
+NET "dout[4]" LOC = A2;
+NET "dout[5]" LOC = A3;
+NET "dout[6]" LOC = B3;
+NET "dout[7]" LOC = D3;
+NET "dout[8]" LOC = A4;
+NET "dout[9]" LOC = A5;
+NET "dout[10]" LOC = C5;
+NET "dout[11]" LOC = C6;
+NET "dout[12]" LOC = A7;
+NET "dout[13]" LOC = C7;
+NET "dout[14]" LOC = A8;
+NET "dout[15]" LOC = B8;
+
+# PlanAhead Generated IO constraints 
+
+NET "dout[15]" IOSTANDARD = LVCMOS33;
+NET "dout[14]" IOSTANDARD = LVCMOS33;
+NET "dout[13]" IOSTANDARD = LVCMOS33;
+NET "dout[12]" IOSTANDARD = LVCMOS33;
+NET "dout[11]" IOSTANDARD = LVCMOS33;
+NET "dout[10]" IOSTANDARD = LVCMOS33;
+NET "dout[9]" IOSTANDARD = LVCMOS33;
+NET "dout[8]" IOSTANDARD = LVCMOS33;
+NET "dout[7]" IOSTANDARD = LVCMOS33;
+NET "dout[6]" IOSTANDARD = LVCMOS33;
+NET "dout[5]" IOSTANDARD = LVCMOS33;
+NET "dout[4]" IOSTANDARD = LVCMOS33;
+NET "dout[3]" IOSTANDARD = LVCMOS33;
+NET "dout[2]" IOSTANDARD = LVCMOS33;
+NET "dout[1]" IOSTANDARD = LVCMOS33;
+NET "dout[0]" IOSTANDARD = LVCMOS33;
+NET "clk_in" IOSTANDARD = LVCMOS33;
+NET "iodelay_busy" IOSTANDARD = LVCMOS33;
+NET "iodelay_cal" IOSTANDARD = LVCMOS33;
+NET "iodelay_rst" IOSTANDARD = LVCMOS33;
