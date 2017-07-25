@@ -5,6 +5,8 @@ module clksk(
  input             iodelay_cal,
  input             dinp,
  input             dinn,
+ input             lclk_p,
+ input             lclk_n,
  output reg [15:0] dout,
  output            pll_clk_out_p,
  output            pll_clk_out_n,
@@ -28,13 +30,13 @@ PLL_ADV #(
  .DEN        (1'b0),
  .DCLK       (1'b0),
  .REL        (1'b0),
- .CLKOUT0    (pll_clk),
+ .CLKOUT0    (),
  .CLKOUT1    (),
  .CLKOUT2    (),
  .CLKOUT3    (),
  .CLKOUT4    (),
  .CLKOUT5    (),
- .CLKFBOUT   (),
+ .CLKFBOUT   (pll_clk),
  .CLKOUTDCM0 (),
  .CLKOUTDCM1 (),
  .CLKOUTDCM2 (),
@@ -47,10 +49,12 @@ PLL_ADV #(
  .DRDY       ()
 );
 
-wire din;
+wire din, lclk;
 
 IBUFDS #(.DIFF_TERM("TRUE"), .IOSTANDARD("LVDS_33")) ibuf (
  .I(dinp), .IB(dinn), .O(din));
+IBUFDS #(.DIFF_TERM("TRUE"), .IOSTANDARD("LVDS_33")) lbuf (
+ .I(lclk_p), .IB(lclk_n), .O(lclk));
 
 wire dout_p2;
 
@@ -63,7 +67,7 @@ IODELAY2 #(
  .ODATAIN  (1'b0),
  .CAL      (iodelay_cal),
  .IOCLK0   (pll_clk),
- .IOCLK1   (1'b0),
+ .IOCLK1   (~pll_clk),
  .CLK      (clk_in),
  .INC      (1'b0),
  .CE       (1'b0),
