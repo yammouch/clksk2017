@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/tyam/work/JH_LVDS/clksk2017/0020_changef/top_tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="53" />
+   <wvobject fp_name="/top_tb/U1/SSTEP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SSTEP</obj_property>
+      <obj_property name="ObjectShortName">SSTEP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/STATE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">STATE</obj_property>
+      <obj_property name="ObjectShortName">STATE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/CLKIN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKIN</obj_property>
+      <obj_property name="ObjectShortName">CLKIN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/SRDY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SRDY</obj_property>
+      <obj_property name="ObjectShortName">SRDY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/CLK0OUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK0OUT</obj_property>
+      <obj_property name="ObjectShortName">CLK0OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/CLK1OUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK1OUT</obj_property>
+      <obj_property name="ObjectShortName">CLK1OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/CLK2OUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK2OUT</obj_property>
+      <obj_property name="ObjectShortName">CLK2OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/CLK3OUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK3OUT</obj_property>
+      <obj_property name="ObjectShortName">CLK3OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/CLK4OUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK4OUT</obj_property>
+      <obj_property name="ObjectShortName">CLK4OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/CLK5OUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK5OUT</obj_property>
+      <obj_property name="ObjectShortName">CLK5OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/SADDR" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SADDR</obj_property>
+      <obj_property name="ObjectShortName">SADDR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/SEN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SEN</obj_property>
+      <obj_property name="ObjectShortName">SEN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/SCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SCLK</obj_property>
+      <obj_property name="ObjectShortName">SCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/DO" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DO[15:0]</obj_property>
+      <obj_property name="ObjectShortName">DO[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/DRDY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DRDY</obj_property>
+      <obj_property name="ObjectShortName">DRDY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/LOCKED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LOCKED</obj_property>
+      <obj_property name="ObjectShortName">LOCKED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/DCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DCLK</obj_property>
+      <obj_property name="ObjectShortName">DCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/SRDY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SRDY</obj_property>
+      <obj_property name="ObjectShortName">SRDY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/DWE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DWE</obj_property>
+      <obj_property name="ObjectShortName">DWE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/DEN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DEN</obj_property>
+      <obj_property name="ObjectShortName">DEN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/DADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DADDR[4:0]</obj_property>
+      <obj_property name="ObjectShortName">DADDR[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/DI" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DI[15:0]</obj_property>
+      <obj_property name="ObjectShortName">DI[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_DRP_inst/RST_PLL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_PLL</obj_property>
+      <obj_property name="ObjectShortName">RST_PLL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKFBDCM" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKFBDCM</obj_property>
+      <obj_property name="ObjectShortName">CLKFBDCM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKFBOUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKFBOUT</obj_property>
+      <obj_property name="ObjectShortName">CLKFBOUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUT0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUT0</obj_property>
+      <obj_property name="ObjectShortName">CLKOUT0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUT1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUT1</obj_property>
+      <obj_property name="ObjectShortName">CLKOUT1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUT2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUT2</obj_property>
+      <obj_property name="ObjectShortName">CLKOUT2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUT3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUT3</obj_property>
+      <obj_property name="ObjectShortName">CLKOUT3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUT4" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUT4</obj_property>
+      <obj_property name="ObjectShortName">CLKOUT4</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUT5" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUT5</obj_property>
+      <obj_property name="ObjectShortName">CLKOUT5</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUTDCM0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUTDCM0</obj_property>
+      <obj_property name="ObjectShortName">CLKOUTDCM0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUTDCM1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUTDCM1</obj_property>
+      <obj_property name="ObjectShortName">CLKOUTDCM1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUTDCM2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUTDCM2</obj_property>
+      <obj_property name="ObjectShortName">CLKOUTDCM2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUTDCM3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUTDCM3</obj_property>
+      <obj_property name="ObjectShortName">CLKOUTDCM3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUTDCM4" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUTDCM4</obj_property>
+      <obj_property name="ObjectShortName">CLKOUTDCM4</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKOUTDCM5" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKOUTDCM5</obj_property>
+      <obj_property name="ObjectShortName">CLKOUTDCM5</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/DRDY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DRDY</obj_property>
+      <obj_property name="ObjectShortName">DRDY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/LOCKED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LOCKED</obj_property>
+      <obj_property name="ObjectShortName">LOCKED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/DO" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DO[15:0]</obj_property>
+      <obj_property name="ObjectShortName">DO[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKFBIN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKFBIN</obj_property>
+      <obj_property name="ObjectShortName">CLKFBIN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKIN1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKIN1</obj_property>
+      <obj_property name="ObjectShortName">CLKIN1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKIN2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKIN2</obj_property>
+      <obj_property name="ObjectShortName">CLKIN2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/CLKINSEL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLKINSEL</obj_property>
+      <obj_property name="ObjectShortName">CLKINSEL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/DCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DCLK</obj_property>
+      <obj_property name="ObjectShortName">DCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/DEN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DEN</obj_property>
+      <obj_property name="ObjectShortName">DEN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/DWE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DWE</obj_property>
+      <obj_property name="ObjectShortName">DWE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/REL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">REL</obj_property>
+      <obj_property name="ObjectShortName">REL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/DI" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DI[15:0]</obj_property>
+      <obj_property name="ObjectShortName">DI[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/U1/PLL_ADV_inst/DADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DADDR[4:0]</obj_property>
+      <obj_property name="ObjectShortName">DADDR[4:0]</obj_property>
+   </wvobject>
+</wave_config>
