@@ -1,14 +1,14 @@
 module clksk(
  input  clk_in,
  input  rst,
- output pll_clk
+ output pll_clk_out
 );
 
 wire pll_clk;
 
 PLL_ADV #(
- .CLKIN1_PERIOD (100.0),
- .CLKFBOUT_MULT (40)
+ .CLKIN1_PERIOD (50.0),
+ .CLKFBOUT_MULT (20)
 ) pll0 (
  .CLKIN1     (clk_in),
  .CLKIN2     (1'b0),
@@ -39,5 +39,8 @@ PLL_ADV #(
  .DO         (),
  .DRDY       ()
 );
+
+ODDR2 clkg_pll_clk(.CE(1'b1), .R(1'b0), .S(1'b0),
+ .D0(1'b1), .D1(1'b0), .C0(CLKXTAL), .C1(~CLKXTAL), .Q(pll_clk_out));
 
 endmodule
