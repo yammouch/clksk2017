@@ -57,7 +57,8 @@ wire dout_p2;
 
 IODELAY2 #(
  .IDELAY_TYPE ("VARIABLE_FROM_ZERO"),
- .DATA_RATE   ("DDR")
+ .DATA_RATE   ("DDR"),
+ .DELAY_SRC   ("IDATAIN")
 ) delay (
  .IDATAIN  (din),
  .T        (1'b1),
