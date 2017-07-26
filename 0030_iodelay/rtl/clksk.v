@@ -5,8 +5,6 @@ module clksk(
  input             iodelay_cal,
  input             dinp,
  input             dinn,
- input             lclk_p,
- input             lclk_n,
  output reg [15:0] dout,
  output            pll_clk_out_p,
  output            pll_clk_out_n,
@@ -17,7 +15,8 @@ wire pll_clk;
 
 PLL_ADV #(
  .CLKIN1_PERIOD (50.0),
- .CLKFBOUT_MULT (20)
+ .CLKFBOUT_MULT (20),
+ .SIM_DEVICE    ("SPARTAN6")
 ) pll0 (
  .CLKIN1     (clk_in),
  .CLKIN2     (1'b0),
@@ -49,12 +48,10 @@ PLL_ADV #(
  .DRDY       ()
 );
 
-wire din, lclk;
+wire din;
 
 IBUFDS #(.DIFF_TERM("TRUE"), .IOSTANDARD("LVDS_33")) ibuf (
  .I(dinp), .IB(dinn), .O(din));
-IBUFDS #(.DIFF_TERM("TRUE"), .IOSTANDARD("LVDS_33")) lbuf (
- .I(lclk_p), .IB(lclk_n), .O(lclk));
 
 wire dout_p2;
 
