@@ -186,9 +186,6 @@ module pll_drp
    // 100 ps delay for behavioral simulations
    localparam  TCQ = 100;
 
-   // Make sure the memory is implemented as distributed (does not work on 11.2)
-   (* rom_style = "distributed" *)
-   reg [36:0]  rom [63:0];
    reg [5:0]   rom_addr;
    reg [36:0]  rom_do;
    
@@ -210,250 +207,209 @@ module pll_drp
    // functions that are used in the calculations below.  This file is 
    // required.
    `include "pll_drp_func.h"
-   
-   //**************************************************************************
-   // State 1 Calculations
-   //**************************************************************************
-   localparam [22:0] S1_CLKFBOUT       =
+
+   function [36:0] pll_encode(
+    input [4:0]   addr,
+    input [31:0]  S1_CLKFBOUT_MULT,
+    input [31:0]  S1_CLKFBOUT_PHASE,
+    input [8*9:0] S1_BANDWIDTH,
+    input [31:0]  S1_DIVCLK_DIVIDE,
+    input [31:0]  S1_CLKOUT0_DIVIDE,
+    input [31:0]  S1_CLKOUT0_PHASE,
+    input [31:0]  S1_CLKOUT0_DUTY,
+    input [31:0]  S1_CLKOUT1_DIVIDE,
+    input [31:0]  S1_CLKOUT1_PHASE,
+    input [31:0]  S1_CLKOUT1_DUTY,
+    input [31:0]  S1_CLKOUT2_DIVIDE,
+    input [31:0]  S1_CLKOUT2_PHASE,
+    input [31:0]  S1_CLKOUT2_DUTY,
+    input [31:0]  S1_CLKOUT3_DIVIDE,
+    input [31:0]  S1_CLKOUT3_PHASE,
+    input [31:0]  S1_CLKOUT3_DUTY,
+    input [31:0]  S1_CLKOUT4_DIVIDE,
+    input [31:0]  S1_CLKOUT4_PHASE,
+    input [31:0]  S1_CLKOUT4_DUTY,
+    input [31:0]  S1_CLKOUT5_DIVIDE,
+    input [31:0]  S1_CLKOUT5_PHASE,
+    input [31:0]  S1_CLKOUT5_DUTY);
+    reg [22:0] S1_CLKFBOUT;
+    reg [22:0] S1_CLKFBOUT2;
+    reg [9:0]  S1_DIGITAL_FILT;
+    reg [39:0] S1_LOCK;
+    reg [22:0] S1_DIVCLK;
+    reg [22:0] S1_CLKOUT0;
+    reg [22:0] S1_CLKOUT1;
+    reg [22:0] S1_CLKOUT2;
+    reg [22:0] S1_CLKOUT3;
+    reg [22:0] S1_CLKOUT4;
+    reg [22:0] S1_CLKOUT5;
+    begin
+     S1_CLKFBOUT =
       s6_pll_count_calc(S1_CLKFBOUT_MULT, S1_CLKFBOUT_PHASE, 50000);
 	  
-   localparam [22:0] S1_CLKFBOUT2      =
+     S1_CLKFBOUT2 =
       s6_pll_count_calc(S1_CLKFBOUT_MULT, S1_CLKFBOUT_PHASE, 50000);
       
-   localparam [9:0]  S1_DIGITAL_FILT   = 
+     S1_DIGITAL_FILT = 
       s6_pll_filter_lookup(S1_CLKFBOUT_MULT, S1_BANDWIDTH);
       
-   localparam [39:0] S1_LOCK           =
+     S1_LOCK =
       s6_pll_lock_lookup(S1_CLKFBOUT_MULT);
       
-   localparam [22:0] S1_DIVCLK         = 
+     S1_DIVCLK = 
       s6_pll_count_calc(S1_DIVCLK_DIVIDE, 0, 50000); 
       
-   localparam [22:0] S1_CLKOUT0        =
+     S1_CLKOUT0 =
       s6_pll_count_calc(S1_CLKOUT0_DIVIDE, S1_CLKOUT0_PHASE, S1_CLKOUT0_DUTY); 
          
-   localparam [22:0] S1_CLKOUT1        = 
+     S1_CLKOUT1 = 
       s6_pll_count_calc(S1_CLKOUT1_DIVIDE, S1_CLKOUT1_PHASE, S1_CLKOUT1_DUTY); 
          
-   localparam [22:0] S1_CLKOUT2        = 
+     S1_CLKOUT2 = 
       s6_pll_count_calc(S1_CLKOUT2_DIVIDE, S1_CLKOUT2_PHASE, S1_CLKOUT2_DUTY); 
          
-   localparam [22:0] S1_CLKOUT3        = 
+     S1_CLKOUT3 = 
       s6_pll_count_calc(S1_CLKOUT3_DIVIDE, S1_CLKOUT3_PHASE, S1_CLKOUT3_DUTY); 
          
-   localparam [22:0] S1_CLKOUT4        = 
+     S1_CLKOUT4 = 
       s6_pll_count_calc(S1_CLKOUT4_DIVIDE, S1_CLKOUT4_PHASE, S1_CLKOUT4_DUTY); 
          
-   localparam [22:0] S1_CLKOUT5        = 
-      s6_pll_count_calc(S1_CLKOUT5_DIVIDE, S1_CLKOUT5_PHASE, S1_CLKOUT5_DUTY); 
-   
-   //**************************************************************************
-   // State 2 Calculations
-   //**************************************************************************
-   localparam [22:0] S2_CLKFBOUT       = 
-      s6_pll_count_calc(S2_CLKFBOUT_MULT, S2_CLKFBOUT_PHASE, 50000);
-	  
-   localparam [22:0] S2_CLKFBOUT2      = 
-      s6_pll_count_calc(S2_CLKFBOUT_MULT, S2_CLKFBOUT_PHASE, 50000);
-      
-   localparam [9:0] S2_DIGITAL_FILT    = 
-      s6_pll_filter_lookup(S2_CLKFBOUT_MULT, S2_BANDWIDTH);
-   
-   localparam [39:0] S2_LOCK           = 
-      s6_pll_lock_lookup(S2_CLKFBOUT_MULT);
-   
-   localparam [22:0] S2_DIVCLK         = 
-      s6_pll_count_calc(S2_DIVCLK_DIVIDE, 0, 50000); 
-   
-   localparam [22:0] S2_CLKOUT0        = 
-      s6_pll_count_calc(S2_CLKOUT0_DIVIDE, S2_CLKOUT0_PHASE, S2_CLKOUT0_DUTY);
-         
-   localparam [22:0] S2_CLKOUT1        = 
-      s6_pll_count_calc(S2_CLKOUT1_DIVIDE, S2_CLKOUT1_PHASE, S2_CLKOUT1_DUTY);
-         
-   localparam [22:0] S2_CLKOUT2        = 
-      s6_pll_count_calc(S2_CLKOUT2_DIVIDE, S2_CLKOUT2_PHASE, S2_CLKOUT2_DUTY);
-         
-   localparam [22:0] S2_CLKOUT3        = 
-      s6_pll_count_calc(S2_CLKOUT3_DIVIDE, S2_CLKOUT3_PHASE, S2_CLKOUT3_DUTY);
-         
-   localparam [22:0] S2_CLKOUT4        = 
-      s6_pll_count_calc(S2_CLKOUT4_DIVIDE, S2_CLKOUT4_PHASE, S2_CLKOUT4_DUTY);
-         
-   localparam [22:0] S2_CLKOUT5        = 
-      s6_pll_count_calc(S2_CLKOUT5_DIVIDE, S2_CLKOUT5_PHASE, S2_CLKOUT5_DUTY);
-   
-   initial begin
-      // rom entries contain (in order) the address, a bitmask, and a bitset
-      //***********************************************************************
-      // State 1 Initialization
-      //***********************************************************************
-      
-      rom[0] = {5'h05, 16'h50FF,  S1_CLKOUT0[19], 1'b0, S1_CLKOUT0[18], 1'b0,//bits 15 down to 12
-	                              S1_CLKOUT0[16], S1_CLKOUT0[17], S1_CLKOUT0[15], S1_CLKOUT0[14], 8'h00};//bits 11 downto 0
-								 
-	  rom[1] = {5'h06, 16'h010B,  S1_CLKOUT1[4], S1_CLKOUT1[5], S1_CLKOUT1[3], S1_CLKOUT1[12], //bits 15 down to 12
-	                              S1_CLKOUT1[1], S1_CLKOUT1[2], S1_CLKOUT1[19], 1'b0, S1_CLKOUT1[17], S1_CLKOUT1[16], //bits 11 down to 6
-								  S1_CLKOUT1[14], S1_CLKOUT1[15], 1'b0, S1_CLKOUT0[13], 2'b00}; //bits 5 down to 0
-								 
-	  rom[2] = {5'h07, 16'hE02C,  3'b000, S1_CLKOUT1[11], S1_CLKOUT1[9], S1_CLKOUT1[10], //bits 15 down to 10
-	                              S1_CLKOUT1[8], S1_CLKOUT1[7], S1_CLKOUT1[6], S1_CLKOUT1[20], 1'b0, S1_CLKOUT1[13], //bits 9 down to 4 
-								  2'b00, S1_CLKOUT1[21], S1_CLKOUT1[22]}; //bits 3 down to 0
-								 
-	  rom[3] = {5'h08, 16'h4001,  S1_CLKOUT2[22], 1'b0, S1_CLKOUT2[5], S1_CLKOUT2[21], //bits 15 downto 12
-	                              S1_CLKOUT2[12], S1_CLKOUT2[4], S1_CLKOUT2[3], S1_CLKOUT2[2], S1_CLKOUT2[0], S1_CLKOUT2[19], //bits 11 down to 6
-								  S1_CLKOUT2[17], S1_CLKOUT2[18], S1_CLKOUT2[15], S1_CLKOUT2[16], S1_CLKOUT2[14], 1'b0}; //bits 5 down to 0
-								 
-	  rom[4] = {5'h09, 16'h0D03,  S1_CLKOUT3[14], S1_CLKOUT3[15], S1_CLKOUT0[21], S1_CLKOUT0[22], 2'b00, S1_CLKOUT2[10], 1'b0, //bits 15 downto 8
-	                              S1_CLKOUT2[9], S1_CLKOUT2[8], S1_CLKOUT2[6], S1_CLKOUT2[7], S1_CLKOUT2[13], S1_CLKOUT2[20], 2'b00}; //bits 7 downto 0
-								 
-	  rom[5] = {5'h0A, 16'hB001,  1'b0, S1_CLKOUT3[13], 2'b00, S1_CLKOUT3[21], S1_CLKOUT3[22], S1_CLKOUT3[5], S1_CLKOUT3[4], //bits 15 downto 8
-	                              S1_CLKOUT3[12], S1_CLKOUT3[2], S1_CLKOUT3[0], S1_CLKOUT3[1], S1_CLKOUT3[18], S1_CLKOUT3[19], //bits 7 downto 2
-								  S1_CLKOUT3[17], 1'b0}; //bits 1 downto 0
-								  
-	  rom[6] = {5'h0B, 16'h0110,  S1_CLKOUT0[5], S1_CLKOUT4[19], S1_CLKOUT4[14], S1_CLKOUT4[17], //bits 15 downto 12
-	                              S1_CLKOUT4[15], S1_CLKOUT4[16], S1_CLKOUT0[4], 1'b0, S1_CLKOUT3[11], S1_CLKOUT3[10], //bits 11 downto 6 
-								  S1_CLKOUT3[9], 1'b0, S1_CLKOUT3[7], S1_CLKOUT3[8], S1_CLKOUT3[20], S1_CLKOUT3[6]}; //bits 5 downto 0
-								 
-	  rom[7] = {5'h0C, 16'h0B00,  S1_CLKOUT4[7], S1_CLKOUT4[8], S1_CLKOUT4[20], S1_CLKOUT4[6], 1'b0, S1_CLKOUT4[13], //bits 15 downto 10
-	                              2'b00, S1_CLKOUT4[22], S1_CLKOUT4[21], S1_CLKOUT4[4], S1_CLKOUT4[5], S1_CLKOUT4[3], //bits 9 downto 3
-								  S1_CLKOUT4[12], S1_CLKOUT4[1], S1_CLKOUT4[2]}; //bits 2 downto 0
-								 
-	  rom[8] = {5'h0D, 16'h0008,  S1_CLKOUT5[2], S1_CLKOUT5[3], S1_CLKOUT5[0], S1_CLKOUT5[1], S1_CLKOUT5[18], //bits 15 downto 11
-								  S1_CLKOUT5[19], S1_CLKOUT5[17], S1_CLKOUT5[16], S1_CLKOUT5[15], S1_CLKOUT0[3], //bits 10 downto 6
-								  S1_CLKOUT0[0], S1_CLKOUT0[2], 1'b0, S1_CLKOUT4[11], S1_CLKOUT4[9], S1_CLKOUT4[10]}; //bits 5 downto 0
-								 
-	  rom[9] = {5'h0E, 16'h00D0,  S1_CLKOUT5[10], S1_CLKOUT5[11], S1_CLKOUT5[8], S1_CLKOUT5[9], S1_CLKOUT5[6], //bits 15 downto 11
-								  S1_CLKOUT5[7], S1_CLKOUT5[20], S1_CLKOUT5[13], 2'b00, S1_CLKOUT5[22], 1'b0, //bits 10 downto 4
-								  S1_CLKOUT5[5], S1_CLKOUT5[21], S1_CLKOUT5[12], S1_CLKOUT5[4]}; //bits 3 downto 0
-								 
-	  rom[10] = {5'h0F, 16'h0003, S1_CLKFBOUT[4], S1_CLKFBOUT[5], S1_CLKFBOUT[3], S1_CLKFBOUT[12], S1_CLKFBOUT[1], //bits 15 downto 11
-	                              S1_CLKFBOUT[2], S1_CLKFBOUT[0], S1_CLKFBOUT[19], S1_CLKFBOUT[18], S1_CLKFBOUT[17], //bits 10 downto 6
-								  S1_CLKFBOUT[15], S1_CLKFBOUT[16], S1_CLKOUT0[12], S1_CLKOUT0[1], 2'b00}; //bits 5 downto 0
-								  
-	  rom[11] = {5'h10, 16'h800C, 1'b0, S1_CLKOUT0[9], S1_CLKOUT0[11], S1_CLKOUT0[10], S1_CLKFBOUT[10], S1_CLKFBOUT[11], //bits 15 downto 10
-								  S1_CLKFBOUT[9], S1_CLKFBOUT[8], S1_CLKFBOUT[7], S1_CLKFBOUT[6], S1_CLKFBOUT[13],  //bits 9 downto 5
-								  S1_CLKFBOUT[20], 2'b00, S1_CLKFBOUT[21], S1_CLKFBOUT[22]}; //bits 4 downto 0
-										
-	  rom[12] = {5'h11, 16'hFC00, 6'h00, S1_CLKOUT3[3], S1_CLKOUT3[16], S1_CLKOUT2[11], S1_CLKOUT2[1], S1_CLKOUT1[18], //bits 15 downto 6
-								  S1_CLKOUT1[0], S1_CLKOUT0[6], S1_CLKOUT0[20], S1_CLKOUT0[8], S1_CLKOUT0[7]}; //bits 5 downto 0
-								  
-	  rom[13] = {5'h12, 16'hF0FF, 4'h0, S1_CLKOUT5[14], S1_CLKFBOUT[14], S1_CLKOUT4[0], S1_CLKOUT4[18],  8'h00};  //bits 15 downto 0
-								  
-	  rom[14] = {5'h13, 16'h5120, S1_DIVCLK[11], 1'b0, S1_DIVCLK[10], 1'b0, S1_DIVCLK[7], S1_DIVCLK[8],  //bits 15 downto 10
-	                              S1_DIVCLK[0], 1'b0, S1_DIVCLK[5], S1_DIVCLK[2], 1'b0, S1_DIVCLK[13], 4'h0};  //bits 9 downto 0
-								  
-	  rom[15] = {5'h14, 16'h2FFF, S1_LOCK[1], S1_LOCK[2], 1'b0, S1_LOCK[0], 12'h000}; //bits 15 downto 0
-								  
-	  rom[16] = {5'h15, 16'hBFF4, 1'b0, S1_DIVCLK[12], 10'h000, S1_LOCK[38], 1'b0, S1_LOCK[32], S1_LOCK[39]}; //bits 15 downto 0								  
-								  
-	  rom[17] = {5'h16, 16'h0A55, S1_LOCK[15], S1_LOCK[13], S1_LOCK[27], S1_LOCK[16], 1'b0, S1_LOCK[10],   //bits 15 downto 10
-	                              1'b0, S1_DIVCLK[9], S1_DIVCLK[1], 1'b0, S1_DIVCLK[6], 1'b0, S1_DIVCLK[3],  //bits 9 downto 3
-								  1'b0, S1_DIVCLK[4], 1'b0};  //bits 2 downto 0
-	  
-	  rom[18] = {5'h17, 16'hFFD0, 10'h000, S1_LOCK[17], 1'b0, S1_LOCK[8], S1_LOCK[9], S1_LOCK[23], S1_LOCK[22]}; //bits 15 downto 0	  
-								  
-	  rom[19] = {5'h18, 16'h1039, S1_DIGITAL_FILT[6], S1_DIGITAL_FILT[7], S1_DIGITAL_FILT[0], 1'b0, //bits 15 downto 12
-								  S1_DIGITAL_FILT[2], S1_DIGITAL_FILT[1], S1_DIGITAL_FILT[3], S1_DIGITAL_FILT[9], //bits 11 downto 8
-								  S1_DIGITAL_FILT[8], S1_LOCK[26], 3'h0, S1_LOCK[19], S1_LOCK[18], 1'b0}; //bits 7 downto 0								
-								  
-	  rom[20] = {5'h19, 16'h0000, S1_LOCK[24], S1_LOCK[25], S1_LOCK[21], S1_LOCK[14], S1_LOCK[11], //bits 15 downto 11
-								  S1_LOCK[12], S1_LOCK[20], S1_LOCK[6], S1_LOCK[35], S1_LOCK[36], //bits 10 downto 6
-								  S1_LOCK[37], S1_LOCK[3], S1_LOCK[33], S1_LOCK[31], S1_LOCK[34], S1_LOCK[30]}; //bits 5 downto 0
-								  
-	  rom[21] = {5'h1A, 16'hFFFC, 14'h0000, S1_LOCK[28], S1_LOCK[29]};  //bits 15 downto 0
-	  
-	  rom[22] = {5'h1D, 16'h2FFF, S1_LOCK[7], S1_LOCK[4], 1'b0, S1_LOCK[5], 12'h000};	//bits 15 downto 0
-	  
-      //***********************************************************************
-      // State 2 Initialization
-      //***********************************************************************
-      
-      rom[23] = {5'h05, 16'h50FF,  S2_CLKOUT0[19], 1'b0, S2_CLKOUT0[18], 1'b0,//bits 15 down to 12
-	                              S2_CLKOUT0[16], S2_CLKOUT0[17], S2_CLKOUT0[15], S2_CLKOUT0[14], 8'h00};//bits 11 downto 0
-								 
-	  rom[24] = {5'h06, 16'h010B,  S2_CLKOUT1[4], S2_CLKOUT1[5], S2_CLKOUT1[3], S2_CLKOUT1[12], //bits 15 down to 12
-	                              S2_CLKOUT1[1], S2_CLKOUT1[2], S2_CLKOUT1[19], 1'b0, S2_CLKOUT1[17], S2_CLKOUT1[16], //bits 11 down to 6
-								  S2_CLKOUT1[14], S2_CLKOUT1[15], 1'b0, S2_CLKOUT0[13], 2'h0}; //bits 5 down to 0
-								 
-	  rom[25] = {5'h07, 16'hE02C,  3'h0, S2_CLKOUT1[11], S2_CLKOUT1[9], S2_CLKOUT1[10], //bits 15 down to 10
-	                              S2_CLKOUT1[8], S2_CLKOUT1[7], S2_CLKOUT1[6], S2_CLKOUT1[20], 1'b0, S2_CLKOUT1[13], //bits 9 down to 4 
-								  2'b00, S2_CLKOUT1[21], S2_CLKOUT1[22]}; //bits 3 down to 0
-								 
-	  rom[26] = {5'h08, 16'h4001,  S2_CLKOUT2[22], 1'b0, S2_CLKOUT2[5], S2_CLKOUT2[21], //bits 15 downto 12
-	                              S2_CLKOUT2[12], S2_CLKOUT2[4], S2_CLKOUT2[3], S2_CLKOUT2[2], S2_CLKOUT2[0], S2_CLKOUT2[19], //bits 11 down to 6
-								  S2_CLKOUT2[17], S2_CLKOUT2[18], S2_CLKOUT2[15], S2_CLKOUT2[16], S2_CLKOUT2[14], 1'b0}; //bits 5 down to 0
-								 
-	  rom[27] = {5'h09, 16'h0D03,  S2_CLKOUT3[14], S2_CLKOUT3[15], S2_CLKOUT0[21], S2_CLKOUT0[22], 2'h0, S2_CLKOUT2[10], 1'b0, //bits 15 downto 8
-	                              S2_CLKOUT2[9], S2_CLKOUT2[8], S2_CLKOUT2[6], S2_CLKOUT2[7], S2_CLKOUT2[13], S2_CLKOUT2[20], 2'h0}; //bits 7 downto 0
-								 
-	  rom[28] = {5'h0A, 16'hB001,  1'b0, S2_CLKOUT3[13], 2'h0, S2_CLKOUT3[21], S2_CLKOUT3[22], S2_CLKOUT3[5], S2_CLKOUT3[4], //bits 15 downto 8
-	                              S2_CLKOUT3[12], S2_CLKOUT3[2], S2_CLKOUT3[0], S2_CLKOUT3[1], S2_CLKOUT3[18], S2_CLKOUT3[19], //bits 7 downto 2
-								  S2_CLKOUT3[17], 1'b0}; //bits 1 downto 0
-								  
-	  rom[29] = {5'h0B, 16'h0110,  S2_CLKOUT0[5], S2_CLKOUT4[19], S2_CLKOUT4[14], S2_CLKOUT4[17], //bits 15 downto 12
-	                              S2_CLKOUT4[15], S2_CLKOUT4[16], S2_CLKOUT0[4], 1'b0, S2_CLKOUT3[11], S2_CLKOUT3[10], //bits 11 downto 6 
-								  S2_CLKOUT3[9], 1'b0, S2_CLKOUT3[7], S2_CLKOUT3[8], S2_CLKOUT3[20], S2_CLKOUT3[6]}; //bits 5 downto 0
-								 
-	  rom[30] = {5'h0C, 16'h0B00,  S2_CLKOUT4[7], S2_CLKOUT4[8], S2_CLKOUT4[20], S2_CLKOUT4[6], 1'b0, S2_CLKOUT4[13], //bits 15 downto 10
-	                              2'h0, S2_CLKOUT4[22], S2_CLKOUT4[21], S2_CLKOUT4[4], S2_CLKOUT4[5], S2_CLKOUT4[3], //bits 9 downto 3
-								  S2_CLKOUT4[12], S2_CLKOUT4[1], S2_CLKOUT4[2]}; //bits 2 downto 0
-								 
-	  rom[31] = {5'h0D, 16'h0008,  S2_CLKOUT5[2], S2_CLKOUT5[3], S2_CLKOUT5[0], S2_CLKOUT5[1], S2_CLKOUT5[18], //bits 15 downto 11
-								  S2_CLKOUT5[19], S2_CLKOUT5[17], S2_CLKOUT5[16], S2_CLKOUT5[15], S2_CLKOUT0[3], //bits 10 downto 6
-								  S2_CLKOUT0[0], S2_CLKOUT0[2], 1'b0, S2_CLKOUT4[11], S2_CLKOUT4[9], S2_CLKOUT4[10]}; //bits 5 downto 0
-								 
-	  rom[32] = {5'h0E, 16'h00D0,  S2_CLKOUT5[10], S2_CLKOUT5[11], S2_CLKOUT5[8], S2_CLKOUT5[9], S2_CLKOUT5[6], //bits 15 downto 11
-								  S2_CLKOUT5[7], S2_CLKOUT5[20], S2_CLKOUT5[13], 2'h0, S2_CLKOUT5[22], 1'b0, //bits 10 downto 4
-								  S2_CLKOUT5[5], S2_CLKOUT5[21], S2_CLKOUT5[12], S2_CLKOUT5[4]}; //bits 3 downto 0
-								 
-	  rom[33] = {5'h0F, 16'h0003, S2_CLKFBOUT[4], S2_CLKFBOUT[5], S2_CLKFBOUT[3], S2_CLKFBOUT[12], S2_CLKFBOUT[1], //bits 15 downto 11
-	                              S2_CLKFBOUT[2], S2_CLKFBOUT[0], S2_CLKFBOUT[19], S2_CLKFBOUT[18], S2_CLKFBOUT[17], //bits 10 downto 6
-								  S2_CLKFBOUT[15], S2_CLKFBOUT[16], S2_CLKOUT0[12], S2_CLKOUT0[1], 2'b00}; //bits 5 downto 0
-								  
-	  rom[34] = {5'h10, 16'h800C, 1'b0, S2_CLKOUT0[9], S2_CLKOUT0[11], S2_CLKOUT0[10], S2_CLKFBOUT[10], S2_CLKFBOUT[11], //bits 15 downto 10
-								  S2_CLKFBOUT[9], S2_CLKFBOUT[8], S2_CLKFBOUT[7], S2_CLKFBOUT[6], S2_CLKFBOUT[13],  //bits 9 downto 5
-								  S2_CLKFBOUT[20], 2'h0, S2_CLKFBOUT[21], S2_CLKFBOUT[22]}; //bits 4 downto 0
-										
-	  rom[35] = {5'h11, 16'hFC00, 6'h00, S2_CLKOUT3[3], S2_CLKOUT3[16], S2_CLKOUT2[11], S2_CLKOUT2[1], S2_CLKOUT1[18], //bits 15 downto 6
-								  S2_CLKOUT1[0], S2_CLKOUT0[6], S2_CLKOUT0[20], S2_CLKOUT0[8], S2_CLKOUT0[7]}; //bits 5 downto 0
-								  
-	  rom[36] = {5'h12, 16'hF0FF, 4'h0, S2_CLKOUT5[14], S2_CLKFBOUT[14], S2_CLKOUT4[0], S2_CLKOUT4[18],  8'h00};  //bits 15 downto 0
-								  
-	  rom[37] = {5'h13, 16'h5120, S2_DIVCLK[11], 1'b0, S2_DIVCLK[10], 1'b0, S2_DIVCLK[7], S2_DIVCLK[8],  //bits 15 downto 10
-	                              S2_DIVCLK[0], 1'b0, S2_DIVCLK[5], S2_DIVCLK[2], 1'b0, S2_DIVCLK[13], 4'h0};  //bits 9 downto 0
-								  
-	  rom[38] = {5'h14, 16'h2FFF, S2_LOCK[1], S2_LOCK[2], 1'b0, S2_LOCK[0], 12'h000}; //bits 15 downto 0
-								  
-	  rom[39] = {5'h15, 16'hBFF4, 1'b0, S2_DIVCLK[12], 10'h000, S2_LOCK[38], 1'b0, S2_LOCK[32], S2_LOCK[39]}; //bits 15 downto 0								  
-								  
-	  rom[40] = {5'h16, 16'h0A55, S2_LOCK[15], S2_LOCK[13], S2_LOCK[27], S2_LOCK[16], 1'b0, S2_LOCK[10],   //bits 15 downto 10
-	                              1'b0, S2_DIVCLK[9], S2_DIVCLK[1], 1'b0, S2_DIVCLK[6], 1'b0, S2_DIVCLK[3],  //bits 9 downto 3
-								  1'b0, S2_DIVCLK[4], 1'b0};  //bits 2 downto 0
-	  
-	  rom[41] = {5'h17, 16'hFFD0, 10'h000, S2_LOCK[17], 1'b0, S2_LOCK[8], S2_LOCK[9], S2_LOCK[23], S2_LOCK[22]}; //bits 15 downto 0	  
-								  
-	  rom[42] = {5'h18, 16'h1039, S2_DIGITAL_FILT[6], S2_DIGITAL_FILT[7], S2_DIGITAL_FILT[0], 1'b0, //bits 15 downto 12
-								  S2_DIGITAL_FILT[2], S2_DIGITAL_FILT[1], S2_DIGITAL_FILT[3], S2_DIGITAL_FILT[9], //bits 11 downto 8
-								  S2_DIGITAL_FILT[8], S2_LOCK[26], 3'h0, S2_LOCK[19], S2_LOCK[18], 1'b0}; //bits 7 downto 0								
-								  
-	  rom[43] = {5'h19, 16'h0000, S2_LOCK[24], S2_LOCK[25], S2_LOCK[21], S2_LOCK[14], S2_LOCK[11], //bits 15 downto 11
-								  S2_LOCK[12], S2_LOCK[20], S2_LOCK[6], S2_LOCK[35], S2_LOCK[36], //bits 10 downto 6
-								  S2_LOCK[37], S2_LOCK[3], S2_LOCK[33], S2_LOCK[31], S2_LOCK[34], S2_LOCK[30]}; //bits 5 downto 0
-								  
-	  rom[44] = {5'h1A, 16'hFFFC, 14'h0000, S2_LOCK[28], S2_LOCK[29]};  //bits 15 downto 0
-	  
-	  rom[45] = {5'h1D, 16'h2FFF, S2_LOCK[7], S2_LOCK[4], 1'b0, S2_LOCK[5], 12'h000};	//bits 15 downto 0
-	  
-	  // Initialize the rest of the ROM
-      for(ii = 46; ii < 64; ii = ii +1) begin
-         rom[ii] = 0;
-      end
-   end
+     S1_CLKOUT5 = 
+      s6_pll_count_calc(S1_CLKOUT5_DIVIDE, S1_CLKOUT5_PHASE, S1_CLKOUT5_DUTY);    
+
+     case (addr)
+      5'd0 : pll_encode =
+      {5'h05, 16'h50FF,  S1_CLKOUT0[19], 1'b0, S1_CLKOUT0[18], 1'b0,//bits 15 down to 12
+                               S1_CLKOUT0[16], S1_CLKOUT0[17], S1_CLKOUT0[15], S1_CLKOUT0[14], 8'h00};//bits 11 downto 0
+      5'd1: pll_encode =
+      {5'h06, 16'h010B,  S1_CLKOUT1[4], S1_CLKOUT1[5], S1_CLKOUT1[3], S1_CLKOUT1[12], //bits 15 down to 12
+                         S1_CLKOUT1[1], S1_CLKOUT1[2], S1_CLKOUT1[19], 1'b0, S1_CLKOUT1[17], S1_CLKOUT1[16], //bits 11 down to 6
+                         S1_CLKOUT1[14], S1_CLKOUT1[15], 1'b0, S1_CLKOUT0[13], 2'b00}; //bits 5 down to 0
+      5'd2: pll_encode =
+      {5'h07, 16'hE02C,  3'b000, S1_CLKOUT1[11], S1_CLKOUT1[9], S1_CLKOUT1[10], //bits 15 down to 10
+                         S1_CLKOUT1[8], S1_CLKOUT1[7], S1_CLKOUT1[6], S1_CLKOUT1[20], 1'b0, S1_CLKOUT1[13], //bits 9 down to 4 
+                         2'b00, S1_CLKOUT1[21], S1_CLKOUT1[22]}; //bits 3 down to 0
+      5'd3: pll_encode =
+      {5'h08, 16'h4001,  S1_CLKOUT2[22], 1'b0, S1_CLKOUT2[5], S1_CLKOUT2[21], //bits 15 downto 12
+                         S1_CLKOUT2[12], S1_CLKOUT2[4], S1_CLKOUT2[3], S1_CLKOUT2[2], S1_CLKOUT2[0], S1_CLKOUT2[19], //bits 11 down to 6
+                         S1_CLKOUT2[17], S1_CLKOUT2[18], S1_CLKOUT2[15], S1_CLKOUT2[16], S1_CLKOUT2[14], 1'b0}; //bits 5 down to 0
+      5'd4: pll_encode =
+      {5'h09, 16'h0D03,  S1_CLKOUT3[14], S1_CLKOUT3[15], S1_CLKOUT0[21], S1_CLKOUT0[22], 2'b00, S1_CLKOUT2[10], 1'b0, //bits 15 downto 8
+                         S1_CLKOUT2[9], S1_CLKOUT2[8], S1_CLKOUT2[6], S1_CLKOUT2[7], S1_CLKOUT2[13], S1_CLKOUT2[20], 2'b00}; //bits 7 downto 0
+      5'd5: pll_encode =
+      {5'h0A, 16'hB001,  1'b0, S1_CLKOUT3[13], 2'b00, S1_CLKOUT3[21], S1_CLKOUT3[22], S1_CLKOUT3[5], S1_CLKOUT3[4], //bits 15 downto 8
+                         S1_CLKOUT3[12], S1_CLKOUT3[2], S1_CLKOUT3[0], S1_CLKOUT3[1], S1_CLKOUT3[18], S1_CLKOUT3[19], //bits 7 downto 2
+                         S1_CLKOUT3[17], 1'b0}; //bits 1 downto 0
+      5'd6: pll_encode =
+      {5'h0B, 16'h0110,  S1_CLKOUT0[5], S1_CLKOUT4[19], S1_CLKOUT4[14], S1_CLKOUT4[17], //bits 15 downto 12
+                         S1_CLKOUT4[15], S1_CLKOUT4[16], S1_CLKOUT0[4], 1'b0, S1_CLKOUT3[11], S1_CLKOUT3[10], //bits 11 downto 6 
+                         S1_CLKOUT3[9], 1'b0, S1_CLKOUT3[7], S1_CLKOUT3[8], S1_CLKOUT3[20], S1_CLKOUT3[6]}; //bits 5 downto 0
+      5'd7: pll_encode =
+      {5'h0C, 16'h0B00,  S1_CLKOUT4[7], S1_CLKOUT4[8], S1_CLKOUT4[20], S1_CLKOUT4[6], 1'b0, S1_CLKOUT4[13], //bits 15 downto 10
+                         2'b00, S1_CLKOUT4[22], S1_CLKOUT4[21], S1_CLKOUT4[4], S1_CLKOUT4[5], S1_CLKOUT4[3], //bits 9 downto 3
+                         S1_CLKOUT4[12], S1_CLKOUT4[1], S1_CLKOUT4[2]}; //bits 2 downto 0
+      5'd8: pll_encode =
+      {5'h0D, 16'h0008,  S1_CLKOUT5[2], S1_CLKOUT5[3], S1_CLKOUT5[0], S1_CLKOUT5[1], S1_CLKOUT5[18], //bits 15 downto 11
+                         S1_CLKOUT5[19], S1_CLKOUT5[17], S1_CLKOUT5[16], S1_CLKOUT5[15], S1_CLKOUT0[3], //bits 10 downto 6
+                         S1_CLKOUT0[0], S1_CLKOUT0[2], 1'b0, S1_CLKOUT4[11], S1_CLKOUT4[9], S1_CLKOUT4[10]}; //bits 5 downto 0
+      5'd9: pll_encode =
+      {5'h0E, 16'h00D0,  S1_CLKOUT5[10], S1_CLKOUT5[11], S1_CLKOUT5[8], S1_CLKOUT5[9], S1_CLKOUT5[6], //bits 15 downto 11
+                         S1_CLKOUT5[7], S1_CLKOUT5[20], S1_CLKOUT5[13], 2'b00, S1_CLKOUT5[22], 1'b0, //bits 10 downto 4
+                         S1_CLKOUT5[5], S1_CLKOUT5[21], S1_CLKOUT5[12], S1_CLKOUT5[4]}; //bits 3 downto 0
+      5'd10: pll_encode =
+      {5'h0F, 16'h0003, S1_CLKFBOUT[4], S1_CLKFBOUT[5], S1_CLKFBOUT[3], S1_CLKFBOUT[12], S1_CLKFBOUT[1], //bits 15 downto 11
+                        S1_CLKFBOUT[2], S1_CLKFBOUT[0], S1_CLKFBOUT[19], S1_CLKFBOUT[18], S1_CLKFBOUT[17], //bits 10 downto 6
+                        S1_CLKFBOUT[15], S1_CLKFBOUT[16], S1_CLKOUT0[12], S1_CLKOUT0[1], 2'b00}; //bits 5 downto 0
+      5'd11: pll_encode =
+      {5'h10, 16'h800C, 1'b0, S1_CLKOUT0[9], S1_CLKOUT0[11], S1_CLKOUT0[10], S1_CLKFBOUT[10], S1_CLKFBOUT[11], //bits 15 downto 10
+                        S1_CLKFBOUT[9], S1_CLKFBOUT[8], S1_CLKFBOUT[7], S1_CLKFBOUT[6], S1_CLKFBOUT[13],  //bits 9 downto 5
+                        S1_CLKFBOUT[20], 2'b00, S1_CLKFBOUT[21], S1_CLKFBOUT[22]}; //bits 4 downto 0
+      5'd12: pll_encode =
+      {5'h11, 16'hFC00, 6'h00, S1_CLKOUT3[3], S1_CLKOUT3[16], S1_CLKOUT2[11], S1_CLKOUT2[1], S1_CLKOUT1[18], //bits 15 downto 6
+                        S1_CLKOUT1[0], S1_CLKOUT0[6], S1_CLKOUT0[20], S1_CLKOUT0[8], S1_CLKOUT0[7]}; //bits 5 downto 0
+      5'd13: pll_encode =
+      {5'h12, 16'hF0FF, 4'h0, S1_CLKOUT5[14], S1_CLKFBOUT[14], S1_CLKOUT4[0], S1_CLKOUT4[18],  8'h00};  //bits 15 downto 0
+      5'd14: pll_encode =
+      {5'h13, 16'h5120, S1_DIVCLK[11], 1'b0, S1_DIVCLK[10], 1'b0, S1_DIVCLK[7], S1_DIVCLK[8],  //bits 15 downto 10
+                        S1_DIVCLK[0], 1'b0, S1_DIVCLK[5], S1_DIVCLK[2], 1'b0, S1_DIVCLK[13], 4'h0};  //bits 9 downto 0
+      5'd15: pll_encode =
+      {5'h14, 16'h2FFF, S1_LOCK[1], S1_LOCK[2], 1'b0, S1_LOCK[0], 12'h000}; //bits 15 downto 0
+      5'd16: pll_encode =
+      {5'h15, 16'hBFF4, 1'b0, S1_DIVCLK[12], 10'h000, S1_LOCK[38], 1'b0, S1_LOCK[32], S1_LOCK[39]}; //bits 15 downto 0								  
+      5'd17: pll_encode =
+      {5'h16, 16'h0A55, S1_LOCK[15], S1_LOCK[13], S1_LOCK[27], S1_LOCK[16], 1'b0, S1_LOCK[10],   //bits 15 downto 10
+                        1'b0, S1_DIVCLK[9], S1_DIVCLK[1], 1'b0, S1_DIVCLK[6], 1'b0, S1_DIVCLK[3],  //bits 9 downto 3
+                        1'b0, S1_DIVCLK[4], 1'b0};  //bits 2 downto 0
+      5'd18: pll_encode =
+      {5'h17, 16'hFFD0, 10'h000, S1_LOCK[17], 1'b0, S1_LOCK[8], S1_LOCK[9], S1_LOCK[23], S1_LOCK[22]}; //bits 15 downto 0	  
+      5'd19: pll_encode = 
+      {5'h18, 16'h1039, S1_DIGITAL_FILT[6], S1_DIGITAL_FILT[7], S1_DIGITAL_FILT[0], 1'b0, //bits 15 downto 12
+                        S1_DIGITAL_FILT[2], S1_DIGITAL_FILT[1], S1_DIGITAL_FILT[3], S1_DIGITAL_FILT[9], //bits 11 downto 8
+                        S1_DIGITAL_FILT[8], S1_LOCK[26], 3'h0, S1_LOCK[19], S1_LOCK[18], 1'b0}; //bits 7 downto 0								
+      5'd20: pll_encode =
+      {5'h19, 16'h0000, S1_LOCK[24], S1_LOCK[25], S1_LOCK[21], S1_LOCK[14], S1_LOCK[11], //bits 15 downto 11
+                        S1_LOCK[12], S1_LOCK[20], S1_LOCK[6], S1_LOCK[35], S1_LOCK[36], //bits 10 downto 6
+                        S1_LOCK[37], S1_LOCK[3], S1_LOCK[33], S1_LOCK[31], S1_LOCK[34], S1_LOCK[30]}; //bits 5 downto 0
+      5'd21: pll_encode =
+      {5'h1A, 16'hFFFC, 14'h0000, S1_LOCK[28], S1_LOCK[29]};  //bits 15 downto 0
+      5'd22: pll_encode =
+      {5'h1D, 16'h2FFF, S1_LOCK[7], S1_LOCK[4], 1'b0, S1_LOCK[5], 12'h000};	//bits 15 downto 0
+      default: pll_encode = 37'dx;
+     endcase
+    end
+   endfunction
 
    // Output the initialized rom value based on rom_addr each clock cycle
    always @(posedge SCLK) begin
-      rom_do<= #TCQ rom[rom_addr];
+      if (rom_addr < STATE_COUNT_CONST) begin
+         rom_do<= #TCQ pll_encode( rom_addr
+                                 , S1_CLKFBOUT_MULT
+                                 , S1_CLKFBOUT_PHASE
+                                 , S1_BANDWIDTH
+                                 , S1_DIVCLK_DIVIDE
+                                 , S1_CLKOUT0_DIVIDE
+                                 , S1_CLKOUT0_PHASE
+                                 , S1_CLKOUT0_DUTY
+                                 , S1_CLKOUT1_DIVIDE
+                                 , S1_CLKOUT1_PHASE
+                                 , S1_CLKOUT1_DUTY
+                                 , S1_CLKOUT2_DIVIDE
+                                 , S1_CLKOUT2_PHASE
+                                 , S1_CLKOUT2_DUTY
+                                 , S1_CLKOUT3_DIVIDE
+                                 , S1_CLKOUT3_PHASE
+                                 , S1_CLKOUT3_DUTY
+                                 , S1_CLKOUT4_DIVIDE
+                                 , S1_CLKOUT4_PHASE
+                                 , S1_CLKOUT4_DUTY
+                                 , S1_CLKOUT5_DIVIDE
+                                 , S1_CLKOUT5_PHASE
+                                 , S1_CLKOUT5_DUTY);
+      end else begin
+         rom_do<= #TCQ pll_encode( rom_addr - STATE_COUNT_CONST
+                                 , S2_CLKFBOUT_MULT
+                                 , S2_CLKFBOUT_PHASE
+                                 , S2_BANDWIDTH
+                                 , S2_DIVCLK_DIVIDE
+                                 , S2_CLKOUT0_DIVIDE
+                                 , S2_CLKOUT0_PHASE
+                                 , S2_CLKOUT0_DUTY
+                                 , S2_CLKOUT1_DIVIDE
+                                 , S2_CLKOUT1_PHASE
+                                 , S2_CLKOUT1_DUTY
+                                 , S2_CLKOUT2_DIVIDE
+                                 , S2_CLKOUT2_PHASE
+                                 , S2_CLKOUT2_DUTY
+                                 , S2_CLKOUT3_DIVIDE
+                                 , S2_CLKOUT3_PHASE
+                                 , S2_CLKOUT3_DUTY
+                                 , S2_CLKOUT4_DIVIDE
+                                 , S2_CLKOUT4_PHASE
+                                 , S2_CLKOUT4_DUTY
+                                 , S2_CLKOUT5_DIVIDE
+                                 , S2_CLKOUT5_PHASE
+                                 , S2_CLKOUT5_DUTY);
+      end
    end
    
    //**************************************************************************
