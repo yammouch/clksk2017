@@ -74,6 +74,7 @@ pll_drp i_pll_drp(
  .RST_PLL (rst_pll)
 );
 
+wire clkp;
 PLL_ADV #(
  .SIM_DEVICE         ("SPARTAN6"),
  .DIVCLK_DIVIDE      (1),
@@ -106,6 +107,71 @@ PLL_ADV #(
  .PLL_PMCD_MODE      ("FALSE"),
  .RST_DEASSERT_CLK   ("CLKIN1")
 ) i_pll_adv (
+ .DO         (do),
+ .DRDY       (drdy),
+ .LOCKED     (PLL_LOCK),
+ .DWE        (dwe),
+ .DEN        (den),
+ .DADDR      (daddr),
+ .DI         (di),
+ .DCLK       (dclk),
+ .RST        (pll_rst),
+ .CLKIN2     (1'b0),
+ .CLKINSEL   (1'b1),
+ .REL        (1'b0),
+ .CLKIN1     (CLK),
+ .CLKFBIN    (clkfb),
+ .CLKOUT0    (clkp),
+ .CLKOUT1    (),
+ .CLKOUT2    (),
+ .CLKOUT3    (),
+ .CLKOUT4    (),
+ .CLKOUT5    (),
+ .CLKFBOUT   (clkfb),
+ .CLKOUTDCM0 (),
+ .CLKOUTDCM1 (),
+ .CLKOUTDCM2 (),
+ .CLKOUTDCM3 (),
+ .CLKOUTDCM4 (),
+ .CLKOUTDCM5 (),
+ .CLKFBDCM   ()
 );
+
+reg rstxp_p1, rstxp;
+always @(posedge clkp or negedge RSTXO)
+  if (!RSTX) {rstxp, rstxp_p1} <= 2'b00;
+  else       {rstxp, rstxp_p1} <= {rstxp_p1, PLL_LOCK};
+
+reg div2,  div2_d1;
+reg div4,  div4_d1;
+reg div8,  div8_d1;
+reg div16, div16_d1;
+always @(posedge clkp or negedge rstxp)
+  if (!rstxp) begin
+    div2_d1  <= 1'b0;
+    div4_d1  <= 1'b0;
+    div8_d1  <= 1'b0;
+    div16_d1 <= 1'b0;
+  end else begin
+    div2_d1  <= div2;
+    div4_d1  <= div4;
+    div8_d1  <= div8;
+    div16_d1 <= div16;
+  end
+always @(posedge clkp or negedge rstxp)
+  if (!rstxp) div2 <= 1'b0;
+  else        div2 <= ~div2;
+always @(posedge clkp or negedge rstxp)
+  if (!rstxp)               div4 <= 1'b0;
+  else if (div2 & ~div2_d1) div4 <= ~div4;
+always @(posedge clkp or negedge rstxp)
+  if (!rstxp)               div8 <= 1'b0;
+  else if (div4 & ~div4_d1) div8 <= ~div8;
+always @(posedge clkp or negedge rstxp)
+  if (!rstxp)               div16 <= 1'b0;
+  else if (div8 & ~div8_d1) div16 <= ~div16;
+always @(posedge clkp or negedge rstxp)
+  if (!rstxp)               DIV32 <= 1'b0;
+  else if (div16 & ~div16_d1) DIV32 <= ~DIV32;
 
 endmodule
