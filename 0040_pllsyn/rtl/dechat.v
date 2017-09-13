@@ -1,4 +1,4 @@
-module dechat #(parameter BW='d8) (
+module dechat #(parameter BW='d8, RV=1'b0) (
  input               RSTX,
  input               CLK,
  input               DIN,
@@ -8,7 +8,7 @@ module dechat #(parameter BW='d8) (
 
 reg din_d1, din_d2;
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX) {din_d2, din_d1} <= 2'b00;
+  if (!RSTX) {din_d2, din_d1} <= {2{RV}};
   else       {din_d2, din_d1} <= {din_d1, DIN};
 
 reg [BW-1:0] cnt;
@@ -19,7 +19,7 @@ always @(posedge CLK or negedge RSTX)
   else                     cnt <= cnt + {{(BW-1){1'b0}}, 1'b1};
 
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)        DOUT <= 1'b0;
+  if (!RSTX)        DOUT <= RV;
   else if (!cnting) DOUT <= din_d2;
 
 endmodule
