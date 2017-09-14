@@ -88,25 +88,25 @@ module pll_drp (
     input [4:0]   addr,
     input [31:0]  S1_CLKFBOUT_MULT,
     input [31:0]  S1_CLKOUT0_DIVIDE);
-    reg [31:0]  S1_CLKFBOUT_PHASE,
-    reg [8*9:0] S1_BANDWIDTH,
-    reg [31:0]  S1_DIVCLK_DIVIDE,
-    reg [31:0]  S1_CLKOUT0_PHASE,
-    reg [31:0]  S1_CLKOUT0_DUTY,
-    reg [31:0]  S1_CLKOUT1_DIVIDE,
-    reg [31:0]  S1_CLKOUT1_PHASE,
-    reg [31:0]  S1_CLKOUT1_DUTY,
-    reg [31:0]  S1_CLKOUT2_DIVIDE,
-    reg [31:0]  S1_CLKOUT2_PHASE,
-    reg [31:0]  S1_CLKOUT2_DUTY,
-    reg [31:0]  S1_CLKOUT3_DIVIDE,
-    reg [31:0]  S1_CLKOUT3_PHASE,
-    reg [31:0]  S1_CLKOUT3_DUTY,
-    reg [31:0]  S1_CLKOUT4_DIVIDE,
-    reg [31:0]  S1_CLKOUT4_PHASE,
-    reg [31:0]  S1_CLKOUT4_DUTY,
-    reg [31:0]  S1_CLKOUT5_DIVIDE,
-    reg [31:0]  S1_CLKOUT5_PHASE,
+    reg [31:0]  S1_CLKFBOUT_PHASE;
+    reg [8*9:0] S1_BANDWIDTH;
+    reg [31:0]  S1_DIVCLK_DIVIDE;
+    reg [31:0]  S1_CLKOUT0_PHASE;
+    reg [31:0]  S1_CLKOUT0_DUTY;
+    reg [31:0]  S1_CLKOUT1_DIVIDE;
+    reg [31:0]  S1_CLKOUT1_PHASE;
+    reg [31:0]  S1_CLKOUT1_DUTY;
+    reg [31:0]  S1_CLKOUT2_DIVIDE;
+    reg [31:0]  S1_CLKOUT2_PHASE;
+    reg [31:0]  S1_CLKOUT2_DUTY;
+    reg [31:0]  S1_CLKOUT3_DIVIDE;
+    reg [31:0]  S1_CLKOUT3_PHASE;
+    reg [31:0]  S1_CLKOUT3_DUTY;
+    reg [31:0]  S1_CLKOUT4_DIVIDE;
+    reg [31:0]  S1_CLKOUT4_PHASE;
+    reg [31:0]  S1_CLKOUT4_DUTY;
+    reg [31:0]  S1_CLKOUT5_DIVIDE;
+    reg [31:0]  S1_CLKOUT5_PHASE;
     reg [31:0]  S1_CLKOUT5_DUTY;
     reg [22:0]  S1_CLKFBOUT;
     reg [22:0]  S1_CLKFBOUT2;

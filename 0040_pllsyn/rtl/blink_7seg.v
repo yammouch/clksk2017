@@ -20,7 +20,7 @@ always @(posedge CLK or negedge RSTX)
 reg [1:0] cnt_1;
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)          cnt_1 <= 2'd0;
-  else if (!cntint_0) cnt_1 <= cnt_1 + 2'd1;
+  else if (!cnting_0) cnt_1 <= cnt_1 + 2'd1;
 
 always @(posedge CLK or negedge RSTX)
   if (!RSTX) DIGIT <= ~8'd0;

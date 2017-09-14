@@ -35,22 +35,22 @@ always @(posedge CLK or negedge RSTXO)
 
 always @*
   case (saddr)
-  4'd0   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd1000000};
-  4'd1   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd1111001};
-  4'd2   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd0100100};
-  4'd3   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd0110000};
-  4'd4   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd0011001};
-  4'd5   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd0010010};
-  4'd6   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd1000000};
-  4'd7   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd1011000};
-  4'd8   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd0000000};
-  4'd9   : {DIGIT1, DIGIT0} = {7'b1111111, 7'd0010000};
-  4'd10  : {DIGIT1, DIGIT0} = {7'b1111001, 7'd1000000};
-  4'd11  : {DIGIT1, DIGIT0} = {7'b1111001, 7'd1111001};
-  4'd12  : {DIGIT1, DIGIT0} = {7'b1111001, 7'd0100100};
-  4'd13  : {DIGIT1, DIGIT0} = {7'b1111001, 7'd0110000};
-  4'd14  : {DIGIT1, DIGIT0} = {7'b1111001, 7'd0011001};
-  4'd15  : {DIGIT1, DIGIT0} = {7'b1111001, 7'd0010010};
+  4'd0   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b1000000};
+  4'd1   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b1111001};
+  4'd2   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0100100};
+  4'd3   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0110000};
+  4'd4   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0011001};
+  4'd5   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0010010};
+  4'd6   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b1000000};
+  4'd7   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b1011000};
+  4'd8   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0000000};
+  4'd9   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0010000};
+  4'd10  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b1000000};
+  4'd11  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b1111001};
+  4'd12  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b0100100};
+  4'd13  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b0110000};
+  4'd14  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b0011001};
+  4'd15  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b0010010};
   default: {DIGIT1, DIGIT0} = 14'dx;
   endcase
 
@@ -115,7 +115,7 @@ PLL_ADV #(
  .DADDR      (daddr),
  .DI         (di),
  .DCLK       (dclk),
- .RST        (pll_rst),
+ .RST        (rst_pll),
  .CLKIN2     (1'b0),
  .CLKINSEL   (1'b1),
  .REL        (1'b0),
@@ -139,8 +139,8 @@ PLL_ADV #(
 
 reg rstxp_p1, rstxp;
 always @(posedge clkp or negedge RSTXO)
-  if (!RSTX) {rstxp, rstxp_p1} <= 2'b00;
-  else       {rstxp, rstxp_p1} <= {rstxp_p1, PLL_LOCK};
+  if (!RSTXO) {rstxp, rstxp_p1} <= 2'b00;
+  else        {rstxp, rstxp_p1} <= {rstxp_p1, PLL_LOCK};
 
 reg div2,  div2_d1;
 reg div4,  div4_d1;
