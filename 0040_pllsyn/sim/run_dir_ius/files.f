@@ -1,0 +1,13 @@
++incdir+../common
++incdir+../../rtl
+../common/tb_clk_gen.v
+../../rtl/blink_7seg.v
+../../rtl/dechat.v
+../../rtl/pll_ctrl.v
+../../rtl/pll_drp.v
+../../rtl/pll_test.v
+../common/BUFG.v
+../common/glbl.v
+../common/OBUFT.v
+../common/PLL_ADV.v
+../common/PLLE2_ADV.v

@@ -282,10 +282,6 @@ module pll_drp (
    // Read/Modify/Write to the PLL.
    //**************************************************************************
 
-   // State sync
-   reg [3:0]  current_state   = RESTART;
-   reg [3:0]  next_state      = RESTART;
-   
    // State Definitions
    localparam RESTART      = 4'h1;
    localparam WAIT_LOCK    = 4'h2;
@@ -296,6 +292,10 @@ module pll_drp (
    localparam BITSET       = 4'h7;
    localparam WRITE        = 4'h8;
    localparam WAIT_DRDY    = 4'h9;
+   
+   // State sync
+   reg [3:0]  current_state   = RESTART;
+   reg [3:0]  next_state      = RESTART;
    
    // These variables are used to keep track of the number of iterations that 
    //    each state takes to reconfigure
