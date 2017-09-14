@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/tyam/work/JH_LVDS/clksk2017/0040_pllsyn/ise/tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="52" />
+   <wvobject fp_name="/tb/dut/RSTX" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RSTX</obj_property>
+      <obj_property name="ObjectShortName">RSTX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/BTN_UP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BTN_UP</obj_property>
+      <obj_property name="ObjectShortName">BTN_UP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/BTN_DN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BTN_DN</obj_property>
+      <obj_property name="ObjectShortName">BTN_DN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/DIV32" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DIV32</obj_property>
+      <obj_property name="ObjectShortName">DIV32</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/PLL_LOCK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PLL_LOCK</obj_property>
+      <obj_property name="ObjectShortName">PLL_LOCK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/DIGIT_SEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DIGIT_SEL[3:0]</obj_property>
+      <obj_property name="ObjectShortName">DIGIT_SEL[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/DIGIT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DIGIT[7:0]</obj_property>
+      <obj_property name="ObjectShortName">DIGIT[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/rstxo" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rstxo</obj_property>
+      <obj_property name="ObjectShortName">rstxo</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/btn_up_d" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn_up_d</obj_property>
+      <obj_property name="ObjectShortName">btn_up_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/btn_dn_d" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn_dn_d</obj_property>
+      <obj_property name="ObjectShortName">btn_dn_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/digit0" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">digit0[6:0]</obj_property>
+      <obj_property name="ObjectShortName">digit0[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/digit1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">digit1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">digit1[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/digit_sel_tri" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">digit_sel_tri[3:0]</obj_property>
+      <obj_property name="ObjectShortName">digit_sel_tri[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/digit_tri" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">digit_tri[7:0]</obj_property>
+      <obj_property name="ObjectShortName">digit_tri[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/RSTX" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RSTX</obj_property>
+      <obj_property name="ObjectShortName">RSTX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/BTN_UP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BTN_UP</obj_property>
+      <obj_property name="ObjectShortName">BTN_UP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/BTN_DN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BTN_DN</obj_property>
+      <obj_property name="ObjectShortName">BTN_DN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/PLL_LOCK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PLL_LOCK</obj_property>
+      <obj_property name="ObjectShortName">PLL_LOCK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/btn_up_fall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn_up_fall</obj_property>
+      <obj_property name="ObjectShortName">btn_up_fall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/btn_dn_fall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn_dn_fall</obj_property>
+      <obj_property name="ObjectShortName">btn_dn_fall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/do" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">do[15:0]</obj_property>
+      <obj_property name="ObjectShortName">do[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/di" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">di[15:0]</obj_property>
+      <obj_property name="ObjectShortName">di[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/daddr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">daddr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">daddr[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/drdy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">drdy</obj_property>
+      <obj_property name="ObjectShortName">drdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/dwe" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">dwe</obj_property>
+      <obj_property name="ObjectShortName">dwe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/den" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">den</obj_property>
+      <obj_property name="ObjectShortName">den</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/dclk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">dclk</obj_property>
+      <obj_property name="ObjectShortName">dclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/rst_pll" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_pll</obj_property>
+      <obj_property name="ObjectShortName">rst_pll</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/clkp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clkp</obj_property>
+      <obj_property name="ObjectShortName">clkp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/dclk_buf" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">dclk_buf</obj_property>
+      <obj_property name="ObjectShortName">dclk_buf</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/clkfb" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clkfb</obj_property>
+      <obj_property name="ObjectShortName">clkfb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/DIGIT0" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DIGIT0[6:0]</obj_property>
+      <obj_property name="ObjectShortName">DIGIT0[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/DIGIT1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DIGIT1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">DIGIT1[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/DIV32" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DIV32</obj_property>
+      <obj_property name="ObjectShortName">DIV32</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/RSTXO" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RSTXO</obj_property>
+      <obj_property name="ObjectShortName">RSTXO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/rstx_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rstx_d1</obj_property>
+      <obj_property name="ObjectShortName">rstx_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/btn_up_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn_up_d1</obj_property>
+      <obj_property name="ObjectShortName">btn_up_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/btn_dn_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">btn_dn_d1</obj_property>
+      <obj_property name="ObjectShortName">btn_dn_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/saddr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">saddr[3:0]</obj_property>
+      <obj_property name="ObjectShortName">saddr[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/sen" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">sen</obj_property>
+      <obj_property name="ObjectShortName">sen</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/rstxp_p1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rstxp_p1</obj_property>
+      <obj_property name="ObjectShortName">rstxp_p1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/rstxp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rstxp</obj_property>
+      <obj_property name="ObjectShortName">rstxp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/div2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div2</obj_property>
+      <obj_property name="ObjectShortName">div2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/div2_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div2_d1</obj_property>
+      <obj_property name="ObjectShortName">div2_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/div4" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div4</obj_property>
+      <obj_property name="ObjectShortName">div4</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/div4_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div4_d1</obj_property>
+      <obj_property name="ObjectShortName">div4_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/div8" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div8</obj_property>
+      <obj_property name="ObjectShortName">div8</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/div8_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div8_d1</obj_property>
+      <obj_property name="ObjectShortName">div8_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/div16" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div16</obj_property>
+      <obj_property name="ObjectShortName">div16</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/i_pll_ctrl/div16_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div16_d1</obj_property>
+      <obj_property name="ObjectShortName">div16_d1</obj_property>
+   </wvobject>
+</wave_config>
