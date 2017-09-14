@@ -28,6 +28,7 @@ end
 endtask
 
 initial begin
+  init;
   test_main;
   $finish;
 end
