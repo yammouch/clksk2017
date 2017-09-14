@@ -35,22 +35,22 @@ always @(posedge CLK or negedge RSTXO)
 
 always @*
   case (saddr)
-  4'd0   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b1000000};
-  4'd1   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b1111001};
-  4'd2   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0100100};
-  4'd3   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0110000};
-  4'd4   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0011001};
-  4'd5   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0010010};
-  4'd6   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b1000000};
-  4'd7   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b1011000};
-  4'd8   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0000000};
-  4'd9   : {DIGIT1, DIGIT0} = {7'b1111111, 7'b0010000};
-  4'd10  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b1000000};
-  4'd11  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b1111001};
-  4'd12  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b0100100};
-  4'd13  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b0110000};
-  4'd14  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b0011001};
-  4'd15  : {DIGIT1, DIGIT0} = {7'b1111001, 7'b0010010};
+  4'd0   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b0111111};
+  4'd1   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b0000110};
+  4'd2   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b1011011};
+  4'd3   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b1001111};
+  4'd4   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b1100110};
+  4'd5   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b1101101};
+  4'd6   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b0111111};
+  4'd7   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b0100111};
+  4'd8   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b1111111};
+  4'd9   : {DIGIT1, DIGIT0} = {7'b0000000, 7'b1101111};
+  4'd10  : {DIGIT1, DIGIT0} = {7'b0000110, 7'b0111111};
+  4'd11  : {DIGIT1, DIGIT0} = {7'b0000110, 7'b0000110};
+  4'd12  : {DIGIT1, DIGIT0} = {7'b0000110, 7'b1011011};
+  4'd13  : {DIGIT1, DIGIT0} = {7'b0000110, 7'b1001111};
+  4'd14  : {DIGIT1, DIGIT0} = {7'b0000110, 7'b1100110};
+  4'd15  : {DIGIT1, DIGIT0} = {7'b0000110, 7'b1101101};
   default: {DIGIT1, DIGIT0} = 14'dx;
   endcase
 
@@ -70,11 +70,12 @@ pll_drp i_pll_drp(
  .DEN     (den),
  .DADDR   (daddr),
  .DI      (di),
- .DCLK    (dclk),
+ .DCLK    (),
  .RST_PLL (rst_pll)
 );
 
-wire clkp;
+wire clkp, dclk_buf;
+BUFG bufg_dclk (.I(dclk), .O(dclk_buf));
 PLL_ADV #(
  .SIM_DEVICE         ("SPARTAN6"),
  .DIVCLK_DIVIDE      (1),
@@ -114,7 +115,7 @@ PLL_ADV #(
  .DEN        (den),
  .DADDR      (daddr),
  .DI         (di),
- .DCLK       (dclk),
+ .DCLK       (dclk_buf),
  .RST        (rst_pll),
  .CLKIN2     (1'b0),
  .CLKINSEL   (1'b1),
