@@ -349,7 +349,7 @@ function [39:0] s6_pll_lock_lookup
       // Set lookup_entry with the explicit bits from lookup with a part select
       s6_pll_lock_lookup = lookup[ ((64-divide)*40) +: 40];
 	  
-	  $display("lock_lookup: %b", s6_pll_lock_lookup);
+	  //$display("lock_lookup: %b", s6_pll_lock_lookup);
    end
 endfunction
 
@@ -541,7 +541,7 @@ function [9:0] s6_pll_filter_lookup
          s6_pll_filter_lookup=lookup_entry[19:10];
       end
 	  
-	  $display("filter_lookup: %b", s6_pll_filter_lookup);
+	  //$display("filter_lookup: %b", s6_pll_filter_lookup);
    end
    
 endfunction

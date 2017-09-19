@@ -56,7 +56,7 @@ always @*
 
 wire [15:0] do, di;
 wire [ 4:0] daddr;
-wire drdy, dwe, den, dclk, rst_pll;
+wire drdy, dwe, den, rst_pll;
 pll_drp i_pll_drp(
  .SADDR   (saddr),
  .SEN     (sen),
@@ -75,7 +75,7 @@ pll_drp i_pll_drp(
 );
 
 wire clkp, dclk_buf;
-BUFG bufg_dclk (.I(dclk), .O(dclk_buf));
+BUFG bufg_dclk (.I(CLK), .O(dclk_buf));
 PLL_ADV #(
  .SIM_DEVICE         ("SPARTAN6"),
  .DIVCLK_DIVIDE      (1),

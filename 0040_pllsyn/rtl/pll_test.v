@@ -13,18 +13,18 @@ wire rstxo;
 
 wire btn_up_d, btn_dn_d;
 
-dechat #(.BW(12), .RV(1'b1)) i_dechat_up(
+dechat #(.BW(19), .RV(1'b1)) i_dechat_up(
  .RSTX    (rstxo),
  .CLK     (CLK),
- .TIMEOUT (12'd2499),
+ .TIMEOUT (19'd399999),
  .DIN     (BTN_UP),
  .DOUT    (btn_up_d)
 );
 
-dechat #(.BW(12), .RV(1'b1)) i_dechat_dn(
+dechat #(.BW(19), .RV(1'b1)) i_dechat_dn(
  .RSTX    (rstxo),
  .CLK     (CLK),
- .TIMEOUT (12'd2499),
+ .TIMEOUT (19'd399999),
  .DIN     (BTN_DN),
  .DOUT    (btn_dn_d)
 );
