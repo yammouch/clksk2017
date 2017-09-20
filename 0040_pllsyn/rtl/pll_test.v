@@ -51,8 +51,8 @@ blink_7seg #(.BW(6)) i_blink_7seg (
  .TIMEOUT   (6'd49),
  .DIGIT0    ({1'b1, digit0}),
  .DIGIT1    ({1'b1, digit1}),
- .DIGIT2    (~8'd0),
- .DIGIT3    (~8'd0),
+ .DIGIT2    (8'd0),
+ .DIGIT3    (8'd0),
  .DIGIT_SEL (digit_sel_tri),
  .DIGIT     (digit_tri)
 );
