@@ -1,4 +1,4 @@
-# SimVision Command Script (Thu Sep 14 09:21:36 AM CEST 2017)
+# SimVision Command Script (Wed Sep 20 08:39:03 AM CEST 2017)
 #
 # Version 14.20.s017
 #
@@ -112,6 +112,20 @@ mmap new -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor ora
 {%x=* -label %x -linecolor gray -shape bus}}
 
 #
+# Design Browser windows
+#
+if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+1160+83}] != ""} {
+    window geometry "Design Browser 1" 700x500+1160+83
+}
+window target "Design Browser 1" on
+browser using {Design Browser 1}
+browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut}]} ]
+browser set \
+    -signalsort name
+browser yview see [subst  {$dbNames(realName1)::[format {tb.dut}]} ]
+browser timecontrol set -lock 0
+
+#
 # Waveform windows
 #
 if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1092x751+64+83}] != ""} {
@@ -149,12 +163,21 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_dechat_up.cnting}]}
 	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.DIV32}]}
+	} ]]
 
-waveform xview limits 0.619031932ms 1.634059644ms
+waveform xview limits 1.11324972ms 1.206ms
 
 #
 # Waveform Window Links
 #
+
+#
+# Console windows
+#
+console set -windowname Console
+window geometry Console 600x250+0+25
 
 #
 # Layout selection

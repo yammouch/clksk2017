@@ -9,5 +9,6 @@
 ../common/BUFG.v
 ../common/glbl.v
 ../common/OBUFT.v
-../common/PLL_ADV.v
-../common/PLLE2_ADV.v
+../common/PLL_ADV_short.v
+//../common/PLL_ADV.v
+//../common/PLLE2_ADV.v
