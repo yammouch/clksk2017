@@ -74,8 +74,7 @@ pll_drp i_pll_drp(
  .RST_PLL (rst_pll)
 );
 
-wire clkp, dclk_buf;
-BUFG bufg_dclk (.I(CLK), .O(dclk_buf));
+wire clkp;
 PLL_ADV #(
  .SIM_DEVICE         ("SPARTAN6"),
  .DIVCLK_DIVIDE      (1),
@@ -115,7 +114,7 @@ PLL_ADV #(
  .DEN        (den),
  .DADDR      (daddr),
  .DI         (di),
- .DCLK       (dclk_buf),
+ .DCLK       (CLK),
  .RST        (rst_pll),
  .CLKIN2     (1'b0),
  .CLKINSEL   (1'b1),
@@ -172,7 +171,7 @@ always @(posedge clkp or negedge rstxp)
   if (!rstxp)               div16 <= 1'b0;
   else if (div8 & ~div8_d1) div16 <= ~div16;
 always @(posedge clkp or negedge rstxp)
-  if (!rstxp)               DIV32 <= 1'b0;
+  if (!rstxp)                 DIV32 <= 1'b0;
   else if (div16 & ~div16_d1) DIV32 <= ~DIV32;
 
 endmodule
