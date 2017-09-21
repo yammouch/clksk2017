@@ -7,7 +7,7 @@ module parallel_recv (
  input      [31:0] DIN,
  input             INIT,
 
- output reg [ 7:0] ERR_CNT;
+ output reg [ 7:0] ERR_CNT
 );
 
 wire divalid = ALIGNED & DIPUSH;
@@ -16,7 +16,7 @@ reg divalid_d1;
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)    divalid_d1 <= 1'b0;
   else if (CLR) divalid_d1 <= 1'b0;
-  else if       divalid_d1 <= divalid;
+  else          divalid_d1 <= divalid;
 
 reg [31:0] din_d1;
 always @(posedge CLK or negedge RSTX)
@@ -30,7 +30,7 @@ always @(posedge CLK or negedge RSTX)
   if (!RSTX)            recv_cnt <= ~11'd0;
   else if (CLR)         recv_cnt <= ~11'd0;
   else if (INIT)        recv_cnt <= 11'd1023;
-  else if (!divalid)    rect_cnt <= recv_cnt;
+  else if (!divalid)    recv_cnt <= recv_cnt;
   else if (recv_cnt_m1) recv_cnt <= ~11'd0;
   else                  recv_cnt <= recv_cnt - 11'd1;
 

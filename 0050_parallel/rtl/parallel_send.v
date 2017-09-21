@@ -45,17 +45,22 @@ always @(posedge CLK or negedge RSTX)
                           || state_next == WORD_ALIGN
                           || state_next == DATA_TRANSFER );
 
+reg [9:0] cnt_next;
+always @*
+  if (!DOPULL)      cnt_next = cnt;
+  else if (state != state_next)
+    case (state_next)
+    DELAY_ADJUST  : cnt_next =  10'd255;
+    WORD_ALIGN    : cnt_next =    10'd0;
+    DATA_TRANSFER : cnt_next = 10'd1023;
+    default       : cnt_next =    10'd0;
+    endcase
+  else              cnt_next = cnt - 10'd1;
+
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)        cnt <= 10'd63;
   else if (CLR)     cnt <= 10'd63;
-  else if (!DOPULL) cnt <= cnt;
-  else if (state != state_next)
-    case (state_next)
-    DELAY_ADJUST  : cnt <=  10'd255;
-    WORD_ALIGN    : cnt <=    10'd0;
-    DATA_TRANSFER : cnt <= 10'd1023;
-    default       : cnt <=    10'd0;
-  else              cnt <= cnt - 10'd1;
+  else              cnt <= cnt_next;
 
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)    PHY_INIT <= 1'b0;
@@ -78,11 +83,13 @@ always @(posedge CLK or negedge RSTX)
   else if (CLR)    DOUT <= 32'd0;
   else
     case (state_next)
-    DELAY_ADJUST:
-      if (10'd32 < cnt_next && cnt_next < 10'd224) DOUT <= 32'hAAAA;
-      else                                         DOUT <=    32'd0;
-    WORD_ALIGN:    DOUT <= 32'hF731;
+    DELAY_ADJUST :
+      if (10'd32 < cnt_next && cnt_next < 10'd224)
+                   DOUT <= 32'hAAAA;
+      else         DOUT <=    32'd0;
+    WORD_ALIGN   : DOUT <= 32'hF731;
     DATA_TRANSFER: DOUT <= test_data_next;
-    defalut:       DOUT <= 32'd0;
+    default      : DOUT <= 32'd0;
+    endcase
 
 endmodule
