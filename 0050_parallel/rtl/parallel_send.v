@@ -85,11 +85,11 @@ always @(posedge CLK or negedge RSTX)
     case (state_next)
     DELAY_ADJUST :
       if (10'd32 < cnt_next && cnt_next < 10'd224)
-                   DOUT <= 32'hAAAA;
-      else         DOUT <=    32'd0;
-    WORD_ALIGN   : DOUT <= 32'hF731;
+                   DOUT <=  32'hAAAA_AAAA;
+      else         DOUT <=          32'd0;
+    WORD_ALIGN   : DOUT <=  32'hF731_8CEF;
     DATA_TRANSFER: DOUT <= test_data_next;
-    default      : DOUT <= 32'd0;
+    default      : DOUT <=          32'd0;
     endcase
 
 endmodule

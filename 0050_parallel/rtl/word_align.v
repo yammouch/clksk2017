@@ -22,7 +22,7 @@ wire [30:0] sync_comp;
 generate
 genvar gv;
 for (gv = 0; gv < 31; gv = gv+1)
-  assign sync_comp[gv] = din_shift[gv+31:gv] == 32'hF731;
+  assign sync_comp[gv] = din_shift[gv+31:gv] == 32'hF731_8CEF;
 endgenerate
 
 reg [30:0] sync_found;

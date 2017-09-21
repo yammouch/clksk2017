@@ -49,8 +49,8 @@ parallel_recv i_parallel_recv (
  .CLK     (CLK),
  .CLR     (CLR),
  .ALIGNED (aligned),
- .DIPUSH  (alighed_dout),
- .DIN     (alighed_dopush),
+ .DIPUSH  (aligned_dopush),
+ .DIN     (aligned_dout),
  .INIT    (phy_init),
 
  .ERR_CNT ()

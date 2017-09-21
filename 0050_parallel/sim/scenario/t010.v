@@ -18,6 +18,8 @@ begin
   RSTX = 1'b1;
   repeat (4) @(negedge CLK);
   CLR = 1'b0;
+  wait (i_parallel_send.cnt == 10'd300) @(negedge CLK)
+  parallel_shift[0] = ~parallel_shift[0];
   #1e9; // 1ms
 end
 endtask
