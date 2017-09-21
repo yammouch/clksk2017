@@ -49,8 +49,8 @@ blink_7seg #(.BW(6)) i_blink_7seg (
  .RSTX      (rstxo),
  .CLK       (CLK),
  .TIMEOUT   (6'd49),
- .DIGIT0    ({1'b1, digit0}),
- .DIGIT1    ({1'b1, digit1}),
+ .DIGIT0    ({1'b0, digit0}),
+ .DIGIT1    ({1'b0, digit1}),
  .DIGIT2    (8'd0),
  .DIGIT3    (8'd0),
  .DIGIT_SEL (digit_sel_tri),
@@ -60,10 +60,10 @@ blink_7seg #(.BW(6)) i_blink_7seg (
 generate
 genvar i;
 for (i = 0; i < 4; i = i+1) begin : g_digit_sel
-  OBUFT i_obuft (.I(1'b1), .T(digit_sel_tri[i]), .O(DIGIT_SEL[i]));
+  OBUFT i_obuft (.I(1'b1), .T(~digit_sel_tri[i]), .O(DIGIT_SEL[i]));
 end
 for (i = 0; i < 8; i = i+1) begin : g_digit
-  OBUFT i_obuft (.I(1'b0), .T(digit_tri[i]), .O(DIGIT[i]));
+  OBUFT i_obuft (.I(1'b0), .T(~digit_tri[i]), .O(DIGIT[i]));
 end
 endgenerate
 
