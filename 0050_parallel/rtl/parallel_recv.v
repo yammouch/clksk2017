@@ -25,20 +25,24 @@ always @(posedge CLK or negedge RSTX)
   else if (DIPUSH) din_d1 <= DIN;
 
 reg [10:0] recv_cnt;
+reg        init_d1;
+always @(posedge CLK or negedge RSTX)
+  if (!RSTX) init_d1 <= 1'b0;
+  else       init_d1 <= INIT;
 wire recv_cnt_m1 = recv_cnt == ~11'd0;
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)            recv_cnt <= ~11'd0;
   else if (CLR)         recv_cnt <= ~11'd0;
-  else if (INIT)        recv_cnt <= 11'd1023;
+  else if (init_d1)     recv_cnt <= 11'd1023;
   else if (!divalid)    recv_cnt <= recv_cnt;
   else if (recv_cnt_m1) recv_cnt <= ~11'd0;
   else                  recv_cnt <= recv_cnt - 11'd1;
 
 reg [31:0] ref_data;
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)                       ref_data <= 32'd0;
-  else if (CLR)                    ref_data <= 32'd0;
-  else if (divalid && recv_cnt_m1) ref_data <= ref_data + 32'd1;
+  if (!RSTX)                        ref_data <= 32'd0;
+  else if (CLR)                     ref_data <= 32'd0;
+  else if (divalid && !recv_cnt_m1) ref_data <= ref_data + 32'd1;
 
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)                 ERR_CNT <= 8'd0;
