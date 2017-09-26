@@ -77,6 +77,7 @@ pll_drp i_pll_drp(
  .RST_PLL (rst_pll)
 );
 
+wire clkfb;
 PLL_ADV #(
  .SIM_DEVICE         ("SPARTAN6"),
  .DIVCLK_DIVIDE      (1),

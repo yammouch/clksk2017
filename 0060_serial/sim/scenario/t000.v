@@ -10,12 +10,14 @@ begin
   BTN_UP = 1'b1;
   BTN_DN = 1'b1; #1e6; // 1us
   fg.en = 1'b1;
-  repeat (4) @(posedge CLK);
+  repeat (4) @(negedge CLK);
+  RSTX = 1'b1;
 end
 endtask
 
 initial begin
   init;
+  #1e9; // 1ms
   $finish;
 end
 
