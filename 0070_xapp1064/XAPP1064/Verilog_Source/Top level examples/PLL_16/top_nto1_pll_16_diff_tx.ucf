@@ -1,0 +1,18 @@
+# Timing
+net tx_bufg_x1 tnm = tx_bufg_x1 ;
+net tx_bufg_x2 tnm = tx_bufg_x2 ;
+
+timespec ts01 = period tx_bufg_x1 66 MHz ; 			# Transmitter global buffer = bit rate/serdes factor eg 1 Gbps/16
+timespec ts02 = period tx_bufg_x2 ts01 * 2 ; 
+timespec ts03 = from tx_bufg_x1 to tx_bufg_x2 ts01 * 2 ; 
+
+# Pin Locations
+
+#net "dataout_p[0]"	loc = XX 	| IOSTANDARD = LVDS_25 ; 
+#net "dataout_n[0]"	loc = XX 	| IOSTANDARD = LVDS_25 ; 
+
+#net "clkout_p"		loc = XX 	| IOSTANDARD = LVDS_25 ;
+#net "clkout_n"		loc = XX 	| IOSTANDARD = LVDS_25 ;
+
+VCCAUX = 2.5 ;
+

@@ -1,0 +1,21 @@
+# Timing
+
+net rx_bufg_x1 tnm = rx_bufg_x1 ;
+net rx_bufg_x2 tnm = rx_bufg_x2 ;
+
+timespec ts01 = period rx_bufg_x1 66 MHz ; 			# Receiver global buffer = bit rate/serdes factor eg 1 Gbps/16
+timespec ts02 = period rx_bufg_x2 ts01 * 2 ; 
+timespec ts03 = from rx_bufg_x2 to rx_bufg_x1 ts01 * 2 ; 
+timespec ts04 = from rx_bufg_x1 to rx_bufg_x2 ts01 * 2 ; 
+
+# Pin Locations
+
+#net "datain_p[0]"	loc = XX	| DIFF_TERM = TRUE | IOSTANDARD = LVDS_25 ;
+#net "datain_n[0]"	loc = XX	| DIFF_TERM = TRUE | IOSTANDARD = LVDS_25 ;
+
+#net "clkin_p"		loc = XX	| DIFF_TERM = TRUE | IOSTANDARD = LVDS_25 ;
+#net "clkin_n"		loc = XX	| DIFF_TERM = TRUE | IOSTANDARD = LVDS_25 ;
+
+
+VCCAUX = 2.5 ;
+
