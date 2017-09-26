@@ -12,13 +12,13 @@ wire din_se, din_delay;
 IBUFDS #(.DIFF_TERM("TRUE"), .IOSTANDARD("LVDS_33")) i_ibufds (
  .I(DIN[0]), .IB(DIN[1]), .O(din_se) );
 
-IODELAY2 i_iodelay2(
+IODELAY2 #(.DATA_RATE("DDR")) i_iodelay2(
  .IDATAIN  (din_se),
- .T        (1'b0),
+ .T        (1'b1),
  .ODATAIN  (1'b0),
  .IOCLK1   (1'b0),
  .INC      (1'b0),
- .CE       (1'b1),
+ .CE       (1'b0),
  .CAL      (PHY_INIT),
  .IOCLK0   (CLKS),
  .CLK      (CLKF),
