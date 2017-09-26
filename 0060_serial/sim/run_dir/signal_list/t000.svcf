@@ -1,4 +1,4 @@
-# SimVision Command Script (Tue Sep 26 08:44:08 AM CEST 2017)
+# SimVision Command Script (Tue Sep 26 10:13:54 AM CEST 2017)
 #
 # Version 14.20.s017
 #
@@ -119,17 +119,17 @@ if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+58+2
 }
 window target "Design Browser 1" on
 browser using {Design Browser 1}
-browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv}]} ]
+browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut.i_lvds1.i_parallel_recv}]} ]
 browser set \
     -signalsort name
-browser yview see [subst  {$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv}]} ]
+browser yview see [subst  {$dbNames(realName1)::[format {tb.dut.i_lvds1.i_parallel_recv}]} ]
 browser timecontrol set -lock 0
 
 #
 # Waveform windows
 #
-if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1254x751+553+25}] != ""} {
-    window geometry "Waveform 1" 1254x751+553+25
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1254x751+445+25}] != ""} {
+    window geometry "Waveform 1" 1254x751+445+25
 }
 window target "Waveform 1" on
 waveform using {Waveform 1}
@@ -163,6 +163,7 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_fifo_send.DOUT[63:0]}]}
 	} ]]
+waveform hierarchy collapse $id
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_send.CLKS}]}
 	} ]]
@@ -176,38 +177,30 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.DOUT[63:0]}]}
 	} ]]
+waveform hierarchy collapse $id
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.DIN[0]}]}
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_fifo_recv.DOPUSH}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.DIN[1]}]}
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_fifo_recv.DOUT[63:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.din_se}]}
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_word_align.ALIGNED}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.PHY_INIT}]}
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_word_align.DOPUSH}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.i_iodelay2.BUSY}]}
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_word_align.DOUT[63:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.i_iodelay2.CLK}]}
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_parallel_recv.recv_cnt[10:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.CLKS}]}
-	} ]]
-set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.CLKF}]}
-	} ]]
-set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.RSTXS}]}
-	} ]]
-set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.din_delay}]}
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_parallel_recv.ERR_CNT[7:0]}]}
 	} ]]
 
-waveform xview limits 0 0.031952394ms
+waveform xview limits 0 1.001175ms
 
 #
 # Waveform Window Links

@@ -39,8 +39,8 @@ IDDR2 i_iddr2(
  .CE (1'b1),
  .R  (~RSTXS),
  .S  (1'b0),
- .Q0 (ddr[1]),
- .Q1 (ddr[0])
+ .Q0 (ddr[0]),
+ .Q1 (ddr[1])
 );
 
 reg [63:0] shift;
