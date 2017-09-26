@@ -1,4 +1,4 @@
-# SimVision Command Script (Tue Sep 26 07:36:02 AM CEST 2017)
+# SimVision Command Script (Tue Sep 26 08:44:08 AM CEST 2017)
 #
 # Version 14.20.s017
 #
@@ -176,8 +176,38 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.DOUT[63:0]}]}
 	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.DIN[0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.DIN[1]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.din_se}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.PHY_INIT}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.i_iodelay2.BUSY}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.i_iodelay2.CLK}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.CLKS}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.CLKF}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.RSTXS}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_recv.din_delay}]}
+	} ]]
 
-waveform xview limits 0 0.269779456ms
+waveform xview limits 0 0.031952394ms
 
 #
 # Waveform Window Links
