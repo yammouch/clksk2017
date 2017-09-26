@@ -37,6 +37,5 @@ ODDR2 i_oddr2 (
 
 OBUFDS #(.IOSTANDARD("LVDS_33")) i_obufds (
  .I(ddr), .OB(DOUT[1]), .O(DOUT[0]) );
-);
 
 endmodule

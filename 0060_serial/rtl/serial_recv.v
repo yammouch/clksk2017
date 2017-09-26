@@ -10,7 +10,7 @@ module serial_recv (
 wire din_se, din_delay;
 
 IBUFDS #(.DIFF_TERM("TRUE"), .IOSTANDARD("LVDS_33")) i_ibufds (
- .I(DIN[0]), .IB(DIN[1]). O(din_se) );
+ .I(DIN[0]), .IB(DIN[1]), .O(din_se) );
 
 IODELAY2 i_iodelay2(
  .IDATAIN  (din_se),
@@ -53,7 +53,7 @@ always @(posedge CLKS or negedge RSTXS)
   if (!RSTXS) {clkf_d2, clkf_d1} <= 2'b00;
   else        {clkf_d2, clkf_d1} <= {clkf_d1, CLKF};
 
-always @(posedge CLKS or negedge RSTX)
+always @(posedge CLKS or negedge RSTXS)
   if (!RSTXS)                   DOUT <= 64'd0;
   else if (!clkf_d1 && clkf_d2) DOUT <= shift;
 

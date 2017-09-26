@@ -75,7 +75,7 @@ fifo_async #(.BW(64)) i_fifo_recv (
  .DOPULL  (1'b1)
 );
 
-wire [63:0] dinp,
+wire [63:0] dinp;
 wire dipushp, aligned;
 word_align i_word_align (
  .RSTX     (RSTXP),
