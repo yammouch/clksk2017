@@ -5,6 +5,7 @@ module lvds1 (
  input         CLKF,
  input         RSTXP,
  input         CLKP,
+ input         CLR,
  input  [ 1:0] DIN,
 
  output [ 1:0] DOUT,

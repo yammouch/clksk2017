@@ -1,12 +1,8 @@
 module pll_ctrl (
- input            RSTX,
  input            CLK,
  input      [3:0] PLL_ADDR,
  input            PLL_CHG,
- output reg [6:0] DIGIT0,
- output reg [6:0] DIGIT1,
- output           PLL_LOCK,
- output reg       RSTXO,
+ output           RSTXO,
  output           CLKS,
  output reg       RSTXS,
  output reg       CLKF,
@@ -27,7 +23,7 @@ pulse_extend #(.CBW(4), .RV(1'b1)) i_pex (
 
 wire [15:0] do, di;
 wire [ 4:0] daddr;
-wire drdy, dwe, den, rst_pll;
+wire drdy, dwe, den, rst_pll, pll_lock;
 pll_drp i_pll_drp(
  .SADDR   (PLL_ADDR),
  .SEN     (PLL_CHG),
@@ -36,7 +32,7 @@ pll_drp i_pll_drp(
  .SCLK    (CLK),
  .DO      (do),
  .DRDY    (drdy),
- .LOCKED  (PLL_LOCK),
+ .LOCKED  (pll_lock),
  .DWE     (dwe),
  .DEN     (den),
  .DADDR   (daddr),
@@ -79,7 +75,7 @@ PLL_ADV #(
 ) i_pll_adv (
  .DO         (do),
  .DRDY       (drdy),
- .LOCKED     (PLL_LOCK),
+ .LOCKED     (pll_lock),
  .DWE        (dwe),
  .DEN        (den),
  .DADDR      (daddr),
@@ -110,14 +106,14 @@ PLL_ADV #(
 reg rstxs_p1;
 always @(posedge CLKS or negedge RSTXO)
   if (!RSTXO) {RSTXS, rstxs_p1} <= 2'b00;
-  else        {RSTXS, rstxs_p1} <= {rstxs_p1, PLL_LOCK};
+  else        {RSTXS, rstxs_p1} <= {rstxs_p1, pll_lock};
 
 reg div2,  div2_d1;
 reg div4,  div4_d1;
 reg div8,  div8_d1;
 reg div16, div16_d1;
-always @(posedge CLKS or negedge rstxp)
-  if (!rstxp) begin
+always @(posedge CLKS or negedge RSTXS)
+  if (!RSTXS) begin
     div2_d1  <= 1'b0;
     div4_d1  <= 1'b0;
     div8_d1  <= 1'b0;
@@ -128,25 +124,25 @@ always @(posedge CLKS or negedge rstxp)
     div8_d1  <= div8;
     div16_d1 <= div16;
   end
-always @(posedge CLKS or negedge rstxp)
-  if (!rstxp) div2 <= 1'b0;
+always @(posedge CLKS or negedge RSTXS)
+  if (!RSTXS) div2 <= 1'b0;
   else        div2 <= ~div2;
-always @(posedge CLKS or negedge rstxp)
-  if (!rstxp)               div4 <= 1'b0;
+always @(posedge CLKS or negedge RSTXS)
+  if (!RSTXS)               div4 <= 1'b0;
   else if (div2 & ~div2_d1) div4 <= ~div4;
-always @(posedge CLKS or negedge rstxp)
-  if (!rstxp)               div8 <= 1'b0;
+always @(posedge CLKS or negedge RSTXS)
+  if (!RSTXS)               div8 <= 1'b0;
   else if (div4 & ~div4_d1) div8 <= ~div8;
-always @(posedge CLKS or negedge rstxp)
-  if (!rstxp)               div16 <= 1'b0;
+always @(posedge CLKS or negedge RSTXS)
+  if (!RSTXS)               div16 <= 1'b0;
   else if (div8 & ~div8_d1) div16 <= ~div16;
-always @(posedge CLKS or negedge rstxp)
-  if (!rstxp)                 CLKF <= 1'b0;
+always @(posedge CLKS or negedge RSTXS)
+  if (!RSTXS)                 CLKF <= 1'b0;
   else if (div16 & ~div16_d1) CLKF <= ~CLKF;
 
 reg rstxf_p1;
 always @(posedge CLKF or negedge RSTXO)
   if (!RSTXO) {RSTXF, rstxf_p1} <= 2'b00;
-  else        {RSTXF, rstxf_p1} <= {rstxf_p1, PLL_LOCK};
+  else        {RSTXF, rstxf_p1} <= {rstxf_p1, pll_lock};
 
 endmodule

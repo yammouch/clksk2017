@@ -1,6 +1,6 @@
 module encode_7seg (
- input  [3:0] DIN,
- output [6:0] DOUT
+ input      [3:0] DIN,
+ output reg [6:0] DOUT
 );
 
 always @*

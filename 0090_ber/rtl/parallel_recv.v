@@ -32,18 +32,18 @@ always @(posedge CLK or negedge RSTX)
   else       init_d1 <= INIT;
 wire rcnt_m1 = rcnt == ~11'd0;
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)            rcnt <= ~11'd0;
-  else if (CLR)         rcnt <= ~11'd0;
-  else if (init_d1)     rcnt <= 11'd1023;
-  else if (!divalid)    rcnt <= rcnt;
-  else if (recv_cnt_m1) rcnt <= ~11'd0;
-  else                  rcnt <= rcnt - 11'd1;
+  if (!RSTX)         rcnt <= ~11'd0;
+  else if (CLR)      rcnt <= ~11'd0;
+  else if (init_d1)  rcnt <= 11'd1023;
+  else if (!divalid) rcnt <= rcnt;
+  else if (rcnt_m1)  rcnt <= ~11'd0;
+  else               rcnt <= rcnt - 11'd1;
 
 reg [63:0] ref_data;
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)                        ref_data <= 64'd0;
-  else if (CLR)                     ref_data <= 64'd0;
-  else if (divalid && !recv_cnt_m1) ref_data <= ref_data + 64'd1;
+  if (!RSTX)                    ref_data <= 64'd0;
+  else if (CLR)                 ref_data <= 64'd0;
+  else if (divalid && !rcnt_m1) ref_data <= ref_data + 64'd1;
 
 reg [5:0] err_word;
 integer i;

@@ -33,17 +33,17 @@ cnt_down #(.BW(2)) i_cnt_down_p (
  .CNT_NEXT (p_cnt_next)
 );
 
-wire [27:0] digit_ber;
+wire [27:0] dig_ber;
 ber_7seg i_ber_7seg (
  .RSTX     (RSTX),
  .CLK      (CLK),
  .START    (p_cnt_next == 2'd1 && p_cnt != 2'd0),
  .RECV_CNT (RECV_CNT),
  .ERR_CNT  (ERR_CNT),
- .DIGIT0   (digit_ber[ 6: 0]),
- .DIGIT1   (digit_ber[13: 7]),
- .DIGIT2   (digit_ber[20:14]),
- .DIGIT3   (digit_ber[27:21])
+ .DIGIT0   (dig_ber[ 6: 0]),
+ .DIGIT1   (dig_ber[13: 7]),
+ .DIGIT2   (dig_ber[20:14]),
+ .DIGIT3   (dig_ber[27:21])
 );
 
 wire [3:0] dig_s0;
@@ -52,7 +52,7 @@ div #(.BW_CNT(3), .BW_DEND(7), .BW_DSOR(4)) i_div_s (
  .RSTX     (RSTX),
  .CLK      (CLK),
  .START    (p_cnt_next == 2'd2 && p_cnt != 2'd2),
- .DIVIDEND (sub_mode),
+ .DIVIDEND (SUB_MODE),
  .DIVISOR  (4'd10),
  .BUSY     (),
  .QUOT     (dig_s1),
@@ -87,7 +87,7 @@ always @*
   default: digmux = 28'd0;
   endcase
 
-wire [3:0] dig_sel;
+wire [3:0] digsel;
 wire [7:0] dig;
 blink_7seg #(.BW(6)) i_blink_7seg (
  .TIMEOUT   (6'd49),
@@ -103,8 +103,10 @@ blink_7seg #(.BW(6)) i_blink_7seg (
 
 generate
 genvar gv;
-for (gv = 0; gv < 4; gv = gv+1) assign DIGIT_SEL = digsel[gv] ? 1'b1 : 1'bz;
-for (gv = 0; gv < 8; gv = gv+1) assign DIGIT     = dig[gv]    ? 1'b0 : 1'bz;
+for (gv = 0; gv < 4; gv = gv+1)
+  assign DIGIT_SEL[gv] = digsel[gv] ? 1'b1 : 1'bz;
+for (gv = 0; gv < 8; gv = gv+1)
+  assign DIGIT[gv]     = dig[gv]    ? 1'b0 : 1'bz;
 endgenerate
 
 endmodule

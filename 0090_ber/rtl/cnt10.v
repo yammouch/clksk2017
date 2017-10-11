@@ -1,6 +1,7 @@
 module cnt10 (
  input            RSTX,
  input            CLK,
+ input            CLR,
  input      [7:0] UBND,
  input            ADD1,
  input            ADD10,
@@ -18,7 +19,7 @@ always @(posedge CLK or negedge RSTX)
   if (!RSTX)                                  CNT <= 8'd0;
   else if (CLR)                               CNT <= 8'd0;
   else if (!(ADD1 || ADD10 || SUB1 || SUB10)) CNT <= CNT;
-  else if (cnt_added[9])                      CNT <= 8'd0;
+  else if (cnt_added[8])                      CNT <= 8'd0;
   else                                        CNT <= cnt_added;
 
 endmodule

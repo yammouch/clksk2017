@@ -18,7 +18,7 @@ wire rstxo;
 
 pll_ctrl i_pll_ctrl (
  .CLK      (CLK),
- .PLL_ADDR (pll_addr),
+ .PLL_ADDR (pll_addr[3:0]),
  .PLL_CHG  (pll_chg),
  .RSTXS    (rstxs),
  .CLKS     (clks),
@@ -36,8 +36,8 @@ button_ctrl i_button_ctrl (
  .BTN_2   (BTN_2),
  .BTN_3   (BTN_3),
  .PLL_CHG (pll_chg),
- .CNT0    (pll_addr),
- .CNT1    (main_mode),
+ .CNT1    (pll_addr),
+ .CNT2    (main_mode),
  .CLR_SEQ (clr_seq)
 );
 
@@ -50,17 +50,18 @@ lvds1 i_lvds1 (
  .CLKF     (clkf),
  .RSTXP    (rstxo),
  .CLKP     (CLK),
+ .CLR      (clr_seq),
  .DIN      (DIN),
  .RECV_CNT (recv_cnt),
  .ERR_CNT  (err_cnt),
- .DOUT     (DOUT),
+ .DOUT     (DOUT)
 );
 
 handle_7seg i_handle_7seg (
  .RSTX      (rstxo),
  .CLK       (CLK),
- .MAIN_MODE (main_mode),
- .SUB_MODE  (pll_addr),
+ .MAIN_MODE (main_mode[6:0]),
+ .SUB_MODE  (pll_addr[6:0]),
  .RECV_CNT  (recv_cnt),
  .ERR_CNT   (err_cnt),
  .DIGIT_SEL (DIGIT_SEL),

@@ -5,7 +5,7 @@ module div #(
  input                RSTX,
  input                CLK,
  input  [BW_DSOR-1:0] DIVISOR,
- input  [BW_DEND-1:0] DEVIDEND,
+ input  [BW_DEND-1:0] DIVIDEND,
  input                START,
  output [BW_DSOR-1:0] REM,
  output [BW_DEND-1:0] QUOT,

@@ -70,11 +70,12 @@ always @(posedge CLK or negedge RSTX)
   else if (START)     exp_cnt <= 5'd0;
   else if (ecnt_updt) exp_cnt <= exp_cnt + 5'd1;
 
-mult #(.BW_CNT(6), BW_MCAND(4), BW_MLIER(64)) i_mult (
+mult #(.BW_CNT(6), .BW_MCAND(4), .BW_MLIER(64)) i_mult (
  .mlier_is_signed (1'b0),
  .mcand_is_signed (1'b0),
  .rstx            (RSTX),
  .clk             (CLK),
+ .start           (state == COMP),
  .mcand           (4'd10),
  .mlier           (ecnt),
  .busy            (mbusy),
@@ -85,9 +86,9 @@ wire [63:0] ratio;
 div #(.BW_CNT(6), .BW_DEND(64), .BW_DSOR(64)) i_div (
  .RSTX     (RSTX),
  .CLK      (CLK),
- .DIVIDEND (prod),
- .DIVISOR  (rcnt),
- .START    (start_div10 = state_next == DIV && state == MUL10_LAST),
+ .DIVIDEND (prod[63:0]),
+ .DIVISOR  ({rcnt, 6'd0}),
+ .START    (state_next == DIV && state == MUL10_LAST),
  .BUSY     (dbusy),
  .REM      (),
  .QUOT     (ratio)
@@ -96,7 +97,7 @@ div #(.BW_CNT(6), .BW_DEND(64), .BW_DSOR(64)) i_div (
 wire start_div10 = state_next == DIV10 && state == DIV;
 wire [6:0] dig3;
 wire [3:0] dig2;
-div #(.BW_CNT(3), .BW_DEND(5), .BW_DSOR(4)) i_div10 (
+div #(.BW_CNT(3), .BW_DEND(7), .BW_DSOR(4)) i_div10 (
  .RSTX     (RSTX),
  .CLK      (CLK),
  .DIVIDEND (ratio[6:0]),
