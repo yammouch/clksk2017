@@ -65,6 +65,6 @@ always @(posedge CLK or negedge RSTX)
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)    RECV_CNT <= 58'd0;
   else if (CLR) RECV_CNT <= 58'd0;
-  else          RECV_CNT <= RECV_CNT + {57'd1, recv};
+  else          RECV_CNT <= RECV_CNT + {57'd0, recv};
 
 endmodule

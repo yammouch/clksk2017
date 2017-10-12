@@ -13,12 +13,18 @@ module lvds1 (
  output [57:0] RECV_CNT
 );
 
+reg rstxf_d1, rstxf_d2;
+always @(posedge CLKP or negedge RSTXP)
+  if (!RSTXP) {rstxf_d2, rstxf_d1} <= 2'b00;
+  else        {rstxf_d2, rstxf_d1} <= {rstxf_d1, RSTXF};
+wire clr_int = CLR || !rstxf_d2;
+
 wire phy_init, dopushp, dopullp;
 wire [63:0] doutp;
 parallel_send i_parallel_send (
  .RSTX     (RSTXP),
  .CLK      (CLKP),
- .CLR      (1'b0),
+ .CLR      (clr_int),
 
  .PHY_INIT (phy_init),
  .DOUT     (doutp),
@@ -94,11 +100,11 @@ word_align i_word_align (
 parallel_recv i_parallel_recv (
  .RSTX     (RSTXP),
  .CLK      (CLKP),
- .INIT     (CLR | phy_init),
+ .INIT     (phy_init),
  .DIN      (dinp),
  .DIPUSH   (dipushp),
  .ALIGNED  (aligned),
- .CLR      (1'b0),
+ .CLR      (clr_int),
  .ERR_CNT  (ERR_CNT),
  .RECV_CNT (RECV_CNT)
 );
