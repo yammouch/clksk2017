@@ -1,4 +1,4 @@
-# SimVision Command Script (Thu Oct 12 11:33:06 AM CEST 2017)
+# SimVision Command Script (Thu Oct 12 11:49:46 AM CEST 2017)
 #
 # Version 14.20.s017
 #
@@ -114,22 +114,22 @@ mmap new -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor ora
 #
 # Design Browser windows
 #
-if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+1007+514}] != ""} {
-    window geometry "Design Browser 1" 700x500+1007+514
+if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+0+25}] != ""} {
+    window geometry "Design Browser 1" 700x500+0+25
 }
 window target "Design Browser 1" on
 browser using {Design Browser 1}
-browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg}]} ]
+browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div}]} ]
 browser set \
     -signalsort name
-browser yview see [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg}]} ]
+browser yview see [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div}]} ]
 browser timecontrol set -lock 0
 
 #
 # Waveform windows
 #
-if {[catch {window new WaveWindow -name "Waveform 1" -geometry 919x686+793+25}] != ""} {
-    window geometry "Waveform 1" 919x686+793+25
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 919x686+368+25}] != ""} {
+    window geometry "Waveform 1" 919x686+368+25
 }
 window target "Waveform 1" on
 waveform using {Waveform 1}
@@ -316,7 +316,7 @@ set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dig_s0[3:0]}]}
 	} ]]
 
-waveform xview limits 0.827087297ms 0.856452749ms
+waveform xview limits 0 1.0639ms
 
 #
 # Waveform Window Links

@@ -24,8 +24,8 @@ reg [BW_DEND+BW_DSOR-1:0] shift_reg;
 wire [BW_DEND+BW_DSOR-1:0] minuend = START ? { {BW_DSOR{1'b0}}, DIVIDEND }
                                    :         shift_reg;
 
-wire [BW_DSOR:0] diff = {1'b0, DIVISOR}
-                      - minuend[BW_DEND+BW_DSOR-1:BW_DEND-1];
+wire [BW_DSOR:0] diff = minuend[BW_DEND+BW_DSOR-1:BW_DEND-1]
+                      - {1'b0, DIVISOR};
 
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)
