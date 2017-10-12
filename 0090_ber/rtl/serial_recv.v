@@ -32,7 +32,7 @@ IODELAY2 #(.DATA_RATE("DDR")) i_iodelay2(
 
 wire [1:0] ddr;
 
-IDDR2 i_iddr2(
+IDDR2 #(.DDR_ALIGNMENT("C0")) i_iddr2(
  .D(din_delay),
  .C0 (CLKS),
  .C1 (~CLKS),

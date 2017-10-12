@@ -1,4 +1,4 @@
-# SimVision Command Script (Thu Oct 12 05:06:46 AM CEST 2017)
+# SimVision Command Script (Thu Oct 12 09:02:02 AM CEST 2017)
 #
 # Version 14.20.s017
 #
@@ -112,24 +112,10 @@ mmap new -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor ora
 {%x=* -label %x -linecolor gray -shape bus}}
 
 #
-# Design Browser windows
-#
-if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+27+25}] != ""} {
-    window geometry "Design Browser 1" 700x500+27+25
-}
-window target "Design Browser 1" on
-browser using {Design Browser 1}
-browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut.i_lvds1}]} ]
-browser set \
-    -signalsort name
-browser yview see [subst  {$dbNames(realName1)::[format {tb.dut.i_lvds1}]} ]
-browser timecontrol set -lock 0
-
-#
 # Waveform windows
 #
-if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1108x751+704+83}] != ""} {
-    window geometry "Waveform 1" 1108x751+704+83
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1108x751+799+77}] != ""} {
+    window geometry "Waveform 1" 1108x751+799+77
 }
 window target "Waveform 1" on
 waveform using {Waveform 1}
@@ -138,15 +124,34 @@ waveform set \
     -primarycursor TimeA \
     -signalnames name \
     -signalwidth 175 \
-    -units ns \
+    -units ms \
     -valuewidth 75
-waveform baseline set -time 0
+waveform baseline set -time 218,250,000ps
 
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.CLK}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.lvds[1:0]}]}
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.CLKS}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_serial_send.DIN[63:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_word_align.DIN[63:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_word_align.DIPUSH}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_word_align.din_shift[126:0]}]}
+	} ]]
+waveform hierarchy collapse $id
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_word_align.sync_comp[63:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_word_align.sync_found[63:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_lvds1.RECV_CNT[57:0]}]}
@@ -159,9 +164,6 @@ set id [waveform add -signals [subst  {
 	} ]]
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.CLKF}]}
-	} ]]
-set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.CLKS}]}
 	} ]]
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.RSTXF}]}
@@ -194,31 +196,11 @@ set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_parallel_send.DOUT[63:0]}]}
 	} ]]
 
-waveform xview limits 0 1000000ns
+waveform xview limits 0 5.137375ms
 
 #
 # Waveform Window Links
 #
-
-#
-# Source Browser windows
-#
-if {[catch {window new SrcBrowser -name "Source Browser 1" -geometry 700x525+522+446}] != ""} {
-    window geometry "Source Browser 1" 700x525+522+446
-}
-window target "Source Browser 1" on
-srcbrowser using {Source Browser 1}
-srcbrowser set \
-    -primarycursor TimeA \
-    -units ns \
-    -radix default \
-    -showstrength 0 \
-    -showcallstack 0 \
-    -displayvalues 1
-
-srcbrowser show -scope tb.dut.i_button_ctrl -file /user/tyam/projects/clksk2017.git/trunk/0090_ber/rtl/button_ctrl.v -line 1
-
-srcbrowser sidebar visibility partial
 
 #
 # Layout selection

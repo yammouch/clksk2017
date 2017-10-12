@@ -24,7 +24,7 @@ always @(posedge CLKS or negedge RSTXS)
   else                          shift <= {shift[61:0], 2'd0};
 
 wire ddr;
-ODDR2 i_oddr2 (
+ODDR2 #(.DDR_ALIGNMENT("C0")) i_oddr2 (
  .D0 (shift[63]),
  .D1 (shift[62]),
  .C0 (CLKS),
