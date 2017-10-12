@@ -69,9 +69,11 @@ always @(posedge CLK or negedge RSTX)
                          && 10'd64 < cnt_next
                          && cnt_next < 10'd196;
 
-reg [63:0] test_data;
+reg  [63:0] test_data;
+wire [63:0] test_data_inc;
+lfsr32x2 i_lfsr32x2 (.DIN(test_data), .DOUT(test_data_inc));
 wire [63:0] test_data_next = DOPULL && state_next == DATA_TRANSFER
-                           ? test_data + 64'd1
+                           ? test_data_inc
                            : test_data;
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)    test_data <= 64'd0;
