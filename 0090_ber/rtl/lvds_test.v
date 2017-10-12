@@ -36,8 +36,8 @@ button_ctrl i_button_ctrl (
  .BTN_2   (BTN_2),
  .BTN_3   (BTN_3),
  .PLL_CHG (pll_chg),
- .CNT1    (pll_addr),
- .CNT2    (main_mode),
+ .CNT1    (main_mode),
+ .CNT2    (pll_addr),
  .CLR_SEQ (clr_seq)
 );
 

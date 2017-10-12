@@ -17,8 +17,8 @@ wire bt1r, bt1, bt1f;
 wire bt2r, bt2, bt2f;
 wire       bt3      ;
 
-dechat #(.BW(12), .RV(1'b1)) i_dechat_bt3 (
- .TIMEOUT (12'd2499),
+dechat #(.BW(15), .RV(1'b1)) i_dechat_bt3 (
+ .TIMEOUT (15'd20000),
  .RSTX    (RSTX),
  .CLK     (CLK),
  .DIN     (BTN_3),
@@ -27,8 +27,8 @@ dechat #(.BW(12), .RV(1'b1)) i_dechat_bt3 (
  .DFALL   ()
 );
 
-dechat #(.BW(12), .RV(1'b1)) i_dechat_bt2 (
- .TIMEOUT (12'd2499),
+dechat #(.BW(15), .RV(1'b1)) i_dechat_bt2 (
+ .TIMEOUT (15'd20000),
  .RSTX    (RSTX),
  .CLK     (CLK),
  .DIN     (BTN_2),
@@ -37,8 +37,8 @@ dechat #(.BW(12), .RV(1'b1)) i_dechat_bt2 (
  .DFALL   (bt2f)
 );
 
-dechat #(.BW(12), .RV(1'b1)) i_dechat_bt1 (
- .TIMEOUT (12'd2499),
+dechat #(.BW(15), .RV(1'b1)) i_dechat_bt1 (
+ .TIMEOUT (15'd20000),
  .RSTX    (RSTX),
  .CLK     (CLK),
  .DIN     (BTN_1),
