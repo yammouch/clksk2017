@@ -10,8 +10,9 @@ module cnt_down #(parameter BW = 'd8) (
 );
 
 assign CNT_NEXT = LOAD ? VAL
-                : DEC  ? CNT + {BW{1'b1}}
-                :        CNT;
+                : !DEC ? CNT
+                : CNT0 ? VAL
+                :        CNT + {BW{1'b1}};
 always @(posedge CLK or negedge RSTX)
   if (!RSTX) CNT <= {BW{1'b0}};
   else       CNT <= CNT_NEXT;

@@ -1,4 +1,4 @@
-# SimVision Command Script (Thu Oct 12 10:20:12 AM CEST 2017)
+# SimVision Command Script (Thu Oct 12 10:33:02 AM CEST 2017)
 #
 # Version 14.20.s017
 #
@@ -45,14 +45,14 @@ preferences set toolbar-Windows-SchematicWindow {
   usual
   position -pos 2
 }
-preferences set toolbar-Search-Console {
-  usual
-  position -pos 3
-}
 preferences set toolbar-OperatingMode-WaveWindow {
   usual
   position -pos 4
   name OperatingMode
+}
+preferences set toolbar-Search-Console {
+  usual
+  position -pos 3
 }
 preferences set plugin-enable-svdatabrowser 0
 preferences set toolbar-NavSignalList-WaveWindow {
@@ -94,7 +94,7 @@ preferences set toolbar-TimeSearch-WatchWindow {
 #
 array set dbNames ""
 set dbNames(realName1) [ database require t020 -hints {
-	file ./result/t020.shm/t020.trn
+	file ./run_dir/result/t020.shm/t020.trn
 	file /fstkdata/ux_user/tyam/projects/clksk2017.git/trunk/0090_ber/sim/run_dir/result/t020.shm/t020.trn
 }]
 if {$dbNames(realName1) == ""} {
@@ -119,10 +119,10 @@ if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+0+25
 }
 window target "Design Browser 1" on
 browser using {Design Browser 1}
-browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg}]} ]
+browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_cnt_down_s}]} ]
 browser set \
     -signalsort name
-browser yview see [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg}]} ]
+browser yview see [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_cnt_down_s}]} ]
 browser timecontrol set -lock 0
 
 #
@@ -194,7 +194,10 @@ set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.digmux[27:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.digsel[3:0]}]}
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.p_cnt[1:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_cnt_down_s.CNT[24:0]}]}
 	} ]]
 
 waveform xview limits 0 1.0639ms
