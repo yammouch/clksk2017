@@ -20,7 +20,7 @@ localparam INIT       = 3'd0,
 reg [57:0] rcnt;
 reg [63:0] ecnt;
 reg [ 4:0] exp_cnt;
-wire end10  = ecnt  < {rcnt, 6'd0};
+wire end10  = {rcnt, 6'd0} <= ecnt;
 wire endexp = 5'd17 < exp_cnt;
 wire mbusy, dbusy, d10busy;
 reg [2:0] state, state_next;
@@ -70,7 +70,7 @@ always @(posedge CLK or negedge RSTX)
   else if (START)     exp_cnt <= 5'd0;
   else if (ecnt_updt) exp_cnt <= exp_cnt + 5'd1;
 
-mult #(.BW_CNT(6), .BW_MCAND(4), .BW_MLIER(64)) i_mult (
+mult #(.BW_CNT(7), .BW_MCAND(4), .BW_MLIER(64)) i_mult (
  .mlier_is_signed (1'b0),
  .mcand_is_signed (1'b0),
  .rstx            (RSTX),

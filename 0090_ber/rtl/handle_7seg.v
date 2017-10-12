@@ -37,7 +37,7 @@ wire [27:0] dig_ber;
 ber_7seg i_ber_7seg (
  .RSTX     (RSTX),
  .CLK      (CLK),
- .START    (p_cnt_next == 2'd1 && p_cnt != 2'd0),
+ .START    (p_cnt_next == 2'd1 && p_cnt != 2'd1),
  .RECV_CNT (RECV_CNT),
  .ERR_CNT  (ERR_CNT),
  .DIGIT0   (dig_ber[ 6: 0]),
