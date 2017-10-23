@@ -39,11 +39,14 @@ always @(posedge CLK or negedge RSTX)
   else if (rcnt_m1)     rcnt <= ~11'd0;
   else                  rcnt <= rcnt - 11'd1;
 
-reg [63:0] ref_data;
+reg  [63:0] ref_data;
+wire [63:0] ref_data_inc;
+lfsr32x2 i_lfsr32x2 (.DIN(ref_data), .DOUT(ref_data_inc));
+
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)                    ref_data <= 64'd0;
   else if (CLR)                 ref_data <= 64'd0;
-  else if (divalid && !rcnt_m1) ref_data <= ref_data + 64'd1;
+  else if (divalid && !rcnt_m1) ref_data <= ref_data_inc;
 
 reg [5:0] err_word;
 integer i;
