@@ -30,4 +30,5 @@
 ../../rtl/pulse_extend.v
 ../../rtl/serial_recv.v
 ../../rtl/serial_send.v
+../../rtl/stimulus.v
 ../../rtl/word_align.v

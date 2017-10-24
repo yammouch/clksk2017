@@ -3,18 +3,10 @@ module stimulus (
  input             CLK,
  input      [ 7:0] MAIN_MODE,
  input      [ 7:0] SUB_MODE,
- output reg [13:0] NTA_CTRL,
- output reg [13:0] NTB_CTRL,
- output reg        NT_POR,
- output reg [13:0] ETA_CTRL,
- output reg [13:0] ETB_CTRL,
- output reg        ET_POR,
- output reg [13:0] STA_CTRL,
- output reg [13:0] STB_CTRL,
- output reg        ST_POR,
- output reg [13:0] SCA_CTRL,
- output reg [13:0] SCB_CTRL,
- output reg        SC_POR);
+ output reg [30:0] NT_CTRL,
+ output reg [30:0] ET_CTRL,
+ output reg [30:0] ST_CTRL,
+ output reg [30:0] SC_CTRL);
 
 localparam UNABLE = {30'd0, 1'b1};
 
@@ -185,7 +177,7 @@ function [34:0] ftable(input [15:0] DIN);
   endcase
 endfunction
 
-wire [34:0] table_dout = stimulus_table({MAIN_MODE, SUB_MODE});
+wire [34:0] table_dout = ftable({MAIN_MODE, SUB_MODE});
 
 wire is_screening = 1'b1;
 wire [3:0] stimu_en = is_screening ? 4'b0001 : table_dout[3:0];
