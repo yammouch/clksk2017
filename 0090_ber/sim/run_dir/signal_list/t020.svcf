@@ -1,4 +1,4 @@
-# SimVision Command Script (Thu Oct 12 11:49:46 AM CEST 2017)
+# SimVision Command Script (Wed Oct 25 11:45:35 AM CEST 2017)
 #
 # Version 14.20.s017
 #
@@ -112,24 +112,10 @@ mmap new -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor ora
 {%x=* -label %x -linecolor gray -shape bus}}
 
 #
-# Design Browser windows
-#
-if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+0+25}] != ""} {
-    window geometry "Design Browser 1" 700x500+0+25
-}
-window target "Design Browser 1" on
-browser using {Design Browser 1}
-browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div}]} ]
-browser set \
-    -signalsort name
-browser yview see [subst  {$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div}]} ]
-browser timecontrol set -lock 0
-
-#
 # Waveform windows
 #
-if {[catch {window new WaveWindow -name "Waveform 1" -geometry 919x686+368+25}] != ""} {
-    window geometry "Waveform 1" 919x686+368+25
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 919x686+905+42}] != ""} {
+    window geometry "Waveform 1" 919x686+905+42
 }
 window target "Waveform 1" on
 waveform using {Waveform 1}
@@ -143,10 +129,28 @@ waveform set \
 waveform baseline set -time 218,250,000ps
 
 set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.rstx_d1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.rstx_d2}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.i_pex.DIN}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.i_pex.DOUT}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_button_ctrl.CNT1[7:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_button_ctrl.CNT2[7:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.CLK}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.phy_init}]}
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.phy_init}]}
 	} ]]
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.CLKS}]}
@@ -164,16 +168,16 @@ set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.RSTXS}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.CLR}]}
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.CLR}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_parallel_send.DOUT[63:0]}]}
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_send.DOUT[63:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_parallel_recv.ALIGNED}]}
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_recv.ALIGNED}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.i_parallel_recv.DIPUSH}]}
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_recv.DIPUSH}]}
 	} ]]
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.p_cnt[1:0]}]}
@@ -188,13 +192,11 @@ set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.START}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.RECV_CNT[57:0]}]}
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_recv.RECV_CNT[57:0]}]}
 	} ]]
-waveform format $id -radix %d
 set id [waveform add -signals [subst  {
-	{$dbNames(realName1)::[format {tb.dut.i_lvds1.ERR_CNT[63:0]}]}
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_recv.ERR_CNT[63:0]}]}
 	} ]]
-waveform format $id -radix %d
 set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_mult.start}]}
 	} ]]
