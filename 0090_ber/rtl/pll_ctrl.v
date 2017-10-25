@@ -1,6 +1,6 @@
 module pll_ctrl (
  input            CLK,
- input      [3:0] PLL_ADDR,
+ input      [7:0] PLL_ADDR,
  input            PLL_CHG,
  output           RSTXO,
  output           CLKS,

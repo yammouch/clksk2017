@@ -4,10 +4,11 @@ module button_ctrl (
  input            BTN_1,
  input            BTN_2,
  input            BTN_3,
- output     [7:0] CNT1,
- output     [7:0] CNT2,
+ output reg [7:0] CNT1,
+ output reg [7:0] CNT2,
  output           CLR_SEQ,
- output reg       PLL_CHG
+ output reg       PLL_CHG,
+ output reg [7:0] PLL_ADDR
 );
 
 localparam MODE1  = 1'd0,
@@ -62,62 +63,87 @@ always @*
   endcase
 
 wire esc = state_next == MODE1 && state == MODE10;
-wire p_add1  = { bt3, bt2, bt1, esc, bt2r, bt1r } == 6'b111_010;
-wire p_add10 = { bt3, bt2, bt1, esc, bt2r, bt1r } == 6'b110_010;
-wire p_sub1  = { bt3, bt2, bt1, esc, bt2r, bt1r } == 6'b111_001;
-wire p_sub10 = { bt3, bt2, bt1, esc, bt2r, bt1r } == 6'b110_001;
+wire [5:0] bts = {bt3, bt2, bt1, esc, bt2r, bt1r};
+wire [7:0] cnt1_p1, cnt2_p1;
 
 cnt10 cnt10_p (
- .UBND  (8'd4),
+ .UBND  (~8'd0),
  .RSTX  (RSTX),
  .CLK   (CLK),
  .CLR   (1'b0),
- .ADD1  (p_add1),
- .ADD10 (p_add10),
- .SUB1  (p_sub1),
- .SUB10 (p_sub10),
- .CNT   (CNT1)
+ .ADD1  (bts == 6'b111_010),
+ .ADD10 (bts == 6'b110_010),
+ .SUB1  (bts == 6'b111_001),
+ .SUB10 (bts == 6'b101_001),
+ .CNT   (cnt1_p1)
 );
-
-wire s_clr   = p_add1 | p_add10 | p_sub1 | p_sub10;
-wire s_add1  = { bt3, bt2, bt1, esc, bt2r, bt1r } == 6'b011_010;
-wire s_add10 = { bt3, bt2, bt1, esc, bt2r, bt1r } == 6'b010_010;
-wire s_sub1  = { bt3, bt2, bt1, esc, bt2r, bt1r } == 6'b011_001;
-wire s_sub10 = { bt3, bt2, bt1, esc, bt2r, bt1r } == 6'b010_001;
-reg [7:0] s_ubnd;
-always @*
-  case (CNT1)
-  8'd0   : s_ubnd = 8'd0;
-  8'd1   : s_ubnd = 8'd2;
-  8'd2   : s_ubnd = 8'd4;
-  8'd3   : s_ubnd = 8'd2;
-  8'd4   : s_ubnd = 8'd2;
-  default: s_ubnd = 8'd0;
-  endcase
 
 cnt10 cnt10_s (
- .UBND  (s_ubnd),
+ .UBND  (~8'd0),
  .RSTX  (RSTX),
  .CLK   (CLK),
- .CLR   (s_clr),
- .ADD1  (s_add1),
- .ADD10 (s_add10),
- .SUB1  (s_sub1),
- .SUB10 (s_sub10),
- .CNT   (CNT2)
+ .CLR   (1'b0),
+ .ADD1  (bts == 6'b011_010),
+ .ADD10 (bts == 6'b010_010),
+ .SUB1  (bts == 6'b011_001),
+ .SUB10 (bts == 6'b001_001),
+ .CNT   (cnt2_p1)
 );
 
-wire clsq = s_clr | s_add1 | s_add10 | s_sub1 | s_sub10;
+always @(posedge CLK or negedge RSTX)
+  if (!RSTX) CNT1 <= 8'd0;
+  else       CNT1 <= cnt1_p1;
+always @(posedge CLK or negedge RSTX)
+  if (!RSTX) CNT2 <= 8'd0;
+  else       CNT2 <= cnt2_p1;
+wire cnt1_chg = cnt1_p1 != CNT1;
+wire cnt2_chg = cnt2_p1 != CNT2;
+
 pulse_extend #(.CBW(4), .RV(1'b1)) i_pex (
  .CYCLE (4'd15),
  .RSTX  (RSTX),
  .CLK   (CLK),
- .DIN   (clsq),
+ .DIN   (cnt1_chg | cnt2_chg),
  .DOUT  (CLR_SEQ)
 );
 
+function [8:0] fplladdr(input [7:0] CNT1, input [7:0] CNT2);
+case (CNT1)
+  8'd9   : fplladdr = {1'b1, CNT2};
+  8'd10  : fplladdr = {1'b0, 8'd0};
+  8'd11  : fplladdr = {1'b1, CNT2};
+  8'd12  : fplladdr = {1'b0, 8'd8};
+  8'd13  : fplladdr = {1'b0, 8'd2};
+  8'd14  : fplladdr = {1'b0, 8'd2};
+  8'd15  : fplladdr = {1'b0, 8'd2};
+  8'd16  : fplladdr = {1'b0, 8'd2};
+  8'd17  : fplladdr = {1'b0, 8'd2};
+  8'd18  : fplladdr = {1'b0, 8'd2};
+  8'd19  : fplladdr = {1'b0, 8'd2};
+  8'd20  : fplladdr = {1'b0, 8'd2};
+  8'd21  : fplladdr = {1'b1, CNT2};
+  8'd22  : fplladdr = {1'b1, CNT2};
+  8'd23  : fplladdr = {1'b1, CNT2};
+  8'd24  : fplladdr = {1'b1, CNT2};
+  8'd25  : fplladdr = {1'b1, CNT2};
+  8'd26  : fplladdr = {1'b1, CNT2};
+  8'd27  : fplladdr = {1'b1, CNT2};
+  8'd28  : fplladdr = {1'b1, CNT2};
+  8'd29  : fplladdr = {1'b1, CNT2};
+  8'd30  : fplladdr = {1'b1, CNT2};
+  8'd31  : fplladdr = {1'b1, CNT2};
+  default: fplladdr = {1'b1, CNT2};
+endcase
+endfunction
+
+wire [8:0] plladdr = fplladdr(cnt1_p1, cnt2_p1);
+
 always @(posedge CLK or negedge RSTX)
   if (!RSTX) PLL_CHG <= 1'b0;
-  else       PLL_CHG <= clsq;
+  else       PLL_CHG <= cnt1_chg || plladdr[8] && cnt2_chg;
+
+always @(posedge CLK or negedge RSTX)
+  if (!RSTX) PLL_ADDR <= 8'd0;
+  else       PLL_ADDR <= plladdr[7:0];
 
 endmodule
