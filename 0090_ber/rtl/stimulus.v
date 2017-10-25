@@ -31,35 +31,35 @@ module stimulus (
 
 localparam UNABLE = {30'd0, 1'b1};
 
-function [34:0] ftable(input [15:0] DIN, input is_screening);
+function [43:0] ftable(input [15:0] DIN, input is_screening);
 case (DIN[15:8])
 8'd9: begin
   ftable[43:13] = { 16'b0000_00_1111_11_0000
                 , DIN[1:0]
                 , 13'b0000_0000_0000_0 };
-  if (is_screening) ftable[12:0] = 13'b00_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b00_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b00_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b00_00_10_0_00_0100;
 end
 8'd10: begin
   ftable[43:13] = { 16'b0111_01_0000_11_0000
                   , DIN[1:0]
                   , 13'b0000_0000_0000_0 };
-  if (is_screening) ftable[12:0] = 13'b10_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b10_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b10_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b10_00_10_0_00_0100;
 end
 8'd11: begin
   ftable[43:13] = { 16'b0111_01_0000_11_0000
                   , DIN[1:0]
                   , 13'b0000_0000_0000_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd12: begin
   ftable[43:13] = { 16'b0111_01_0000_11_0000
                   , DIN[1:0]
                   , 13'b0000_0000_0000_0 };
-  if (is_screening) ftable[12:0] = 13'b00_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b00_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b00_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b00_00_10_0_00_0100;
 end
 8'd13: begin
   ftable[43:13] = { 8'b0000_00_00
@@ -69,8 +69,8 @@ end
                   , 10'b0000_0000_00
                   , DIN[1:0]
                   , 1'b0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd14: begin
   ftable[43:13] = { 8'b0000_00_01
@@ -80,8 +80,8 @@ end
                   , 10'b0000_0000_00
                   , DIN[1:0]
                   , 1'b0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd15: begin
   ftable[43:13] = { 8'b0000_00_10
@@ -91,8 +91,8 @@ end
                   , 10'b0000_0000_00
                   , DIN[1:0]
                   , 1'b0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd16: begin
   ftable[43:13] = { 8'b0000_00_11
@@ -102,8 +102,8 @@ end
                   , 10'b0000_0000_00
                   , DIN[1:0]
                   , 1'b0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd17: begin
   ftable[43:13] = { 6'b0000_00
@@ -113,8 +113,8 @@ end
                   , 8'b0000_0000
                   , DIN[1:0]
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b01_00_01_0_00_0100;
 end
 8'd18: begin
   ftable[43:13] = { 6'b0000_00
@@ -124,8 +124,8 @@ end
                   , 8'b0000_0000
                   , DIN[1:0]
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b01_00_01_0_00_0100;
 end
 8'd19: begin
   ftable[43:13] = { 6'b0000_00
@@ -135,8 +135,8 @@ end
                   , 8'b0000_0000
                   , DIN[1:0]
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b01_00_01_0_00_0100;
 end
 8'd20: begin
   ftable[43:13] = { 6'b0000_00
@@ -146,8 +146,8 @@ end
                   , 8'b0000_0000
                   , DIN[1:0]
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b01_00_01_0_00_0100;
 end
 8'd21: begin
   ftable[43:13] = { 8'b0101_01_11
@@ -159,8 +159,8 @@ end
                   , 10'b0000_0000_00
                   , 2'b00
                   , 1'b0 }; // D/C
-  if (is_screening) ftable[12:0] = 13'b00_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b00_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b00_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b00_00_10_0_00_0100;
 end
 8'd22: begin
   ftable[43:13] = { 6'b1010_10
@@ -172,8 +172,8 @@ end
                   , 8'b0000_0000
                   , 2'b00 // D/C
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b00_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b00_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b00_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b00_00_01_0_00_0100;
 end
 8'd23: begin
   ftable[43:13] = { 8'b0101_01_00
@@ -185,8 +185,8 @@ end
                   , 10'b0000_0000_00
                   , 2'b00 // D/C
                   , 1'b0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd24: begin
   ftable[43:13] = { 8'b0101_01_01
@@ -198,8 +198,8 @@ end
                   , 10'b0000_0000_00
                   , 2'b00 // D/C
                   , 1'b0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd25: begin
   ftable[43:13] = { 8'b0101_01_10
@@ -211,8 +211,8 @@ end
                   , 10'b0000_0000_00
                   , 2'b00 // D/C
                   , 1'b0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd26: begin
   ftable[43:13] = { 8'b0101_01_11
@@ -224,8 +224,8 @@ end
                   , 10'b0000_0000_00
                   , 2'b00 // D/C
                   , 1'b0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b01_00_10_0_00_0100;
 end
 8'd27: begin
   ftable[43:13] = { 6'b1010_10
@@ -237,8 +237,8 @@ end
                   , 8'b0000_0000
                   , 2'b00 // D/C
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b01_00_01_0_00_0100;
 end
 8'd28: begin
   ftable[43:13] = { 6'b1010_10
@@ -250,8 +250,8 @@ end
                   , 8'b0000_0000
                   , 2'b00 // D/C
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b01_00_01_0_00_0100;
 end
 8'd29: begin
   ftable[43:13] = { 6'b1010_10
@@ -263,8 +263,8 @@ end
                   , 8'b0000_0000
                   , 2'b00 // D/C
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b01_00_01_0_00_0100;
 end
 8'd30: begin
   ftable[43:13] = { 6'b1010_10
@@ -276,22 +276,22 @@ end
                   , 8'b0000_0000
                   , 2'b00 // D/C
                   , 3'b00_0 };
-  if (is_screening) ftable[12:0] = 13'b01_00_01_0_00_0100;
-  else              ftable[12:0] = 13'b01_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b01_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b01_00_01_0_00_0100;
 end
 8'd31: begin
   ftable[43:13] = { 16'b0000_00_1111_11_0000
                   , 2'b00 // D/C
                   , 13'b0000_0000_0000_0 };
-  if (is_screening) ftable[12:0] = 13'b00_00_00_1_00_0010;
-  else              ftable[12:0] = 13'b00_00_00_0_01_0001;
+  if (is_screening) ftable[12:0] = 13'b00_00_00_0_01_0001;
+  else              ftable[12:0] = 13'b00_00_00_1_00_0010;
 end
 default: begin
   ftable[43:13] = { 16'b0000_00_1111_11_0000
                 , DIN[1:0]
                 , 13'b0000_0000_0000_0 };
-  if (is_screening) ftable[12:0] = 13'b00_00_10_0_00_0100;
-  else              ftable[12:0] = 13'b00_00_00_0_10_0001;
+  if (is_screening) ftable[12:0] = 13'b00_00_00_0_10_0001;
+  else              ftable[12:0] = 13'b00_00_10_0_00_0100;
 end
 endcase
 endfunction
