@@ -121,9 +121,16 @@ div #(.BW_CNT(3), .BW_DEND(5), .BW_DSOR(4)) i_divexp (
  .REM      (dig0)
 );
 
-encode_7seg i_encode_7seg_3 (.DIN(dig3[3:0]), .DOUT(DIGIT3));
-encode_7seg i_encode_7seg_2 (.DIN(dig2     ), .DOUT(DIGIT2));
-encode_7seg i_encode_7seg_1 (.DIN(dig1[3:0]), .DOUT(DIGIT1));
-encode_7seg i_encode_7seg_0 (.DIN(dig0     ), .DOUT(DIGIT0));
+wire [6:0] dec3, dec2, dec1, dec0;
+encode_7seg i_encode_7seg_3 (.DIN(dig3[3:0]), .DOUT(dec3));
+encode_7seg i_encode_7seg_2 (.DIN(dig2     ), .DOUT(dec2));
+encode_7seg i_encode_7seg_1 (.DIN(dig1[3:0]), .DOUT(dec1));
+encode_7seg i_encode_7seg_0 (.DIN(dig0     ), .DOUT(dec0));
+
+wire no_data = rcnt == 58'd0;
+assign DIGIT3 = no_data ? 7'b1010100 : dec3;
+assign DIGIT2 = no_data ? 7'b1011100 : dec2;
+assign DIGIT1 = no_data ? 7'b1011110 : dec1;
+assign DIGIT0 = no_data ? 7'b1111000 : dec0;
 
 endmodule

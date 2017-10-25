@@ -44,7 +44,7 @@ function [3:0] decode_7seg(input [6:0] seg);
   7'b1001111: decode_7seg = 4'd3;
   7'b1100110: decode_7seg = 4'd4;
   7'b1101101: decode_7seg = 4'd5;
-  7'b0111111: decode_7seg = 4'd6;
+  7'b1111101: decode_7seg = 4'd6;
   7'b0100111: decode_7seg = 4'd7;
   7'b1111111: decode_7seg = 4'd8;
   7'b1101111: decode_7seg = 4'd9;

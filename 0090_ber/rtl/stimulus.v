@@ -429,7 +429,7 @@ lvds1 i_lvds_scb (
  .DIN      (SCB_DIN),
  .RECV_CNT (recv_cnt_scb),
  .ERR_CNT  (err_cnt_scb),
- .DOUT     (SDB_DOUT)
+ .DOUT     (SCB_DOUT)
 );
 
 assign RECV_CNT = {58{table_dout[10]}} & recv_cnt_nta

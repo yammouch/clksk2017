@@ -3,10 +3,8 @@ module lvds_test (
  input        BTN_1,
  input        BTN_2,
  input        BTN_3,
- input  [1:0] DIN,
  output [3:0] DIGIT_SEL,
  output [7:0] DIGIT,
- output [1:0] DOUT,
  output       DIV32,
 
  output       NT_SEL_RX_A,
@@ -166,8 +164,8 @@ wire [63:0] err_cnt;
 handle_7seg i_handle_7seg (
  .RSTX      (rstxo),
  .CLK       (CLK),
- .MAIN_MODE (main_mode[6:0]),
- .SUB_MODE  (sub_mode[6:0]),
+ .MAIN_MODE (main_mode),
+ .SUB_MODE  (sub_mode),
  .RECV_CNT  (recv_cnt),
  .ERR_CNT   (err_cnt),
  .DIGIT_SEL (DIGIT_SEL),
