@@ -15,15 +15,15 @@ always @(dut.i_pll_ctrl.CLKS) begin
   lvds_n <= {lvds_n[254:0], lvds[1]};
 end
 
+wire [1:0] nta_lvds, ntb_lvds, eta_lvds, etb_lvds, st_lvds, scb_lvds;
+
 lvds_test dut (
  .CLK            (CLK),
  .BTN_1          (BTN_1),
  .BTN_2          (BTN_2),
  .BTN_3          (BTN_3),
- .DIN            ({lvds_n[tap_sel], lvds_p[tap_sel]}),
  .DIGIT_SEL      (),
  .DIGIT          (),
- .DOUT           (lvds),
  .DIV32          (),
 
  .NT_SEL_RX_A    (),
@@ -51,6 +51,10 @@ lvds_test dut (
  .NT_TEST_A      (),
  .NT_TEST_B      (),
  .NT_POR         (),
+ .NTA_DIN        (nta_lvds),
+ .NTA_DOUT       (nta_lvds),
+ .NTB_DIN        (ntb_lvds),
+ .NTB_DOUT       (ntb_lvds),
 
  .ET_SEL_RX_A    (),
  .ET_SEL_RX_B    (),
@@ -77,6 +81,10 @@ lvds_test dut (
  .ET_TEST_A      (),
  .ET_TEST_B      (),
  .ET_POR         (),
+ .ETA_DIN        (eta_lvds),
+ .ETA_DOUT       (eta_lvds),
+ .ETB_DIN        (etb_lvds),
+ .ETB_DOUT       (etb_lvds),
 
  .ST_SEL_RX_A    (),
  .ST_SEL_RX_B    (),
@@ -103,6 +111,8 @@ lvds_test dut (
  .ST_TEST_A      (),
  .ST_TEST_B      (),
  .ST_POR         (),
+ .ST_DIN         (st_lvds),
+ .ST_DOUT        (st_lvds),
 
  .SC_SEL_RX_A    (),
  .SC_SEL_RX_B    (),
@@ -128,5 +138,9 @@ lvds_test dut (
  .SC_PUDPOL_RX_B (),
  .SC_TEST_A      (),
  .SC_TEST_B      (),
- .SC_POR         ()
+ .SC_POR         (),
+ .SCA_DIN        ({lvds_n[tap_sel], lvds_p[tap_sel]}),
+ .SCA_DOUT       (lvds),
+ .SCB_DIN        (scb_lvds),
+ .SCB_DOUT       (scb_lvds)
 );

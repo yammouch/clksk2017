@@ -6,6 +6,8 @@ module lvds1 (
  input         RSTXP,
  input         CLKP,
  input         CLR,
+ input         INV,
+ input  [ 1:0] PATTERN,
  input  [ 1:0] DIN,
 
  output [ 1:0] DOUT,
@@ -36,7 +38,10 @@ wire [63:0] doutf;
 fifo_async #(.BW(64)) i_fifo_send (
  .RSTX_DI (RSTXP),
  .CLKDI   (CLKP),
- .DIN     (doutp),
+ .DIN     ( PATTERN == 2'd0 ? doutp
+          : PATTERN == 2'd1 ? 64'hAAAA_AAAA_AAAA_AAAA
+          : PATTERN == 2'd2 ? 64'd0
+          :                   64'd0 ),
  .DIPUSH  (dopushp),
  .DIPULL  (dopullp),
 
@@ -89,7 +94,7 @@ word_align i_word_align (
  .RSTX     (RSTXP),
  .CLK      (CLKP),
  .PHY_INIT (phy_init),
- .DIN      (dina),
+ .DIN      (INV ? ~dina : dina),
  .DIPUSH   (dipusha),
 
  .DOUT     (dinp),

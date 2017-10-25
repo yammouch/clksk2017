@@ -27,12 +27,12 @@ begin
   lvds_n[64] = !lvds_n[64];
   wait (lvds_p[63:0] == 64'h0000_0000_0000_0000);
   wait (lvds_p[63:0] == 64'hAAAA_AAAA_AAAA_AAAA);
-  if (dut.i_lvds1.ERR_CNT == 64'd2) $fwrite(f_hdl, "[OK]");
-  else                              $fwrite(f_hdl, "[ER]");
-  $fwrite(f_hdl, " ERR_CNT %d, expected 2\n", dut.i_lvds1.ERR_CNT);
-  if (dut.i_lvds1.RECV_CNT == 58'h00_0000_0000_0400) $fwrite(f_hdl, "[OK]");
-  else                                               $fwrite(f_hdl, "[ER]");
-  $fwrite(f_hdl, " RECV_CNT 'h%x, expected 'h400\n", dut.i_lvds1.RECV_CNT);
+  if (dut.i_stimulus.ERR_CNT == 64'd2) $fwrite(f_hdl, "[OK]");
+  else                                 $fwrite(f_hdl, "[ER]");
+  $fwrite(f_hdl, " ERR_CNT %d, expected 2\n", dut.i_stimulus.ERR_CNT);
+  if (dut.i_stimulus.RECV_CNT == 58'h00_0000_0000_0400) $fwrite(f_hdl, "[OK]");
+  else                                                  $fwrite(f_hdl, "[ER]");
+  $fwrite(f_hdl, " RECV_CNT 'h%x, expected 'h400\n", dut.i_stimulus.RECV_CNT);
 end
 endtask
 

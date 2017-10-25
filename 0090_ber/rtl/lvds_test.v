@@ -34,6 +34,10 @@ module lvds_test (
  output [1:0] NT_TEST_A,
  output [1:0] NT_TEST_B,
  output       NT_POR,
+ input  [1:0] NTA_DIN,
+ output [1:0] NTA_DOUT,
+ input  [1:0] NTB_DIN,
+ output [1:0] NTB_DOUT,
 
  output       ET_SEL_RX_A,
  output       ET_SEL_RX_B,
@@ -60,6 +64,10 @@ module lvds_test (
  output [1:0] ET_TEST_A,
  output [1:0] ET_TEST_B,
  output       ET_POR,
+ input  [1:0] ETA_DIN,
+ output [1:0] ETA_DOUT,
+ input  [1:0] ETB_DIN,
+ output [1:0] ETB_DOUT,
 
  output       ST_SEL_RX_A,
  output       ST_SEL_RX_B,
@@ -86,6 +94,8 @@ module lvds_test (
  output [1:0] ST_TEST_A,
  output [1:0] ST_TEST_B,
  output       ST_POR,
+ input  [1:0] ST_DIN,
+ output [1:0] ST_DOUT,
 
  output       SC_SEL_RX_A,
  output       SC_SEL_RX_B,
@@ -111,7 +121,11 @@ module lvds_test (
  output       SC_PUDPOL_RX_B,
  output [1:0] SC_TEST_A,
  output [1:0] SC_TEST_B,
- output       SC_POR
+ output       SC_POR,
+ input  [1:0] SCA_DIN,
+ output [1:0] SCA_DOUT,
+ input  [1:0] SCB_DIN,
+ output [1:0] SCB_DOUT
 );
 
 wire [7:0] pll_addr;
@@ -148,19 +162,6 @@ button_ctrl i_button_ctrl (
 
 wire [57:0] recv_cnt;
 wire [63:0] err_cnt;
-lvds1 i_lvds1 (
- .RSTXS    (rstxs),
- .CLKS     (clks),
- .RSTXF    (rstxf),
- .CLKF     (clkf),
- .RSTXP    (rstxo),
- .CLKP     (CLK),
- .CLR      (clr_seq),
- .DIN      (DIN),
- .RECV_CNT (recv_cnt),
- .ERR_CNT  (err_cnt),
- .DOUT     (DOUT)
-);
 
 handle_7seg i_handle_7seg (
  .RSTX      (rstxo),
@@ -178,12 +179,33 @@ wire [30:0] nt_ctrl, et_ctrl, st_ctrl, sc_ctrl;
 stimulus i_stimulus (
  .RSTX      (rstxo),
  .CLK       (CLK),
+ .RSTXS     (rstxs),
+ .CLKS      (clks),
+ .RSTXF     (rstxf),
+ .CLKF      (clkf),
+ .CLR       (clr_seq),
  .MAIN_MODE (main_mode),
  .SUB_MODE  (pll_addr),
  .NT_CTRL   (nt_ctrl),
+ .NTA_DIN   (NTA_DIN),
+ .NTA_DOUT  (NTA_DOUT),
+ .NTB_DIN   (NTB_DIN),
+ .NTB_DOUT  (NTB_DOUT),
  .ET_CTRL   (et_ctrl),
+ .ETA_DIN   (ETA_DIN),
+ .ETA_DOUT  (ETA_DOUT),
+ .ETB_DIN   (ETB_DIN),
+ .ETB_DOUT  (ETB_DOUT),
  .ST_CTRL   (st_ctrl),
- .SC_CTRL   (sc_ctrl)
+ .ST_DIN    (ST_DIN),
+ .ST_DOUT   (ST_DOUT),
+ .SC_CTRL   (sc_ctrl),
+ .SCA_DIN   (SCA_DIN),
+ .SCA_DOUT  (SCA_DOUT),
+ .SCB_DIN   (SCB_DIN),
+ .SCB_DOUT  (SCB_DOUT),
+ .RECV_CNT  (recv_cnt),
+ .ERR_CNT   (err_cnt)
 );
 
 assign NT_SEL_RX_A    = nt_ctrl[   30];
