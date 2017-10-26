@@ -286,6 +286,12 @@ end
   if (is_screening) ftable[12:0] = 13'b00_00_00_0_01_0001;
   else              ftable[12:0] = 13'b00_00_00_1_00_0010;
 end
+8'd255: begin
+  ftable[43:13] = { 16'b0000_00_1111_11_0000
+                  , 2'b00 // D/C
+                  , 13'b0000_0000_0000_0 };
+  ftable[12:0] = 13'b11_11_11_1_11_1111;
+end
 default: begin
   ftable[43:13] = { 16'b0000_00_1111_11_0000
                 , DIN[1:0]
@@ -320,7 +326,8 @@ wire [57:0] recv_cnt_nta, recv_cnt_ntb, recv_cnt_eta, recv_cnt_etb,
 wire [63:0] err_cnt_nta , err_cnt_ntb , err_cnt_eta , err_cnt_etb ,
             err_cnt_st  , err_cnt_sca , err_cnt_scb ;
 
-lvds1 i_lvds_nta (
+//lvds1 i_lvds_nta (
+lvds1_empty i_lvds_nta (
  .RSTXS    (RSTXS),
  .CLKS     (CLKS),
  .RSTXF    (RSTXF),
@@ -336,7 +343,8 @@ lvds1 i_lvds_nta (
  .DOUT     (NTA_DOUT)
 );
 
-lvds1 i_lvds_ntb (
+//lvds1 i_lvds_ntb (
+lvds1_empty i_lvds_ntb (
  .RSTXS    (RSTXS),
  .CLKS     (CLKS),
  .RSTXF    (RSTXF),
@@ -352,7 +360,8 @@ lvds1 i_lvds_ntb (
  .DOUT     (NTB_DOUT)
 );
 
-lvds1 i_lvds_eta (
+//lvds1 i_lvds_eta (
+lvds1_empty i_lvds_eta (
  .RSTXS    (RSTXS),
  .CLKS     (CLKS),
  .RSTXF    (RSTXF),
@@ -368,7 +377,8 @@ lvds1 i_lvds_eta (
  .DOUT     (ETA_DOUT)
 );
 
-lvds1 i_lvds_etb (
+//lvds1 i_lvds_etb (
+lvds1_empty i_lvds_etb (
  .RSTXS    (RSTXS),
  .CLKS     (CLKS),
  .RSTXF    (RSTXF),
@@ -384,7 +394,8 @@ lvds1 i_lvds_etb (
  .DOUT     (ETB_DOUT)
 );
 
-lvds1 i_lvds_st (
+//lvds1 i_lvds_st (
+lvds1_empty i_lvds_st (
  .RSTXS    (RSTXS),
  .CLKS     (CLKS),
  .RSTXF    (RSTXF),
@@ -416,7 +427,8 @@ lvds1 i_lvds_sca (
  .DOUT     (SCA_DOUT)
 );
 
-lvds1 i_lvds_scb (
+//lvds1 i_lvds_scb (
+lvds1_empty i_lvds_scb (
  .RSTXS    (RSTXS),
  .CLKS     (CLKS),
  .RSTXF    (RSTXF),

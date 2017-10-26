@@ -1,12 +1,14 @@
 module lvds_test (
  input        CLK,
+ input        RSTX,
  input        BTN_1,
  input        BTN_2,
  input        BTN_3,
  output [3:0] DIGIT_SEL,
  output [7:0] DIGIT,
- output       DIV32,
+ //output       DIV32,
 
+/*
  output       NT_SEL_RX_A,
  output       NT_SEL_RX_B,
  output       NT_SEL_TX_A,
@@ -32,11 +34,13 @@ module lvds_test (
  output [1:0] NT_TEST_A,
  output [1:0] NT_TEST_B,
  output       NT_POR,
- input  [1:0] NTA_DIN,
- output [1:0] NTA_DOUT,
- input  [1:0] NTB_DIN,
- output [1:0] NTB_DOUT,
+*/
+ //input  [1:0] NTA_DIN,
+ //output [1:0] NTA_DOUT,
+ //input  [1:0] NTB_DIN,
+ //output [1:0] NTB_DOUT,
 
+/*
  output       ET_SEL_RX_A,
  output       ET_SEL_RX_B,
  output       ET_SEL_TX_A,
@@ -62,11 +66,13 @@ module lvds_test (
  output [1:0] ET_TEST_A,
  output [1:0] ET_TEST_B,
  output       ET_POR,
- input  [1:0] ETA_DIN,
- output [1:0] ETA_DOUT,
- input  [1:0] ETB_DIN,
- output [1:0] ETB_DOUT,
+*/
+ //input  [1:0] ETA_DIN,
+ //output [1:0] ETA_DOUT,
+ //input  [1:0] ETB_DIN,
+ //output [1:0] ETB_DOUT,
 
+/*
  output       ST_SEL_RX_A,
  output       ST_SEL_RX_B,
  output       ST_SEL_TX_A,
@@ -92,9 +98,11 @@ module lvds_test (
  output [1:0] ST_TEST_A,
  output [1:0] ST_TEST_B,
  output       ST_POR,
- input  [1:0] ST_DIN,
- output [1:0] ST_DOUT,
+*/
+ //input  [1:0] ST_DIN,
+ //output [1:0] ST_DOUT,
 
+/*
  output       SC_SEL_RX_A,
  output       SC_SEL_RX_B,
  output       SC_SEL_TX_A,
@@ -120,11 +128,13 @@ module lvds_test (
  output [1:0] SC_TEST_A,
  output [1:0] SC_TEST_B,
  output       SC_POR,
+*/
  input  [1:0] SCA_DIN,
- output [1:0] SCA_DOUT,
- input  [1:0] SCB_DIN,
- output [1:0] SCB_DOUT
+ output [1:0] SCA_DOUT//,
+ //input  [1:0] SCB_DIN,
+ //output [1:0] SCB_DOUT
 );
+
 
 wire [7:0] pll_addr;
 wire pll_chg;
@@ -133,6 +143,7 @@ wire rstxf, clkf;
 wire rstxo;
 
 pll_ctrl i_pll_ctrl (
+ .RSTX     (RSTX),
  .CLK      (CLK),
  .PLL_ADDR (pll_addr),
  .PLL_CHG  (pll_chg),
@@ -142,6 +153,8 @@ pll_ctrl i_pll_ctrl (
  .CLKF     (clkf),
  .RSTXO    (rstxo)
 );
+
+//assign DIV32 = clkf;
 
 wire [7:0] main_mode, sub_mode;
 wire clr_seq;
@@ -183,29 +196,30 @@ stimulus i_stimulus (
  .CLKF      (clkf),
  .CLR       (clr_seq),
  .MAIN_MODE (main_mode),
- .SUB_MODE  (pll_addr),
+ .SUB_MODE  (sub_mode),
  .NT_CTRL   (nt_ctrl),
- .NTA_DIN   (NTA_DIN),
- .NTA_DOUT  (NTA_DOUT),
- .NTB_DIN   (NTB_DIN),
- .NTB_DOUT  (NTB_DOUT),
+ .NTA_DIN   (2'd0), //(NTA_DIN),
+ .NTA_DOUT  (),     //(NTA_DOUT),
+ .NTB_DIN   (2'd0), //(NTB_DIN),
+ .NTB_DOUT  (),     //(NTB_DOUT),
  .ET_CTRL   (et_ctrl),
- .ETA_DIN   (ETA_DIN),
- .ETA_DOUT  (ETA_DOUT),
- .ETB_DIN   (ETB_DIN),
- .ETB_DOUT  (ETB_DOUT),
+ .ETA_DIN   (2'd0), //(ETA_DIN),
+ .ETA_DOUT  (),     //(ETA_DOUT),
+ .ETB_DIN   (2'd0), //(ETB_DIN),
+ .ETB_DOUT  (),     //(ETB_DOUT),
  .ST_CTRL   (st_ctrl),
- .ST_DIN    (ST_DIN),
- .ST_DOUT   (ST_DOUT),
+ .ST_DIN    (2'd0), //(ST_DIN),
+ .ST_DOUT   (),     //(ST_DOUT),
  .SC_CTRL   (sc_ctrl),
  .SCA_DIN   (SCA_DIN),
  .SCA_DOUT  (SCA_DOUT),
- .SCB_DIN   (SCB_DIN),
- .SCB_DOUT  (SCB_DOUT),
+ .SCB_DIN   (2'd0), //(SCB_DIN),
+ .SCB_DOUT  (),     //(SCB_DOUT),
  .RECV_CNT  (recv_cnt),
  .ERR_CNT   (err_cnt)
 );
 
+/*
 assign NT_SEL_RX_A    = nt_ctrl[   30];
 assign NT_SEL_RX_B    = nt_ctrl[   29];
 assign NT_SEL_TX_A    = nt_ctrl[   28];
@@ -309,5 +323,6 @@ assign SC_PUDPOL_RX_B = sc_ctrl[    5];
 assign SC_TEST_A      = sc_ctrl[ 4: 3];
 assign SC_TEST_B      = sc_ctrl[ 2: 1];
 assign SC_POR         = sc_ctrl[    0];
+*/
 
 endmodule

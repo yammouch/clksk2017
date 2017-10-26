@@ -179,10 +179,12 @@ blink_7seg #(.BW(6)) i_blink_7seg (
 
 generate
 genvar gv;
-for (gv = 0; gv < 4; gv = gv+1)
+for (gv = 0; gv < 4; gv = gv+1) begin : tri_digsel
   assign DIGIT_SEL[gv] = digsel[gv] ? 1'b1 : 1'bz;
-for (gv = 0; gv < 8; gv = gv+1)
+end
+for (gv = 0; gv < 8; gv = gv+1) begin : tri_dig
   assign DIGIT[gv]     = dig[gv]    ? 1'b0 : 1'bz;
+end
 endgenerate
 
 endmodule

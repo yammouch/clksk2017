@@ -21,8 +21,9 @@ always @(posedge CLK or negedge RSTX)
 wire [63:0] sync_comp;
 generate
 genvar gv;
-for (gv = 0; gv < 64; gv = gv+1)
+for (gv = 0; gv < 64; gv = gv+1) begin : sync_mux
   assign sync_comp[gv] = din_shift[gv+63:gv] == 64'hF731_8CEF_137F_FEC8;
+end
 endgenerate
 
 reg [63:0] sync_found;

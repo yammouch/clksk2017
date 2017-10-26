@@ -53,6 +53,7 @@ always @*
     if (START)        state_next = COMP;
     else if (d10busy) state_next = DIV10;
     else              state_next = INIT;
+  default:            state_next = INIT;
   endcase
 
 always @(posedge CLK or negedge RSTX)
@@ -64,7 +65,7 @@ wire ecnt_updt = state_next == COMP && state == MUL10;
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)          ecnt <= 64'd0;
   else if (START)     ecnt <= ERR_CNT;
-  else if (ecnt_updt) ecnt <= prod;
+  else if (ecnt_updt) ecnt <= prod[63:0];
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)          exp_cnt <= 5'd0;
   else if (START)     exp_cnt <= 5'd0;

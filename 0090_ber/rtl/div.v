@@ -32,7 +32,9 @@ always @(posedge CLK or negedge RSTX)
     shift_reg <= {(BW_DEND+BW_DSOR){1'b0}};
   else if (BUSY || START)
     shift_reg <=
-    { diff[BW_DSOR] ? minuend[BW_DEND+BW_DSOR-1:BW_DEND-1] : diff[BW_DSOR-1:0]
+    {   diff[BW_DSOR]
+      ? minuend[BW_DEND+BW_DSOR-2:BW_DEND-1]
+      : diff[BW_DSOR-2:0]
     , minuend[BW_DEND-2:0]
     , !diff[BW_DSOR] };
 
