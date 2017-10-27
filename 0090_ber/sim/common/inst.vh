@@ -1,4 +1,5 @@
 wire       CLK;
+reg        RSTX;
 reg        BTN_1;
 reg        BTN_2;
 reg        BTN_3;
@@ -17,15 +18,22 @@ end
 
 wire [1:0] nta_lvds, ntb_lvds, eta_lvds, etb_lvds, st_lvds, scb_lvds;
 
+initial begin
+  RSTX = 1'b0; #1000;
+  RSTX = 1'b1;
+end
+
 lvds_test dut (
  .CLK            (CLK),
+ .RSTX           (RSTX),
  .BTN_1          (BTN_1),
  .BTN_2          (BTN_2),
  .BTN_3          (BTN_3),
  .DIGIT_SEL      (),
  .DIGIT          (),
- .DIV32          (),
+ //.DIV32          (),
 
+/*
  .NT_SEL_RX_A    (),
  .NT_SEL_RX_B    (),
  .NT_SEL_TX_A    (),
@@ -139,8 +147,10 @@ lvds_test dut (
  .SC_TEST_A      (),
  .SC_TEST_B      (),
  .SC_POR         (),
+*/
  .SCA_DIN        ({lvds_n[tap_sel], lvds_p[tap_sel]}),
- .SCA_DOUT       (lvds),
+ .SCA_DOUT       (lvds)/*,
  .SCB_DIN        (scb_lvds),
  .SCB_DOUT       (scb_lvds)
+*/
 );
