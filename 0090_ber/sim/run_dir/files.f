@@ -20,6 +20,7 @@
 ../../rtl/handle_7seg.v
 ../../rtl/lfsr32x2.v
 ../../rtl/lvds1.v
+../../rtl/lvds1_empty.v
 ../../rtl/lvds_test.v
 ../../rtl/mult.v
 ../../rtl/parallel_recv.v
