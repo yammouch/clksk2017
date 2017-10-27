@@ -110,7 +110,6 @@ NET "DIGIT[0]" DRIVE = 2;
 #NET "NTA_DOUT[0]" LOC = K2;
 #NET "NTB_DIN[0]" LOC = B6;
 #NET "NTB_DOUT[0]" LOC = B2;
-
 #NET "ET_SEL_RX_A" LOC = G20;
 #NET "ET_SEL_RX_A" IOSTANDARD = LVCMOS33;
 #NET "ET_SEL_RX_B" LOC = U20;
@@ -177,7 +176,6 @@ NET "DIGIT[0]" DRIVE = 2;
 #NET "ETA_DOUT[0]" LOC = F21;
 #NET "ETB_DIN[0]" LOC = T21;
 #NET "ETB_DOUT[0]" LOC = P21;
-
 #NET "ST_SEL_RX_A" LOC = AA18;
 #NET "ST_SEL_RX_A" IOSTANDARD = LVCMOS33;
 #NET "ST_SEL_RX_B" LOC = AA6;
@@ -242,7 +240,6 @@ NET "DIGIT[0]" DRIVE = 2;
 #NET "ST_POR" IOSTANDARD = LVCMOS33;
 #NET "ST_DIN[0]" LOC = AA8;
 #NET "ST_DOUT[0]" LOC = AA16;
-
 #NET "SC_SEL_RX_A" LOC = C12;
 #NET "SC_SEL_RX_A" IOSTANDARD = LVCMOS33;
 #NET "SC_SEL_RX_B" LOC = C19;
@@ -309,16 +306,27 @@ NET "SCA_DIN[0]" LOC = B12;
 NET "SCA_DOUT[0]" LOC = B10;
 #NET "SCB_DIN[0]" LOC = A20;
 #NET "SCB_DOUT[0]" LOC = B18;
-
-NET "CLK" CLOCK_DEDICATED_ROUTE = FALSE;
-#PIN "CLK_IBUF_BUFG.O" CLOCK_DEDICATED_ROUTE = FALSE;
-#PIN "i_pll_ctrl/i_pll_adv.DCLK" CLOCK_DEDICATED_ROUTE = FALSE;
-#Created by Constraints Editor (xc6slx75-fgg484-3) - 2017/09/20
-NET "CLK" TNM_NET = "CLK";
-TIMESPEC TS_CLK = PERIOD "CLK" 40 ns HIGH 50 %;
-
-# PlanAhead Generated physical constraints
-
 CONFIG PROHIBIT = PLL_ADV_X0Y0;
 CONFIG PROHIBIT = PLL_ADV_X0Y1;
 CONFIG PROHIBIT = PLL_ADV_X0Y2;
+
+NET "CLK" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "CLK" TNM_NET = CLK;
+TIMESPEC TS_CLK = PERIOD "CLK" 40 ns HIGH 50 %;
+NET "clks" TNM_NET = clks;
+TIMESPEC TS_clks = PERIOD "clks" 2.5 ns HIGH 50 %;
+NET "i_pll_ctrl/CLKF" TNM_NET = i_pll_ctrl/CLKF;
+TIMESPEC TS_i_pll_ctrl_CLKF = PERIOD "i_pll_ctrl/CLKF" TS_clks * 32 HIGH 50%;
+NET "i_pll_ctrl/RSTXS" TIG = TS_CLK;
+NET "i_pll_ctrl/RSTXS" TIG = TS_i_pll_ctrl_CLKF;
+NET "i_pll_ctrl/RSTXS" TIG = TS_clks;
+NET "i_pll_ctrl/rstxs_p1" TIG = TS_CLK;
+NET "i_pll_ctrl/rstxs_p1" TIG = TS_i_pll_ctrl_CLKF;
+NET "i_pll_ctrl/rstxs_p1" TIG = TS_clks;
+NET "i_pll_ctrl/RSTXS_inv" TIG = TS_CLK;
+NET "i_pll_ctrl/RSTXS_inv" TIG = TS_i_pll_ctrl_CLKF;
+NET "i_pll_ctrl/RSTXS_inv" TIG = TS_clks;
+TIMESPEC TS_false_p2f = FROM "CLK" TO "i_pll_ctrl/CLKF" TIG;
+TIMESPEC TS_false_p2s = FROM "CLK" TO "clks" TIG;
+TIMESPEC TS_false_f2p = FROM "i_pll_ctrl/CLKF" TO "CLK" TIG;
+TIMESPEC TS_false_s2p = FROM "clks" TO "CLK" TIG;
