@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/tyam/work/JH_LVDS/clksk2017/0070_xapp1064/sim/run_dir_isim/ddr/tb_top_nto1_ddr_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_top_nto1_ddr" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="2" />
+   <wvobject fp_name="group56" type="group">
+      <obj_property name="label">tb_top_nto1_ddr</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_top_nto1_ddr/refclk_n" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">refclk_n</obj_property>
+         <obj_property name="ObjectShortName">refclk_n</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/clkout_p" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clkout_p</obj_property>
+         <obj_property name="ObjectShortName">clkout_p</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/clkout_n" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clkout_n</obj_property>
+         <obj_property name="ObjectShortName">clkout_n</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/clkout" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clkout</obj_property>
+         <obj_property name="ObjectShortName">clkout</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/dataout_p" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dataout_p[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dataout_p[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/dataout_n" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dataout_n[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dataout_n[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/dataout" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dataout[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dataout[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/dummy_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dummy_out[63:0]</obj_property>
+         <obj_property name="ObjectShortName">dummy_out[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/dummy_outa" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dummy_outa[63:0]</obj_property>
+         <obj_property name="ObjectShortName">dummy_outa[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/reset2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset2</obj_property>
+         <obj_property name="ObjectShortName">reset2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/match" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">match</obj_property>
+         <obj_property name="ObjectShortName">match</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/matcha" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">matcha</obj_property>
+         <obj_property name="ObjectShortName">matcha</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/refclk_p" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">refclk_p</obj_property>
+         <obj_property name="ObjectShortName">refclk_p</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/old" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">old[63:0]</obj_property>
+         <obj_property name="ObjectShortName">old[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/olda" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">olda[63:0]</obj_property>
+         <obj_property name="ObjectShortName">olda[63:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group74" type="group">
+      <obj_property name="label">diff_tx</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/reset" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/rst" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/refclkin_p" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">refclkin_p</obj_property>
+         <obj_property name="ObjectShortName">refclkin_p</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/refclkin_n" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">refclkin_n</obj_property>
+         <obj_property name="ObjectShortName">refclkin_n</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/dataout_p" type="array" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">dataout_p[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dataout_p[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/dataout_n" type="array" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">dataout_n[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dataout_n[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/clkout_p" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">clkout_p</obj_property>
+         <obj_property name="ObjectShortName">clkout_p</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/clkout_n" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">clkout_n</obj_property>
+         <obj_property name="ObjectShortName">clkout_n</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/txioclkp" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">txioclkp</obj_property>
+         <obj_property name="ObjectShortName">txioclkp</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/txioclkn" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">txioclkn</obj_property>
+         <obj_property name="ObjectShortName">txioclkn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/tx_serdesstrobe" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">tx_serdesstrobe</obj_property>
+         <obj_property name="ObjectShortName">tx_serdesstrobe</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/tx_bufg_x1" type="logic" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">tx_bufg_x1</obj_property>
+         <obj_property name="ObjectShortName">tx_bufg_x1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/txd" type="array" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">txd[63:0]</obj_property>
+         <obj_property name="ObjectShortName">txd[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/S" type="array" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">S[31:0]</obj_property>
+         <obj_property name="ObjectShortName">S[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/D" type="array" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">D[31:0]</obj_property>
+         <obj_property name="ObjectShortName">D[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/DS" type="array" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">DS[31:0]</obj_property>
+         <obj_property name="ObjectShortName">DS[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/TX_CLK_GEN" type="array" db_ref_id="1">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">TX_CLK_GEN[7:0]</obj_property>
+         <obj_property name="ObjectShortName">TX_CLK_GEN[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="group91" type="group">
+         <obj_property name="label">inst_dataout</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/inst_dataout/txioclkp" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">txioclkp</obj_property>
+            <obj_property name="ObjectShortName">txioclkp</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/inst_dataout/txioclkn" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">txioclkn</obj_property>
+            <obj_property name="ObjectShortName">txioclkn</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/inst_dataout/txserdesstrobe" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">txserdesstrobe</obj_property>
+            <obj_property name="ObjectShortName">txserdesstrobe</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/inst_dataout/reset" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">reset</obj_property>
+            <obj_property name="ObjectShortName">reset</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/inst_dataout/gclk" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">gclk</obj_property>
+            <obj_property name="ObjectShortName">gclk</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/inst_dataout/datain" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">datain[63:0]</obj_property>
+            <obj_property name="ObjectShortName">datain[63:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/inst_dataout/dataout_p" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">dataout_p[7:0]</obj_property>
+            <obj_property name="ObjectShortName">dataout_p[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_top_nto1_ddr/diff_tx/inst_dataout/dataout_n" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">dataout_n[7:0]</obj_property>
+            <obj_property name="ObjectShortName">dataout_n[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+</wave_config>
