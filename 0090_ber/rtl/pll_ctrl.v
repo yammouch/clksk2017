@@ -1,6 +1,7 @@
 module pll_ctrl (
  input            RSTX,
  input            CLK,
+ input            CLK_PLL_SRC,
  input      [7:0] PLL_ADDR,
  input            PLL_CHG,
  output           RSTXO,
@@ -87,7 +88,7 @@ PLL_ADV #(
  .CLKIN2     (1'b0),
  .CLKINSEL   (1'b1),
  .REL        (1'b0),
- .CLKIN1     (CLK),
+ .CLKIN1     (CLK_PLL_SRC),
  .CLKFBIN    (clkfb),
  .CLKOUT0    (CLKS),
  .CLKOUT1    (),
