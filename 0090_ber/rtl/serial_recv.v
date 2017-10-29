@@ -12,15 +12,19 @@ wire din_se, din_delay;
 IBUFDS #(.DIFF_TERM("TRUE"), .IOSTANDARD("LVDS_33")) i_ibufds (
  .I(DIN[0]), .IB(DIN[1]), .O(din_se) );
 
-IODELAY2 #(.DATA_RATE("DDR")) i_iodelay2(
+IODELAY2 #(
+ .DATA_RATE   ("DDR"),
+ .DELAY_SRC   ("IDATAIN"),
+ .IDELAY_TYPE ("VARIABLE_FROM_ZERO")
+) i_iodelay2(
  .IDATAIN  (din_se),
  .T        (1'b1),
  .ODATAIN  (1'b0),
- .IOCLK1   (1'b0),
+ .IOCLK1   (CLKS),
  .INC      (1'b0),
  .CE       (1'b0),
  .CAL      (PHY_INIT),
- .IOCLK0   (CLKS),
+ .IOCLK0   (!CLKS),
  .CLK      (CLKF),
  .RST      (~RSTXS),
  .DATAOUT  (din_delay),
@@ -32,7 +36,10 @@ IODELAY2 #(.DATA_RATE("DDR")) i_iodelay2(
 
 wire [1:0] ddr;
 
-IDDR2 #(.DDR_ALIGNMENT("C0")) i_iddr2(
+IDDR2 #(
+ .DDR_ALIGNMENT ("C0"),
+ .SRTYPE        ("ASYNC")
+) i_iddr2(
  .D(din_delay),
  .C0 (CLKS),
  .C1 (~CLKS),
