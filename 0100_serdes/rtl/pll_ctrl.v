@@ -45,7 +45,7 @@ pll_drp i_pll_drp(
  .RST_PLL (rst_pll)
 );
 
-wire clkout0;
+wire clkout0, clkout1;
 
 PLL_ADV #(
  .SIM_DEVICE         ("SPARTAN6"),
@@ -94,7 +94,7 @@ PLL_ADV #(
  .CLKIN1     (CLK),
  .CLKFBIN    (clkfb),
  .CLKOUT0    (clkout0),
- .CLKOUT1    (CLKS),
+ .CLKOUT1    (clkout1),
  .CLKOUT2    (),
  .CLKOUT3    (),
  .CLKOUT4    (),
@@ -108,6 +108,8 @@ PLL_ADV #(
  .CLKOUTDCM5 (),
  .CLKFBDCM   ()
 );
+
+BUFG i_bufg(.I(clkout1), .O(CLKS));
 
 BUFPLL #(
  .DIVIDE      (4),
