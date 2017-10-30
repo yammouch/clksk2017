@@ -46,11 +46,11 @@ PLL_ADV #(
  .SIM_DEVICE         ("SPARTAN6"),
  .DIVCLK_DIVIDE      (1),
  .BANDWIDTH          ("LOW"),
- .CLKFBOUT_MULT      (32), 
+ .CLKFBOUT_MULT      (24), 
  .CLKFBOUT_PHASE     (0.0),
  .REF_JITTER         (0.100),
- .CLKIN1_PERIOD      (40.000),
- .CLKIN2_PERIOD      (40.000), 
+ .CLKIN1_PERIOD      (36.000),
+ .CLKIN2_PERIOD      (36.000), 
  .CLKOUT0_DIVIDE     (2),
  .CLKOUT0_DUTY_CYCLE (0.5),
  .CLKOUT0_PHASE      (0.0), 
@@ -111,7 +111,7 @@ always @(posedge CLKS or negedge RSTXO)
 
 reg div2,  div2_d1;
 reg div4,  div4_d1;
-always @(posedge CLKS or negedge RSTXS)
+always @(negedge CLKS or negedge RSTXS)
   if (!RSTXS) begin
     div2_d1  <= 1'b0;
     div4_d1  <= 1'b0;
@@ -119,13 +119,13 @@ always @(posedge CLKS or negedge RSTXS)
     div2_d1  <= div2;
     div4_d1  <= div4;
   end
-always @(posedge CLKS or negedge RSTXS)
+always @(negedge CLKS or negedge RSTXS)
   if (!RSTXS) div2 <= 1'b0;
   else        div2 <= ~div2;
-always @(posedge CLKS or negedge RSTXS)
+always @(negedge CLKS or negedge RSTXS)
   if (!RSTXS)               div4 <= 1'b0;
   else if (div2 & ~div2_d1) div4 <= ~div4;
-always @(posedge CLKS or negedge RSTXS)
+always @(negedge CLKS or negedge RSTXS)
   if (!RSTXS)               CLKF_DATA <= 1'b0;
   else if (div4 & ~div4_d1) CLKF_DATA <= ~CLKF_DATA;
 

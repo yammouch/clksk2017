@@ -307,14 +307,14 @@ NET "SCA_DOUT[0]" LOC = B10;
 #NET "SCB_DIN[0]" LOC = A20;
 #NET "SCB_DOUT[0]" LOC = B18;
 NET "CLK"              TNM_NET = CLK;
-TIMESPEC TS_CLK = PERIOD "CLK"      40 ns HIGH 50 %;
+TIMESPEC TS_CLK = PERIOD "CLK"      36 ns HIGH 50 %;
 #Created by Constraints Editor (xc6slx75-fgg484-3) - 2017/10/29
 NET "clk_div2" TNM_NET = clk_div2;
 TIMESPEC TS_clk_div2 = PERIOD "clk_div2" 80 ns HIGH 50%;
 NET "clks" TNM_NET = clks;
-TIMESPEC TS_clks = PERIOD "clks" TS_CLK / 16 HIGH 50%;
+TIMESPEC TS_clks = PERIOD "clks" TS_CLK / 12 HIGH 50%;
 NET "i_pll_ctrl/CLKF" TNM_NET = i_pll_ctrl/CLKF;
-TIMESPEC TS_i_pll_ctrl_CLKF = PERIOD "i_pll_ctrl/CLKF" TS_clks * 8 HIGH 50%;
+TIMESPEC TS_i_pll_ctrl_CLKF = PERIOD "i_pll_ctrl/CLKF" TS_clks * 8 PHASE 1.5 ns HIGH 50%;
 NET "i_pll_ctrl/RSTXS" TIG = TS_CLK;
 NET "i_pll_ctrl/RSTXS_inv" TIG = TS_CLK;
 NET "i_pll_ctrl/rstxs_p1" TIG = TS_CLK;
