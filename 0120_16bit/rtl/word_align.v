@@ -26,7 +26,7 @@ for (gv = 0; gv < 16; gv = gv+1) begin : sync_mux
 end
 endgenerate
 
-reg [14:0] sync_found;
+reg [15:0] sync_found;
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)                    sync_found <= 15'd0;
   else if (PHY_INIT)            sync_found <= 15'd0;
