@@ -20,7 +20,7 @@ always @(posedge CLKF or negedge RSTXF)
   else        {rstxf_d2, rstxf_d1} <= {rstxf_d1, RSTXF};
 wire clr_int = CLR || !rstxf_d2;
 
-wire phy_init, dopushp, dopullp;
+wire phy_init;
 wire [31:0] doutp;
 parallel_send i_parallel_send (
  .RSTX     (RSTXF),
@@ -29,8 +29,8 @@ parallel_send i_parallel_send (
 
  .PHY_INIT (phy_init),
  .DOUT     (doutp),
- .DOPUSH   (dopushp),
- .DOPULL   (dopullp)
+ .DOPUSH   (),
+ .DOPULL   (1'b1)
 );
 
 serial_send i_serial_send (
