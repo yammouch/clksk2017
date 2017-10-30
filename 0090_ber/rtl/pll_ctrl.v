@@ -1,5 +1,4 @@
 module pll_ctrl (
- input            RSTX,
  input            CLK,
  input            CLK_PLL_SRC,
  input      [7:0] PLL_ADDR,
@@ -12,10 +11,8 @@ module pll_ctrl (
  output reg       RSTXF
 );
 
-reg rstx_d1, rstx_d2;
-always @(posedge CLK or negedge RSTX)
-  if (!RSTX) {rstx_d2, rstx_d1} <= 2'b00;
-  else       {rstx_d2, rstx_d1} <= {rstx_d1, 1'b1};
+reg rstx_d1 = 1'b0, rstx_d2 = 1'b0;
+always @(posedge CLK) {rstx_d2, rstx_d1} <= {rstx_d1, 1'b1};
 
 pulse_extend #(.CBW(4), .RV(1'b1)) i_pex (
  .CYCLE (4'd15),

@@ -2,7 +2,9 @@
 +incdir+../../rtl
 ../common/tb_clk_gen.v
 ../common/glbl.v
+../common/BUFG.v
 ../common/IBUFDS.v
+../common/IBUFG.v
 ../common/IDDR2.v
 ../common/IODELAY2.v
 ../common/OBUFDS.v
