@@ -102,7 +102,6 @@ module lvds_test (
  //input  [1:0] ST_DIN,
  //output [1:0] ST_DOUT,
 
-/*
  output       SC_SEL_RX_A,
  output       SC_SEL_RX_B,
  output       SC_SEL_TX_A,
@@ -128,7 +127,6 @@ module lvds_test (
  output [1:0] SC_TEST_A,
  output [1:0] SC_TEST_B,
  output       SC_POR,
-*/
  input  [1:0] SCA_DIN,
  output [1:0] SCA_DOUT//,
  //input  [1:0] SCB_DIN,
@@ -311,6 +309,7 @@ assign ST_PUDPOL_RX_B = st_ctrl[    5];
 assign ST_TEST_A      = st_ctrl[ 4: 3];
 assign ST_TEST_B      = st_ctrl[ 2: 1];
 assign ST_POR         = st_ctrl[    0];
+*/
 
 assign SC_SEL_RX_A    = sc_ctrl[   30];
 assign SC_SEL_RX_B    = sc_ctrl[   29];
@@ -337,6 +336,5 @@ assign SC_PUDPOL_RX_B = sc_ctrl[    5];
 assign SC_TEST_A      = sc_ctrl[ 4: 3];
 assign SC_TEST_B      = sc_ctrl[ 2: 1];
 assign SC_POR         = sc_ctrl[    0];
-*/
 
 endmodule
