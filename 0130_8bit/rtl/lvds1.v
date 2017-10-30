@@ -21,7 +21,7 @@ always @(posedge CLKF or negedge RSTXF)
 wire clr_int = CLR || !rstxf_d2;
 
 wire phy_init;
-wire [15:0] doutp;
+wire [7:0] doutp;
 parallel_send i_parallel_send (
  .RSTX     (RSTXF),
  .CLK      (CLKF),
@@ -38,15 +38,15 @@ serial_send i_serial_send (
  .CLKF      (CLKF),
  .CLKF_DATA (CLKF_DATA),
  .DIN       ( PATTERN == 2'd0 ? doutp
-            : PATTERN == 2'd1 ? 16'hAAAA
-            : PATTERN == 2'd2 ? 16'd0
-            :                   16'd0 ),
+            : PATTERN == 2'd1 ? 8'hAA
+            : PATTERN == 2'd2 ? 8'd0
+            :                   8'd0 ),
  .RSTXS     (RSTXS),
  .CLKS      (CLKS),
  .DOUT      (DOUT)
 );
 
-wire [15:0] dina;
+wire [7:0] dina;
 serial_recv i_serial_recv (
  .RSTXS     (RSTXS),
  .CLKS      (CLKS),
@@ -57,7 +57,7 @@ serial_recv i_serial_recv (
  .CLKF_DATA (CLKF_DATA)
 );
 
-wire [15:0] dinp;
+wire [7:0] dinp;
 wire dipushp, aligned;
 word_align i_word_align (
  .RSTX     (RSTXF),

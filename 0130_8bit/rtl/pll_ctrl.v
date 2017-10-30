@@ -110,24 +110,18 @@ always @(posedge CLKS or negedge RSTXO)
   else        {RSTXS, rstxs_p1} <= {rstxs_p1, pll_lock};
 
 reg div2,  div2_d1;
-reg div4,  div4_d1;
 always @(posedge CLKS or negedge RSTXS)
   if (!RSTXS) begin
     div2_d1  <= 1'b0;
-    div4_d1  <= 1'b0;
   end else begin
     div2_d1  <= div2;
-    div4_d1  <= div4;
   end
 always @(posedge CLKS or negedge RSTXS)
   if (!RSTXS) div2 <= 1'b0;
   else        div2 <= ~div2;
 always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS)               div4 <= 1'b0;
-  else if (div2 & ~div2_d1) div4 <= ~div4;
-always @(posedge CLKS or negedge RSTXS)
   if (!RSTXS)               CLKF_DATA <= 1'b0;
-  else if (div4 & ~div4_d1) CLKF_DATA <= ~CLKF_DATA;
+  else if (div2 & ~div2_d1) CLKF_DATA <= ~CLKF_DATA;
 
 BUFG i_bufg_clkf(.I(CLKF_DATA), .O(CLKF));
 

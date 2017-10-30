@@ -1,11 +1,11 @@
 module serial_recv (
- input             RSTXS,
- input             CLKS,
- input             CLKF,
- input             CLKF_DATA,
- input             PHY_INIT,
- input      [ 1:0] DIN,
- output reg [15:0] DOUT
+ input            RSTXS,
+ input            CLKS,
+ input            CLKF,
+ input            CLKF_DATA,
+ input            PHY_INIT,
+ input      [1:0] DIN,
+ output reg [7:0] DOUT
 );
 
 wire din_se, din_delay;
@@ -51,8 +51,8 @@ IDDR2 #(
  .Q1 (ddr[1])
 );
 
-reg [15:0] shift;
-always @(posedge CLKS) shift <= {shift[13:0], ddr};
+reg [7:0] shift;
+always @(posedge CLKS) shift <= {shift[5:0], ddr};
 
 reg clkf_d1, clkf_d2;
 always @(posedge CLKS) {clkf_d2, clkf_d1} <= {clkf_d1, CLKF_DATA};

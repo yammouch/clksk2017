@@ -4,7 +4,7 @@ module parallel_recv (
  input             CLR,
  input             ALIGNED,
  input             DIPUSH,
- input      [15:0] DIN,
+ input      [ 7:0] DIN,
  input             INIT,
 
  output reg [63:0] ERR_CNT,
@@ -19,10 +19,10 @@ always @(posedge CLK or negedge RSTX)
   else if (CLR) divalid_d1 <= 1'b0;
   else          divalid_d1 <= divalid;
 
-reg [15:0] din_d1;
+reg [7:0] din_d1;
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)       din_d1 <= 16'd0;
-  else if (CLR)    din_d1 <= 16'd0;
+  if (!RSTX)       din_d1 <= 8'd0;
+  else if (CLR)    din_d1 <= 8'd0;
   else if (DIPUSH) din_d1 <= DIN;
 
 reg [10:0] rcnt;
@@ -39,24 +39,24 @@ always @(posedge CLK or negedge RSTX)
   else if (rcnt_m1)     rcnt <= ~11'd0;
   else                  rcnt <= rcnt - 11'd1;
 
-reg  [15:0] ref_data;
-wire [15:0] ref_data_inc;
+reg  [8:0] ref_data;
+wire [8:0] ref_data_inc;
 lfsr32x2 i_lfsr32x2 (.DIN(ref_data), .DOUT(ref_data_inc));
 
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)                    ref_data <= 16'd0;
-  else if (CLR)                 ref_data <= 16'd0;
+  if (!RSTX)                    ref_data <= 8'd0;
+  else if (CLR)                 ref_data <= 8'd0;
   else if (divalid && !rcnt_m1) ref_data <= ref_data_inc;
 
-reg [3:0] err_word;
+reg [2:0] err_word;
 integer i;
 always @* begin
-  err_word = 4'd0;
-  for (i = 0; i < 16; i = i+1)
+  err_word = 3'd0;
+  for (i = 0; i < 8; i = i+1)
     if (din_d1[i] != ref_data[i]) err_word = err_word + 4'd1;
 end
 
-wire [64:0] sum = ERR_CNT + {61'd0, err_word};
+wire [64:0] sum = ERR_CNT + {62'd0, err_word};
 wire recv = divalid_d1 && !rcnt_m1;
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)        ERR_CNT <= 64'd0;

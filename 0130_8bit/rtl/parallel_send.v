@@ -1,12 +1,12 @@
 module parallel_send (
- input             CLK,
- input             RSTX,
- input             DOPULL,
- input             CLR,
+ input            CLK,
+ input            RSTX,
+ input            DOPULL,
+ input            CLR,
 
- output reg        DOPUSH,
- output reg        PHY_INIT,
- output reg [15:0] DOUT
+ output reg       DOPUSH,
+ output reg       PHY_INIT,
+ output reg [7:0] DOUT
 );
 
 localparam INIT          = 2'd0,
@@ -69,29 +69,29 @@ always @(posedge CLK or negedge RSTX)
                          && 10'd64 < cnt_next
                          && cnt_next < 10'd196;
 
-reg  [15:0] test_data;
-wire [15:0] test_data_inc;
+reg  [7:0] test_data;
+wire [7:0] test_data_inc;
 lfsr32x2 i_lfsr32x2 (.DIN(test_data), .DOUT(test_data_inc));
-wire [15:0] test_data_next = DOPULL && state_next == DATA_TRANSFER
+wire [7:0] test_data_next = DOPULL && state_next == DATA_TRANSFER
                            ? test_data_inc
                            : test_data;
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)    test_data <= 16'd0;
-  else if (CLR) test_data <= 16'd0;
+  if (!RSTX)    test_data <= 8'd0;
+  else if (CLR) test_data <= 8'd0;
   else          test_data <= test_data_next;
 
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)       DOUT <= 16'd0;
-  else if (CLR)    DOUT <= 16'd0;
+  if (!RSTX)       DOUT <= 8'd0;
+  else if (CLR)    DOUT <= 8'd0;
   else
     case (state_next)
     DELAY_ADJUST :
       if (10'd32 < cnt_next && cnt_next < 10'd224)
-                   DOUT <=       16'hAAAA;
-      else         DOUT <=          16'd0;
-    WORD_ALIGN   : DOUT <=       16'hF731;
+                   DOUT <=          8'hAA;
+      else         DOUT <=           8'd0;
+    WORD_ALIGN   : DOUT <=        8'hC993;
     DATA_TRANSFER: DOUT <= test_data_next;
-    default      : DOUT <=          16'd0;
+    default      : DOUT <=           8'd0;
     endcase
 
 endmodule
