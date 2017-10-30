@@ -26,7 +26,7 @@ IODELAY2 #(
  .CE       (1'b0),
  .CAL      (PHY_INIT),
  .IOCLK0   (!CLKS),
- .CLK      (CLKP),
+ .CLK      (CLKF),
  .RST      (~RSTXS),
  .DATAOUT  (din_delay),
  .DATAOUT2 (),
