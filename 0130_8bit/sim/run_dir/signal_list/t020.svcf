@@ -1,0 +1,336 @@
+# SimVision Command Script (Wed Oct 25 11:45:35 AM CEST 2017)
+#
+# Version 14.20.s017
+#
+# You can restore this configuration with:
+#
+#     simvision -input /fstkdata/ux_user/tyam/projects/clksk2017.git/trunk/0090_ber/sim/run_dir/signal_list/t020.svcf
+#  or simvision -input /fstkdata/ux_user/tyam/projects/clksk2017.git/trunk/0090_ber/sim/run_dir/signal_list/t020.svcf database1 database2 ...
+#
+
+
+#
+# Preferences
+#
+preferences set toolbar-Standard-WatchWindow {
+  usual
+  shown 0
+}
+preferences set plugin-enable-svdatabrowser-new 1
+preferences set toolbar-SimControl-WaveWindow {
+  usual
+  position -pos 2
+}
+preferences set toolbar-CursorControl-WaveWindow {
+  usual
+  position -row 1 -pos 2 -anchor e
+}
+preferences set toolbar-Windows-WatchWindow {
+  usual
+  shown 0
+}
+preferences set toolbar-sendToIndago-WaveWindow {
+  usual
+  position -pos 1
+}
+preferences set toolbar-TimeSearch-WaveWindow {
+  usual
+  position -pos 0 -anchor e
+}
+preferences set toolbar-Standard-Console {
+  usual
+  position -pos 1
+}
+preferences set toolbar-Windows-SchematicWindow {
+  usual
+  position -pos 2
+}
+preferences set toolbar-Search-Console {
+  usual
+  position -pos 3
+}
+preferences set toolbar-OperatingMode-WaveWindow {
+  usual
+  position -pos 4
+  name OperatingMode
+}
+preferences set plugin-enable-svdatabrowser 0
+preferences set toolbar-NavSignalList-WaveWindow {
+  usual
+  position -pos 1 -anchor e
+}
+preferences set toolbar-txe_waveform_toggle-WaveWindow {
+  usual
+  position -pos 0
+}
+preferences set toolbar-Standard-WaveWindow {
+  usual
+  position -pos 5
+}
+preferences set plugin-enable-groupscope 0
+preferences set sb-display-values 1
+preferences set plugin-enable-interleaveandcompare 0
+preferences set plugin-enable-waveformfrequencyplot 0
+preferences set toolbar-SimControl-WatchWindow {
+  usual
+  shown 0
+}
+preferences set toolbar-Windows-WaveWindow {
+  usual
+  position -pos 2
+}
+preferences set toolbar-WaveZoom-WaveWindow {
+  usual
+  position -row 0 -pos 3 -anchor w
+}
+preferences set whats-new-dont-show-at-startup 1
+preferences set toolbar-TimeSearch-WatchWindow {
+  usual
+  shown 0
+}
+
+#
+# Databases
+#
+array set dbNames ""
+set dbNames(realName1) [ database require t020 -hints {
+	file ./result/t020.shm/t020.trn
+	file /fstkdata/ux_user/tyam/projects/clksk2017.git/trunk/0090_ber/sim/run_dir/result/t020.shm/t020.trn
+}]
+if {$dbNames(realName1) == ""} {
+    set dbNames(realName1) t020
+}
+
+#
+# Mnemonic Maps
+#
+mmap new -reuse -name {Boolean as Logic} -radix %b -contents {{%c=FALSE -edgepriority 1 -shape low}
+{%c=TRUE -edgepriority 1 -shape high}}
+mmap new -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor orange -label REG:%x -linecolor yellow -shape bus}
+{%x=1F -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=2C -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=* -label %x -linecolor gray -shape bus}}
+
+#
+# Waveform windows
+#
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 919x686+905+42}] != ""} {
+    window geometry "Waveform 1" 919x686+905+42
+}
+window target "Waveform 1" on
+waveform using {Waveform 1}
+waveform sidebar visibility partial
+waveform set \
+    -primarycursor TimeA \
+    -signalnames path \
+    -signalwidth 357 \
+    -units ms \
+    -valuewidth 75
+waveform baseline set -time 218,250,000ps
+
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.rstx_d1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.rstx_d2}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.i_pex.DIN}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.i_pex.DOUT}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_button_ctrl.CNT1[7:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_button_ctrl.CNT2[7:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.CLK}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.phy_init}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.CLKS}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.CLKF}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.RSTXF}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.RSTXO}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_pll_ctrl.RSTXS}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.CLR}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_send.DOUT[63:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_recv.ALIGNED}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_recv.DIPUSH}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.p_cnt[1:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.p_cnt_next[1:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.state[2:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.START}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_recv.RECV_CNT[57:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_stimulus.i_lvds_sca.i_parallel_recv.ERR_CNT[63:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_mult.start}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.end10}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.endexp}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_mult.mcand[3:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_mult.mlier[63:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_mult.prod[67:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div.START}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div.DIVIDEND[63:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div.DIVISOR[63:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div.QUOT[63:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div.REM[63:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div10.START}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div10.DIVIDEND[6:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div10.DIVISOR[3:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div10.QUOT[6:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_div10.REM[3:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_divexp.START}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_divexp.DIVIDEND[4:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_divexp.DIVISOR[3:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_divexp.QUOT[4:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_ber_7seg.i_divexp.REM[3:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.dig_m[13:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.dig_s[13:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.dig_ber[27:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.digmux[27:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.p_cnt[1:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.i_cnt_down_s.CNT[24:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dig_ber3[3:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dig_ber2[3:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dig_ber1[3:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dig_ber0[3:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dig_m1[3:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dig_m0[3:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dig_s1[3:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dig_s0[3:0]}]}
+	} ]]
+
+waveform xview limits 0 1.0639ms
+
+#
+# Waveform Window Links
+#
+
+#
+# Console windows
+#
+console set -windowname Console
+window geometry Console 600x250+50+25
+
+#
+# Layout selection
+#
+
