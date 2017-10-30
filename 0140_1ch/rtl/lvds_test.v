@@ -1,6 +1,5 @@
 module lvds_test (
  input        CLK,
- input        RSTX,
  input        BTN_1,
  input        BTN_2,
  input        BTN_3,
@@ -51,7 +50,6 @@ wire rstxo;
 wire serdesstrobe;
 
 pll_ctrl i_pll_ctrl (
- .RSTX         (RSTX),
  .CLK          (clk_bufg),
  .CLK_PLL_SRC  (clk_ibufg),
  .PLL_ADDR     (pll_addr),
