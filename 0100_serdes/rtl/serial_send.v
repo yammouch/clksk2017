@@ -4,26 +4,22 @@ module serial_send (
  input         CLKS,
  input         CLKSS,
  input         CLKF,
+ input         CLKF_DATA,
  input         SERDESSTROBE,
- input  [63:0] DIN,
+ input  [15:0] DIN,
  output [ 1:0] DOUT
 );
 
-reg [63:0] din_d1;
-always @(posedge CLKF or negedge RSTXF)
-  if (!RSTXF) din_d1 <= 64'd0;
-  else        din_d1 <= DIN;
+reg [15:0] din_d1 = 16'd0;
+always @(posedge CLKF) din_d1 <= DIN;
 
-reg clkf_d1, clkf_d2;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS) {clkf_d2, clkf_d1} <= 2'b00;
-  else        {clkf_d2, clkf_d1} <= {clkf_d1, CLKF};
+reg clkf_d1 = 1'b0, clkf_d2 = 1'b0;
+always @(posedge CLKS) {clkf_d2, clkf_d1} <= {clkf_d1, CLKF_DATA};
 
-reg [63:0] shift;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS) shift <= 64'd0;
-  else if (!clkf_d1 && clkf_d2) shift <= din_d1;
-  else                          shift <= {shift[59:0], 4'd0};
+reg [15:0] shift = 16'd0;
+always @(posedge CLKS)
+  if (!clkf_d1 && clkf_d2) shift <= din_d1;
+  else                     shift <= {shift[11:0], 4'd0};
 
 wire ddr;
 OSERDES2 #(
@@ -38,10 +34,10 @@ OSERDES2 #(
  .CLK1      (1'b0),
  .CLKDIV    (CLKS),
  .IOCE      (SERDESSTROBE),
- .D1        (shift[63]),
- .D2        (shift[62]),
- .D3        (shift[61]),
- .D4        (shift[60]),
+ .D1        (shift[15]),
+ .D2        (shift[14]),
+ .D3        (shift[13]),
+ .D4        (shift[12]),
  .OCE       (1'b1),
  .RST       (!RSTXS),
  .T1        (1'b0),

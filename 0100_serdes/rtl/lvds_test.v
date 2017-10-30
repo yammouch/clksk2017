@@ -135,17 +135,24 @@ module lvds_test (
  //output [1:0] SCB_DOUT
 );
 
+wire clk_ibufg, clk_bufg;
+reg clk_div2 = 1'b0;
+
+IBUFG i_ibufg(.I(CLK), .O(clk_ibufg));
+always @(posedge clk_ibufg) clk_div2 <= !clk_div2;
+BUFG i_bufg(.I(clk_div2), .O(clk_bufg));
 
 wire [7:0] pll_addr;
 wire pll_chg;
 wire rstxs, clks, clkss;
-wire rstxf, clkf;
+wire rstxf, clkf, clkf_data;
 wire rstxo;
 wire serdesstrobe;
 
 pll_ctrl i_pll_ctrl (
  .RSTX         (RSTX),
- .CLK          (CLK),
+ .CLK          (clk_bufg),
+ .CLK_PLL_SRC  (clk_ibufg),
  .PLL_ADDR     (pll_addr),
  .PLL_CHG      (pll_chg),
  .RSTXS        (rstxs),
@@ -153,6 +160,7 @@ pll_ctrl i_pll_ctrl (
  .CLKSS        (clkss),
  .RSTXF        (rstxf),
  .CLKF         (clkf),
+ .CLKF_DATA    (clkf_data),
  .RSTXO        (rstxo),
  .SERDESSTROBE (serdesstrobe)
 );
@@ -163,7 +171,7 @@ wire [7:0] main_mode, sub_mode;
 wire clr_seq;
 button_ctrl i_button_ctrl (
  .RSTX     (rstxo),
- .CLK      (CLK),
+ .CLK      (clk_bufg),
  .BTN_1    (BTN_1),
  .BTN_2    (BTN_2),
  .BTN_3    (BTN_3),
@@ -179,7 +187,7 @@ wire [63:0] err_cnt;
 
 handle_7seg i_handle_7seg (
  .RSTX      (rstxo),
- .CLK       (CLK),
+ .CLK       (clk_bufg),
  .MAIN_MODE (main_mode),
  .SUB_MODE  (sub_mode),
  .RECV_CNT  (recv_cnt),
@@ -192,12 +200,13 @@ wire [30:0] nt_ctrl, et_ctrl, st_ctrl, sc_ctrl;
 
 stimulus i_stimulus (
  .RSTX         (rstxo),
- .CLK          (CLK),
+ .CLK          (clk_bufg),
  .RSTXS        (rstxs),
  .CLKS         (clks),
  .CLKSS        (clkss),
  .RSTXF        (rstxf),
  .CLKF         (clkf),
+ .CLKF_DATA    (clkf_data),
  .CLR          (clr_seq),
  .SERDESSTROBE (serdesstrobe),
  .MAIN_MODE    (main_mode),

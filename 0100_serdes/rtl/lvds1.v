@@ -4,8 +4,7 @@ module lvds1 (
  input         CLKSS,
  input         RSTXF,
  input         CLKF,
- input         RSTXP,
- input         CLKP,
+ input         CLKF_DATA,
  input         CLR,
  input         SERDESSTROBE,
  input         INV,
@@ -18,46 +17,32 @@ module lvds1 (
 );
 
 reg rstxf_d1, rstxf_d2;
-always @(posedge CLKP or negedge RSTXP)
-  if (!RSTXP) {rstxf_d2, rstxf_d1} <= 2'b00;
+always @(posedge CLKF or negedge RSTXF)
+  if (!RSTXF) {rstxf_d2, rstxf_d1} <= 2'b00;
   else        {rstxf_d2, rstxf_d1} <= {rstxf_d1, RSTXF};
 wire clr_int = CLR || !rstxf_d2;
 
-wire phy_init, dopushp, dopullp;
-wire [63:0] doutp;
+wire phy_init;
+wire [15:0] doutp;
 parallel_send i_parallel_send (
- .RSTX     (RSTXP),
- .CLK      (CLKP),
+ .RSTX     (RSTXF),
+ .CLK      (CLKF),
  .CLR      (clr_int),
 
  .PHY_INIT (phy_init),
  .DOUT     (doutp),
- .DOPUSH   (dopushp),
- .DOPULL   (dopullp)
-);
-
-wire [63:0] doutf;
-fifo_async #(.BW(64)) i_fifo_send (
- .RSTX_DI (RSTXP),
- .CLKDI   (CLKP),
- .DIN     ( PATTERN == 2'd0 ? doutp
-          : PATTERN == 2'd1 ? 64'hAAAA_AAAA_AAAA_AAAA
-          : PATTERN == 2'd2 ? 64'd0
-          :                   64'd0 ),
- .DIPUSH  (dopushp),
- .DIPULL  (dopullp),
-
- .RSTX_DO (RSTXF),
- .CLKDO   (CLKF),
- .DOUT    (doutf),
- .DOPUSH  (),
- .DOPULL  (1'b1)
+ .DOPUSH   (),
+ .DOPULL   (1'b1)
 );
 
 serial_send i_serial_send (
  .RSTXF        (RSTXF),
  .CLKF         (CLKF),
- .DIN          (doutf),
+ .CLKF_DATA    (CLKF_DATA),
+ .DIN          ( PATTERN == 2'd0 ? doutp
+               : PATTERN == 2'd1 ? 16'hAAAA
+               : PATTERN == 2'd2 ? 16'd0
+               :                   16'd0 ),
  .SERDESSTROBE (SERDESSTROBE),
 
  .RSTXS        (RSTXS),
@@ -66,7 +51,7 @@ serial_send i_serial_send (
  .DOUT         (DOUT)
 );
 
-wire [63:0] dinf;
+wire [15:0] dina;
 serial_recv i_serial_recv (
  .RSTXS        (RSTXS),
  .CLKS         (CLKS),
@@ -74,34 +59,19 @@ serial_recv i_serial_recv (
  .PHY_INIT     (phy_init),
  .SERDESSTROBE (SERDESSTROBE),
  .DIN          (DIN),
- .DOUT         (dinf),
- .CLKF         (CLKF)
+ .DOUT         (dina),
+ .CLKF         (CLKF),
+ .CLKF_DATA    (CLKF_DATA)
 );
 
-wire [63:0] dina;
-wire dipusha;
-fifo_async #(.BW(64)) i_fifo_recv (
- .RSTX_DI (RSTXF),
- .CLKDI   (CLKF),
- .DIN     (dinf),
- .DIPUSH  (1'b1),
- .DIPULL  (),
-
- .RSTX_DO (RSTXP),
- .CLKDO   (CLKP),
- .DOUT    (dina),
- .DOPUSH  (dipusha),
- .DOPULL  (1'b1)
-);
-
-wire [63:0] dinp;
+wire [15:0] dinp;
 wire dipushp, aligned;
 word_align i_word_align (
- .RSTX     (RSTXP),
- .CLK      (CLKP),
+ .RSTX     (RSTXF),
+ .CLK      (CLKF),
  .PHY_INIT (phy_init),
  .DIN      (INV ? ~dina : dina),
- .DIPUSH   (dipusha),
+ .DIPUSH   (1'b1),
 
  .DOUT     (dinp),
  .DOPUSH   (dipushp),
@@ -109,8 +79,8 @@ word_align i_word_align (
 );
 
 parallel_recv i_parallel_recv (
- .RSTX     (RSTXP),
- .CLK      (CLKP),
+ .RSTX     (RSTXF),
+ .CLK      (CLKF),
  .INIT     (phy_init),
  .DIN      (dinp),
  .DIPUSH   (dipushp),

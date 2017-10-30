@@ -1,6 +1,7 @@
 module pll_ctrl (
  input            RSTX,
  input            CLK,
+ input            CLK_PLL_SRC,
  input      [7:0] PLL_ADDR,
  input            PLL_CHG,
  output           RSTXO,
@@ -8,6 +9,7 @@ module pll_ctrl (
  output           CLKSS,
  output reg       RSTXS,
  output           CLKF,
+ output reg       CLKF_DATA,
  output reg       RSTXF,
  output           SERDESSTROBE
 );
@@ -51,11 +53,11 @@ PLL_ADV #(
  .SIM_DEVICE         ("SPARTAN6"),
  .DIVCLK_DIVIDE      (1),
  .BANDWIDTH          ("LOW"),
- .CLKFBOUT_MULT      (32), 
+ .CLKFBOUT_MULT      (24), 
  .CLKFBOUT_PHASE     (0.0),
  .REF_JITTER         (0.100),
- .CLKIN1_PERIOD      (40.000),
- .CLKIN2_PERIOD      (40.000), 
+ .CLKIN1_PERIOD      (36.000),
+ .CLKIN2_PERIOD      (36.000), 
  .CLKOUT0_DIVIDE     (1),
  .CLKOUT0_DUTY_CYCLE (0.5),
  .CLKOUT0_PHASE      (0.0), 
@@ -91,7 +93,7 @@ PLL_ADV #(
  .CLKIN2     (1'b0),
  .CLKINSEL   (1'b1),
  .REL        (1'b0),
- .CLKIN1     (CLK),
+ .CLKIN1     (CLK_PLL_SRC),
  .CLKFBIN    (clkfb),
  .CLKOUT0    (clkout0),
  .CLKOUT1    (clkout1),
@@ -129,37 +131,19 @@ always @(posedge CLKS or negedge RSTXO)
   else        {RSTXS, rstxs_p1} <= {rstxs_p1, pll_lock};
 
 reg div2,  div2_d1;
-reg div4,  div4_d1;
-reg div8,  div8_d1;
-reg div16, div16_d1;
-always @(posedge CLKS or negedge RSTXS)
+always @(negedge CLKS or negedge RSTXS)
   if (!RSTXS) begin
     div2_d1  <= 1'b0;
-    div4_d1  <= 1'b0;
-    div8_d1  <= 1'b0;
-    div16_d1 <= 1'b0;
   end else begin
     div2_d1  <= div2;
-    div4_d1  <= div4;
-    div8_d1  <= div8;
-    div16_d1 <= div16;
   end
-always @(posedge CLKS or negedge RSTXS)
+always @(negedge CLKS or negedge RSTXS)
   if (!RSTXS) div2 <= 1'b0;
   else        div2 <= ~div2;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS)               div4 <= 1'b0;
-  else if (div2 & ~div2_d1) div4 <= ~div4;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS)               div8 <= 1'b0;
-  else if (div4 & ~div4_d1) div8 <= ~div8;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS)               div16 <= 1'b0;
-  else if (div8 & ~div8_d1) div16 <= ~div16;
-//always @(posedge CLKS or negedge RSTXS)
-//  if (!RSTXS)                 CLKF <= 1'b0;
-//  else if (div16 & ~div16_d1) CLKF <= ~CLKF;
-assign CLKF = div16;
+always @(negedge CLKS or negedge RSTXS)
+  if (!RSTXS)               CLKF_DATA <= 1'b0;
+  else if (div2 & ~div2_d1) CLKF_DATA <= ~CLKF_DATA;
+BUFG i_bufg_clkf(.I(CLKF_DATA), .O(CLKF));
 
 reg rstxf_p1;
 always @(posedge CLKF or negedge RSTXO)
