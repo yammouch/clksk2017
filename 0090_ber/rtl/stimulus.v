@@ -3,6 +3,7 @@ module stimulus (
  input             CLK,
  input             RSTXF,
  input             CLKF,
+ input             CLKF_DATA,
  input             RSTXS,
  input             CLKS,
  input             CLR,
@@ -412,19 +413,20 @@ lvds1_empty i_lvds_st (
 );
 
 lvds1 i_lvds_sca (
- .RSTXS    (RSTXS),
- .CLKS     (CLKS),
- .RSTXF    (RSTXF),
- .CLKF     (CLKF),
- .RSTXP    (RSTX),
- .CLKP     (CLK),
- .CLR      (CLR || !table_dout[5]),
- .PATTERN  (table_dout[12:11]),
- .INV      (1'b0),
- .DIN      (SCA_DIN),
- .RECV_CNT (recv_cnt_sca),
- .ERR_CNT  (err_cnt_sca),
- .DOUT     (SCA_DOUT)
+ .RSTXS     (RSTXS),
+ .CLKS      (CLKS),
+ .RSTXF     (RSTXF),
+ .CLKF      (CLKF),
+ .CLKF_DATA (CLKF_DATA),
+ .RSTXP     (RSTX),
+ .CLKP      (CLK),
+ .CLR       (CLR || !table_dout[5]),
+ .PATTERN   (table_dout[12:11]),
+ .INV       (1'b0),
+ .DIN       (SCA_DIN),
+ .RECV_CNT  (recv_cnt_sca),
+ .ERR_CNT   (err_cnt_sca),
+ .DOUT      (SCA_DOUT)
 );
 
 //lvds1 i_lvds_scb (

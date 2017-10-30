@@ -143,7 +143,7 @@ BUFG i_bufg(.I(clk_div2), .O(clk_bufg));
 wire [7:0] pll_addr;
 wire pll_chg;
 wire rstxs, clks;
-wire rstxf, clkf;
+wire rstxf, clkf, clkf_data;
 wire rstxo;
 
 pll_ctrl i_pll_ctrl (
@@ -156,6 +156,7 @@ pll_ctrl i_pll_ctrl (
  .CLKS        (clks),
  .RSTXF       (rstxf),
  .CLKF        (clkf),
+ .CLKF_DATA   (clkf_data),
  .RSTXO       (rstxo)
 );
 
@@ -199,6 +200,7 @@ stimulus i_stimulus (
  .CLKS      (clks),
  .RSTXF     (rstxf),
  .CLKF      (clkf),
+ .CLKF_DATA (clkf_data),
  .CLR       (clr_seq),
  .MAIN_MODE (main_mode),
  .SUB_MODE  (sub_mode),

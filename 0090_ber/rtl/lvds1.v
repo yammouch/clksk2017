@@ -3,6 +3,7 @@ module lvds1 (
  input         CLKS,
  input         RSTXF,
  input         CLKF,
+ input         CLKF_DATA,
  input         RSTXP,
  input         CLKP,
  input         CLR,
@@ -53,23 +54,26 @@ fifo_async #(.BW(64)) i_fifo_send (
 );
 
 serial_send i_serial_send (
- .RSTXF (RSTXF),
- .CLKF  (CLKF),
- .DIN   (doutf),
+ .RSTXF     (RSTXF),
+ .CLKF      (CLKF),
+ .CLKF_DATA (CLKF_DATA),
+ .DIN       (doutf),
 
- .RSTXS (RSTXS),
- .CLKS  (CLKS),
- .DOUT  (DOUT)
+ .RSTXS     (RSTXS),
+ .CLKS      (CLKS),
+ .DOUT      (DOUT)
 );
 
 wire [63:0] dinf;
 serial_recv i_serial_recv (
- .RSTXS    (RSTXS),
- .CLKS     (CLKS),
- .PHY_INIT (phy_init),
- .DIN      (DIN),
- .DOUT     (dinf),
- .CLKF     (CLKF)
+ .RSTXS     (RSTXS),
+ .CLKS      (CLKS),
+ .PHY_INIT  (phy_init),
+ .DIN       (DIN),
+ .DOUT      (dinf),
+ .CLKF      (CLKF),
+ .CLKF_DATA (CLKF_DATA),
+ .CLKP      (CLKP)
 );
 
 wire [63:0] dina;

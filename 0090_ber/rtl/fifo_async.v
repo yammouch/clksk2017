@@ -14,7 +14,7 @@ module fifo_async #(parameter BW = 32) (
 
 reg [BW-1:0] din_d1;
 reg          dipush_d1;
-always @(posedge CLKDI or negedge RSTX_DI)
+always @(posedge CLKDI)
   if (!RSTX_DI) begin
     din_d1    <= {(BW){1'b0}};
     dipush_d1 <= 1'b0;
@@ -26,11 +26,11 @@ reg [5:0] din_cnt, din_cnt_next;
 always @(*)
   if (dipush_d1) din_cnt_next = din_cnt + 6'd1;
   else           din_cnt_next = din_cnt;
-always @(posedge CLKDI or negedge RSTX_DI)
+always @(posedge CLKDI)
   if (!RSTX_DI) din_cnt <= 6'd0;
   else       din_cnt <= din_cnt_next;
 reg [5:0] din_cnt_gray, din_cnt_gray_d1, din_cnt_gray_d2;
-always @(posedge CLKDI or negedge RSTX_DI)
+always @(posedge CLKDI)
   if (!RSTX_DI) begin
     din_cnt_gray    <= 6'd0;
     din_cnt_gray_d1 <= 6'd0;
@@ -51,7 +51,7 @@ reg data_read;
 reg [5:0] dout_cnt;
 wire [5:0] dout_cnt_next = data_read ? dout_cnt + 6'd1 : dout_cnt;
 wire [5:0] fifo_level = din_cnt_d2 - dout_cnt_next;
-always @(posedge CLKDO or negedge RSTX_DO)
+always @(posedge CLKDO)
   if (!RSTX_DO) begin
     data_read <= 1'b0;
     DOPUSH    <= 1'b0;
@@ -59,14 +59,14 @@ always @(posedge CLKDO or negedge RSTX_DO)
     data_read <= DOPULL && 6'd0 < fifo_level;
     DOPUSH    <= data_read;
   end
-always @(posedge CLKDO or negedge RSTX_DO)
+always @(posedge CLKDO)
   if (!RSTX_DO)       dout_cnt <= 6'd0;
   else if (data_read) dout_cnt <= dout_cnt_next;
 reg dipull_p2, dipull_p1;
-always @(posedge CLKDO or negedge RSTX_DO)
+always @(posedge CLKDO)
   if (!RSTX_DO) dipull_p2 <= 1'b1;
   else          dipull_p2 <= fifo_level < 6'd8;
-always @(posedge CLKDI or negedge RSTX_DI)
+always @(posedge CLKDI)
   if (!RSTX_DI) begin
     dipull_p1 <= 1'b1;
     DIPULL    <= 1'b1;

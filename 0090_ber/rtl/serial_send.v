@@ -3,25 +3,21 @@ module serial_send (
  input         RSTXF,
  input         CLKS,
  input         CLKF,
+ input         CLKF_DATA,
  input  [63:0] DIN,
  output [ 1:0] DOUT
 );
 
 reg [63:0] din_d1;
-always @(posedge CLKF or negedge RSTXF)
-  if (!RSTXF) din_d1 <= 64'd0;
-  else        din_d1 <= DIN;
+always @(posedge CLKF) din_d1 <= DIN;
 
 reg clkf_d1, clkf_d2;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS) {clkf_d2, clkf_d1} <= 2'b00;
-  else        {clkf_d2, clkf_d1} <= {clkf_d1, CLKF};
+always @(posedge CLKS) {clkf_d2, clkf_d1} <= {clkf_d1, CLKF_DATA};
 
 reg [63:0] shift;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS) shift <= 64'd0;
-  else if (!clkf_d1 && clkf_d2) shift <= din_d1;
-  else                          shift <= {shift[61:0], 2'd0};
+always @(posedge CLKS)
+  if (!clkf_d1 && clkf_d2) shift <= din_d1;
+  else                     shift <= {shift[61:0], 2'd0};
 
 wire ddr;
 ODDR2 #(

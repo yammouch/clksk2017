@@ -2,6 +2,8 @@ module serial_recv (
  input             RSTXS,
  input             CLKS,
  input             CLKF,
+ input             CLKF_DATA,
+ input             CLKP,
  input             PHY_INIT,
  input      [ 1:0] DIN,
  output reg [63:0] DOUT
@@ -25,7 +27,7 @@ IODELAY2 #(
  .CE       (1'b0),
  .CAL      (PHY_INIT),
  .IOCLK0   (!CLKS),
- .CLK      (CLKF),
+ .CLK      (CLKP),
  .RST      (~RSTXS),
  .DATAOUT  (din_delay),
  .DATAOUT2 (),
@@ -51,17 +53,11 @@ IDDR2 #(
 );
 
 reg [63:0] shift;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS) shift <= 64'd0;
-  else        shift <= {shift[61:0], ddr};
+always @(posedge CLKS) shift <= {shift[61:0], ddr};
 
 reg clkf_d1, clkf_d2;
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS) {clkf_d2, clkf_d1} <= 2'b00;
-  else        {clkf_d2, clkf_d1} <= {clkf_d1, CLKF};
+always @(posedge CLKS) {clkf_d2, clkf_d1} <= {clkf_d1, CLKF_DATA};
 
-always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS)                   DOUT <= 64'd0;
-  else if (!clkf_d1 && clkf_d2) DOUT <= shift;
+always @(posedge CLKS) if (!clkf_d1 && clkf_d2) DOUT <= shift;
 
 endmodule

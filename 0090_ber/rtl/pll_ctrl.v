@@ -7,7 +7,8 @@ module pll_ctrl (
  output           RSTXO,
  output           CLKS,
  output reg       RSTXS,
- output reg       CLKF,
+ output           CLKF,
+ output reg       CLKF_DATA,
  output reg       RSTXF
 );
 
@@ -140,8 +141,10 @@ always @(posedge CLKS or negedge RSTXS)
   if (!RSTXS)               div16 <= 1'b0;
   else if (div8 & ~div8_d1) div16 <= ~div16;
 always @(posedge CLKS or negedge RSTXS)
-  if (!RSTXS)                 CLKF <= 1'b0;
-  else if (div16 & ~div16_d1) CLKF <= ~CLKF;
+  if (!RSTXS)                 CLKF_DATA <= 1'b0;
+  else if (div16 & ~div16_d1) CLKF_DATA <= ~CLKF_DATA;
+
+BUFG i_bufg_clkf(.I(CLKF_DATA), .O(CLKF));
 
 reg rstxf_p1;
 always @(posedge CLKF or negedge RSTXO)
