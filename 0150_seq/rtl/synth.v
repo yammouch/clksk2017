@@ -9,7 +9,6 @@ seq #(
  .BW_SEQ        (3'd6),
  .SEQ_CNT       (3'd5),
  .BW_SEQ_CNT    (2'd3),
- .BW_BW_SEQ_CNT (2'd2),
  .RV            (6'b000001),
  .BW_TIMEOUT    (2'd3)
 ) i_seq (
