@@ -18,7 +18,7 @@ end
 endtask
 
 function [29:0] ctrl_signal_exp(input [7:0] i);
-case (ctrl_signal_exp)
+case (i)
 8'd9   : ctrl_signal_exp = 30'b0000_00_1111_11_0000_00_0000_0000_0000;
 8'd10  : ctrl_signal_exp = 30'b0111_01_0000_11_0000_00_0000_0000_0000;
 8'd11  : ctrl_signal_exp = 30'b0111_01_0000_11_0000_00_0000_0000_0000;
