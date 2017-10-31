@@ -44,9 +44,9 @@ wire [15:0] ref_data_inc;
 lfsr32x2 i_lfsr32x2 (.DIN(ref_data), .DOUT(ref_data_inc));
 
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)                    ref_data <= 16'd0;
-  else if (CLR)                 ref_data <= 16'd0;
-  else if (divalid && !rcnt_m1) ref_data <= ref_data_inc;
+  if (!RSTX)                       ref_data <= 16'h0001;
+  else if (CLR)                    ref_data <= 16'h0001;
+  else if (divalid_d1 && !rcnt_m1) ref_data <= ref_data_inc;
 
 reg [3:0] err_word;
 integer i;

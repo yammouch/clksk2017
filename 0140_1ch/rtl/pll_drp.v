@@ -125,7 +125,7 @@ module pll_drp (
      S1_DIVCLK_DIVIDE  = 1;
      S1_CLKOUT0_PHASE  = 0;
      S1_CLKOUT0_DUTY   = 50000;
-     S1_CLKOUT1_DIVIDE = 128;
+     S1_CLKOUT1_DIVIDE = S1_CLKOUT0_DIVIDE * 4;
      S1_CLKOUT1_PHASE  = 0;
      S1_CLKOUT1_DUTY   = 50000;
      S1_CLKOUT2_DIVIDE = 128;
@@ -258,27 +258,27 @@ module pll_drp (
    // Output the initialized rom value based on rom_addr each clock cycle
    always @(posedge SCLK) begin
       case (SADDR) // 2nd arg: multiplier, 3rd arg: divisor, src: 25 MHz
-      8'd1   : rom_do <= #TCQ pll_encode(rom_addr, 32, 32); //  25 MHz
-      8'd2   : rom_do <= #TCQ pll_encode(rom_addr, 32, 16); //  50 MHz
-      8'd3   : rom_do <= #TCQ pll_encode(rom_addr, 24,  8); //  75 MHz
-      8'd4   : rom_do <= #TCQ pll_encode(rom_addr, 32,  8); // 100 MHz
-      8'd5   : rom_do <= #TCQ pll_encode(rom_addr, 20,  4); // 125 MHz
-      8'd6   : rom_do <= #TCQ pll_encode(rom_addr, 24,  4); // 150 MHz
-      8'd7   : rom_do <= #TCQ pll_encode(rom_addr, 28,  4); // 175 MHz
-      8'd8   : rom_do <= #TCQ pll_encode(rom_addr, 32,  4); // 200 MHz
-      8'd9   : rom_do <= #TCQ pll_encode(rom_addr, 36,  4); // 225 MHz
-      8'd10  : rom_do <= #TCQ pll_encode(rom_addr, 20,  2); // 250 MHz
-      8'd11  : rom_do <= #TCQ pll_encode(rom_addr, 22,  2); // 275 MHz
-      8'd12  : rom_do <= #TCQ pll_encode(rom_addr, 24,  2); // 300 MHz
-      8'd13  : rom_do <= #TCQ pll_encode(rom_addr, 26,  2); // 325 MHz
-      8'd14  : rom_do <= #TCQ pll_encode(rom_addr, 28,  2); // 350 MHz
-      8'd15  : rom_do <= #TCQ pll_encode(rom_addr, 30,  2); // 375 MHz
-      8'd16  : rom_do <= #TCQ pll_encode(rom_addr, 32,  2); // 400 MHz
-      8'd17  : rom_do <= #TCQ pll_encode(rom_addr, 34,  2); // 425 MHz
-      8'd18  : rom_do <= #TCQ pll_encode(rom_addr, 36,  2); // 450 MHz
-      8'd19  : rom_do <= #TCQ pll_encode(rom_addr, 38,  2); // 475 MHz
-      8'd20  : rom_do <= #TCQ pll_encode(rom_addr, 40,  2); // 500 MHz
-      default: rom_do <= #TCQ pll_encode(rom_addr, 32, 32); //  25 MHz
+      8'd1   : rom_do <= #TCQ pll_encode(rom_addr, 32, 16); //  50 MHz
+      8'd2   : rom_do <= #TCQ pll_encode(rom_addr, 32,  8); // 100 MHz
+      8'd3   : rom_do <= #TCQ pll_encode(rom_addr, 24,  4); // 150 MHz
+      8'd4   : rom_do <= #TCQ pll_encode(rom_addr, 32,  4); // 200 MHz
+      8'd5   : rom_do <= #TCQ pll_encode(rom_addr, 20,  2); // 250 MHz
+      8'd6   : rom_do <= #TCQ pll_encode(rom_addr, 24,  2); // 300 MHz
+      8'd7   : rom_do <= #TCQ pll_encode(rom_addr, 28,  2); // 350 MHz
+      8'd8   : rom_do <= #TCQ pll_encode(rom_addr, 32,  2); // 400 MHz
+      8'd9   : rom_do <= #TCQ pll_encode(rom_addr, 36,  2); // 450 MHz
+      8'd10  : rom_do <= #TCQ pll_encode(rom_addr, 20,  1); // 500 MHz
+      8'd11  : rom_do <= #TCQ pll_encode(rom_addr, 22,  1); // 550 MHz
+      8'd12  : rom_do <= #TCQ pll_encode(rom_addr, 24,  1); // 600 MHz
+      8'd13  : rom_do <= #TCQ pll_encode(rom_addr, 26,  1); // 650 MHz
+      8'd14  : rom_do <= #TCQ pll_encode(rom_addr, 28,  1); // 700 MHz
+      8'd15  : rom_do <= #TCQ pll_encode(rom_addr, 30,  1); // 750 MHz
+      8'd16  : rom_do <= #TCQ pll_encode(rom_addr, 32,  1); // 800 MHz
+      8'd17  : rom_do <= #TCQ pll_encode(rom_addr, 34,  1); // 850 MHz
+      8'd18  : rom_do <= #TCQ pll_encode(rom_addr, 36,  1); // 900 MHz
+      8'd19  : rom_do <= #TCQ pll_encode(rom_addr, 38,  1); // 950 MHz
+      8'd20  : rom_do <= #TCQ pll_encode(rom_addr, 40,  1); //1000 MHz
+      default: rom_do <= #TCQ pll_encode(rom_addr, 32, 16); //  25 MHz
       endcase
    end
    
