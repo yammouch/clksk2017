@@ -17,22 +17,10 @@ endtask
 
 task test1(input [31:0] f_hdl);
 begin
-  wait (lvds_p[63:0] == 64'hAAAA_AAAA_AAAA_AAAA);
-  wait (lvds_p[63:0] == 64'h0000_0000_0000_0000);
-  repeat (64*256) @(dut.i_pll_ctrl.CLKS);
-  lvds_p[64] = !lvds_p[64];
-  lvds_n[64] = !lvds_n[64];
-  repeat (64*256) @(dut.i_pll_ctrl.CLKS);
-  lvds_p[64] = !lvds_p[64];
-  lvds_n[64] = !lvds_n[64];
-  wait (lvds_p[63:0] == 64'h0000_0000_0000_0000);
-  wait (lvds_p[63:0] == 64'hAAAA_AAAA_AAAA_AAAA);
-  if (dut.i_stimulus.ERR_CNT == 64'd2) $fwrite(f_hdl, "[OK]");
-  else                                 $fwrite(f_hdl, "[ER]");
-  $fwrite(f_hdl, " ERR_CNT %d, expected 2\n", dut.i_stimulus.ERR_CNT);
-  if (dut.i_stimulus.RECV_CNT == 58'h00_0000_0000_0400) $fwrite(f_hdl, "[OK]");
-  else                                                  $fwrite(f_hdl, "[ER]");
-  $fwrite(f_hdl, " RECV_CNT 'h%x, expected 'h400\n", dut.i_stimulus.RECV_CNT);
+  repeat (5) begin
+    BTN_2 = 1'b0; #1100e6; // 1.1ms
+    BTN_2 = 1'b1; #1100e6; // 1.1ms
+  end
 end
 endtask
 
@@ -44,7 +32,7 @@ function [3:0] decode_7seg(input [6:0] seg);
   7'b1001111: decode_7seg = 4'd3;
   7'b1100110: decode_7seg = 4'd4;
   7'b1101101: decode_7seg = 4'd5;
-  7'b1111101: decode_7seg = 4'd6;
+  7'b0111111: decode_7seg = 4'd6;
   7'b0100111: decode_7seg = 4'd7;
   7'b1111111: decode_7seg = 4'd8;
   7'b1101111: decode_7seg = 4'd9;
@@ -64,7 +52,7 @@ wire [3:0] dig_ber0 = decode_7seg(dut.i_handle_7seg.dig_ber[ 6: 0]);
 task test_main;
 reg [31:0] f_hdl;
 begin
-  f_hdl = $fopen("result/t020.log");
+  f_hdl = $fopen("result/t100.log");
   fork
     begin
       init;

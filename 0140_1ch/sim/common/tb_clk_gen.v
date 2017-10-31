@@ -10,8 +10,8 @@ integer period_lo;
 reg     en;
 
 initial begin
-  period_hi = 25_000; // 25ns 20MHz
-  period_lo = 25_000; // 25ns
+  period_hi = 20_000; // 20ns 25MHz
+  period_lo = 20_000; // 20ns
   en        = 1'b0;
   clk       = 1'b0;
 end

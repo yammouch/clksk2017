@@ -11,15 +11,52 @@ begin
   BTN_2   = 1'b1;
   BTN_3   = 1'b1;
   fg.en   = 1'b1;
-  force dut.i_handle_7seg.i_cnt_down_s.VAL = 25'd4095;
+  force dut.i_button_ctrl.i_dechat_bt1.TIMEOUT = 15'd255;
+  force dut.i_button_ctrl.i_dechat_bt2.TIMEOUT = 15'd255;
+  force dut.i_button_ctrl.i_dechat_bt3.TIMEOUT = 15'd255;
+end
+endtask
+
+task compare_dig_m(input [31:0] f_hdl, input [15:0] i);
+reg [4:0] dig_m2_exp;
+reg [3:0] dig_m1_exp;
+reg [3:0] dig_m0_exp;
+begin
+  dig_m2_exp =  i / 100;
+  dig_m1_exp = (i /  10) % 10;
+  dig_m0_exp =  i        % 10;
+
+  if (dig_m2_exp == dut.i_handle_7seg.dig_m2)
+    $fwrite(f_hdl, "[OK] ");
+  else
+    $fwrite(f_hdl, "[ER] at %6.3f [ms] ", $time * 1e-9);
+  $fwrite(f_hdl, "dig_m2 val: %d, exp: %d\n",
+          dut.i_handle_7seg.dig_m2, dig_m2_exp);
+
+  if (dig_m1_exp == dut.i_handle_7seg.dig_m1)
+    $fwrite(f_hdl, "[OK] ");
+  else
+    $fwrite(f_hdl, "[ER] at %6.3f [ms] ", $time * 1e-9);
+  $fwrite(f_hdl, "dig_m1 val: %d, exp: %d\n",
+          dut.i_handle_7seg.dig_m1, dig_m1_exp);
+
+  if (dig_m0_exp == dut.i_handle_7seg.dig_m0)
+    $fwrite(f_hdl, "[OK] ");
+  else
+    $fwrite(f_hdl, "[ER] at %6.3f [ms] ", $time * 1e-9);
+  $fwrite(f_hdl, "dig_m0 val: %d, exp: %d\n",
+          dut.i_handle_7seg.dig_m0, dig_m0_exp);
 end
 endtask
 
 task test1(input [31:0] f_hdl);
+integer i;
 begin
-  repeat (5) begin
-    BTN_2 = 1'b0; #1100e6; // 1.1ms
-    BTN_2 = 1'b1; #1100e6; // 1.1ms
+  #10e6; // 10us
+  for (i = 0; i < 256; i = i+1) begin
+    compare_dig_m(f_hdl, i);
+    BTN_2 = 1'b0; #24e6; // 24us
+    BTN_2 = 1'b1; #24e6; // 24us
   end
 end
 endtask
@@ -52,7 +89,7 @@ wire [3:0] dig_ber0 = decode_7seg(dut.i_handle_7seg.dig_ber[ 6: 0]);
 task test_main;
 reg [31:0] f_hdl;
 begin
-  f_hdl = $fopen("result/t030.log");
+  f_hdl = $fopen("result/t110.log");
   fork
     begin
       init;
@@ -61,7 +98,7 @@ begin
       $finish;
     end
     begin
-      #10e9; // 10ms
+      #20e9; // 10ms
       $fdisplay(f_hdl, "[ER] simulation timeout.");
       $fclose(f_hdl);
       $finish;
