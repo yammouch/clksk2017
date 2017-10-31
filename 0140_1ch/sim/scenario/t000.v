@@ -64,7 +64,7 @@ wire [3:0] dig_ber0 = decode_7seg(dut.i_handle_7seg.dig_ber[ 6: 0]);
 task test_main;
 reg [31:0] f_hdl;
 begin
-  f_hdl = $fopen("result/t020.log");
+  f_hdl = $fopen("result/t000.log");
   fork
     begin
       init;
