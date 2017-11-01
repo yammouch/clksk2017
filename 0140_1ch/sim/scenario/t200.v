@@ -72,6 +72,7 @@ reg [29:0] exp;
 begin
   $fwrite(f_hdl, "MAIN_MODE = %d\n", i);
   exp = ctrl_signal_exp(i);
+  cmp1(f_hdl, "POR     "     , dut.POR          , 1'b0   );
   cmp1(f_hdl, "SEL_RX_A"     , dut.SEL_RX_A     , exp[29]);
   cmp1(f_hdl, "SEL_RX_B"     , dut.SEL_RX_B     , exp[28]);
   cmp1(f_hdl, "SEL_TX_A"     , dut.SEL_TX_A     , exp[27]);
