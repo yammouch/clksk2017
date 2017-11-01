@@ -79,37 +79,37 @@ integer i;
 begin
   #10e6; // 10us
   mode_change(1'b1, 1'b1, 3); // SUB_MODE -> 3
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  1
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  2
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  3
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  4
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  5
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  6
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  7
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  8
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); //  9
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  4); // 10
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 11
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 12
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl, 16); // 13
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  4); // 14
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  4); // 15
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  4); // 16
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  4); // 17
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  4); // 18
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  4); // 19
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  4); // 20
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 21
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 22
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 23
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 24
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 25
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 26
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 27
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 28
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 29
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 30
-  mode_change(1'b0, 1'b1, 1); #100e6 check_cycle(f_hdl,  6); // 31
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  1
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  2
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  3
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  4
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  5
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  6
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  7
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  8
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  9
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 10
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 11
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 12
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl, 16); // 13
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 14
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 15
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 16
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 17
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 18
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 19
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 20
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 21
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 22
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 23
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 24
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 25
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 26
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 27
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 28
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 29
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 30
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 31
 end
 endtask
 

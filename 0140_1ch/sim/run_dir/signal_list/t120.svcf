@@ -1,4 +1,4 @@
-# SimVision Command Script (Wed Nov 01 08:33:50 AM CET 2017)
+# SimVision Command Script (Wed Nov 01 08:42:02 AM CET 2017)
 #
 # Version 14.20.s017
 #
@@ -45,14 +45,14 @@ preferences set toolbar-Windows-SchematicWindow {
   usual
   position -pos 2
 }
+preferences set toolbar-Search-Console {
+  usual
+  position -pos 3
+}
 preferences set toolbar-OperatingMode-WaveWindow {
   usual
   position -pos 4
   name OperatingMode
-}
-preferences set toolbar-Search-Console {
-  usual
-  position -pos 3
 }
 preferences set plugin-enable-svdatabrowser 0
 preferences set toolbar-NavSignalList-WaveWindow {
@@ -112,6 +112,20 @@ mmap new -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor ora
 {%x=* -label %x -linecolor gray -shape bus}}
 
 #
+# Design Browser windows
+#
+if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+2+53}] != ""} {
+    window geometry "Design Browser 1" 700x500+2+53
+}
+window target "Design Browser 1" on
+browser using {Design Browser 1}
+browser set -scope [subst  {$dbNames(realName1)::[format {tb.dut}]} ]
+browser set \
+    -signalsort name
+browser yview see [subst  {$dbNames(realName1)::[format {tb.dut}]} ]
+browser timecontrol set -lock 0
+
+#
 # Waveform windows
 #
 if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1105x751+687+25}] != ""} {
@@ -158,6 +172,9 @@ set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.BTN_2}]}
 	} ]]
 set id [waveform add -signals [subst  {
+	{$dbNames(realName1)::[format {tb.dut.DOUT[1:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_button_ctrl.bt2r}]}
 	} ]]
 set id [waveform add -signals [subst  {
@@ -186,7 +203,7 @@ set id [waveform add -signals [subst  {
 	{$dbNames(realName1)::[format {tb.dut.i_handle_7seg.dig_m0[3:0]}]}
 	} ]]
 
-waveform xview limits 2.428774704ms 2.42934689ms
+waveform xview limits 11.064728469ms 13.255613333ms
 
 #
 # Waveform Window Links
