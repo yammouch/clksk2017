@@ -99,8 +99,8 @@ always @(posedge CLK or negedge RSTX)
 wire cnt1_chg = cnt1_p1 != CNT1;
 wire cnt2_chg = cnt2_p1 != CNT2;
 
-pulse_extend #(.CBW(4), .RV(1'b1)) i_pex (
- .CYCLE (4'd15),
+pulse_extend #(.CBW(11), .RV(1'b0)) i_pex (
+ .CYCLE (~11'd0),
  .RSTX  (RSTX),
  .CLK   (CLK),
  .DIN   (cnt1_chg | cnt2_chg),
