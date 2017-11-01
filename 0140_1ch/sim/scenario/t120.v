@@ -90,8 +90,8 @@ begin
   mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); //  9
   mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 10
   mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 11
-  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  6); // 12
-  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl, 16); // 13
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl, 16); // 12
+  mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 13
   mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 14
   mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 15
   mode_change(1'b0, 1'b1, 1); #300e6 check_cycle(f_hdl,  4); // 16

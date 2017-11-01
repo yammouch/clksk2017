@@ -21,7 +21,11 @@ reg rstxf_d1, rstxf_d2;
 always @(posedge CLKF or negedge RSTXF)
   if (!RSTXF) {rstxf_d2, rstxf_d1} <= 2'b00;
   else        {rstxf_d2, rstxf_d1} <= {rstxf_d1, RSTXF};
-wire clr_int = CLR || !rstxf_d2;
+reg [1:0] clr_d;
+always @(posedge CLKF or negedge RSTXF)
+  if (!RSTXF) clr_d <= 2'b11;
+  else        clr_d <= {clr_d[0], CLR};
+wire clr_int = clr_d[1] || !rstxf_d2;
 
 wire [15:0] doutp;
 parallel_send i_parallel_send (
