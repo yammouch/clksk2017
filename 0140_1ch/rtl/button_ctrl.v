@@ -110,7 +110,7 @@ pulse_extend #(.CBW(11), .RV(1'b0)) i_pex (
 function [8:0] fplladdr(input [7:0] CNT1, input [7:0] CNT2);
 case (CNT1)
   8'd9   : fplladdr = {1'b1, CNT2};
-  8'd10  : fplladdr = {1'b0, 8'd0};
+  8'd10  : fplladdr = {1'b0, 8'd2};
   8'd11  : fplladdr = {1'b1, CNT2};
   8'd12  : fplladdr = {1'b0, 8'd8};
   8'd13  : fplladdr = {1'b0, 8'd2};
