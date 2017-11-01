@@ -14,6 +14,7 @@ module stimulus (
  output reg [30:0] CTRL,
  output     [ 1:0] DOUT,
  input      [ 1:0] DIN,
+ output            PHY_INIT,
  output     [57:0] RECV_CNT,
  output     [63:0] ERR_CNT);
 
@@ -308,6 +309,7 @@ lvds1 i_lvds1 (
  .PATTERN      (table_dout[12:11]),
  .INV          (1'b0),
  .DIN          (DIN),
+ .PHY_INIT     (PHY_INIT),
  .RECV_CNT     (RECV_CNT),
  .ERR_CNT      (ERR_CNT),
  .DOUT         (DOUT)

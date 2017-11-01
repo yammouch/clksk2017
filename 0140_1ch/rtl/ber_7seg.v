@@ -4,6 +4,7 @@ module ber_7seg (
  input         START,
  input  [57:0] RECV_CNT,
  input  [63:0] ERR_CNT,
+ output        BUSY,
  output [ 6:0] DIGIT0,
  output [ 6:0] DIGIT1,
  output [ 6:0] DIGIT2,
@@ -55,6 +56,8 @@ always @*
     else              state_next = INIT;
   default:            state_next = INIT;
   endcase
+
+assign BUSY = state != INIT;
 
 always @(posedge CLK or negedge RSTX)
   if (!RSTX)      rcnt <= 58'd0;

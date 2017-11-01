@@ -11,6 +11,7 @@ module lvds1 (
  input  [ 1:0] PATTERN,
  input  [ 1:0] DIN,
 
+ output        PHY_INIT,
  output [ 1:0] DOUT,
  output [63:0] ERR_CNT,
  output [57:0] RECV_CNT
@@ -22,14 +23,13 @@ always @(posedge CLKF or negedge RSTXF)
   else        {rstxf_d2, rstxf_d1} <= {rstxf_d1, RSTXF};
 wire clr_int = CLR || !rstxf_d2;
 
-wire phy_init;
 wire [15:0] doutp;
 parallel_send i_parallel_send (
  .RSTX     (RSTXF),
  .CLK      (CLKF),
  .CLR      (clr_int),
 
- .PHY_INIT (phy_init),
+ .PHY_INIT (PHY_INIT),
  .DOUT     (doutp),
  .DOPUSH   (),
  .DOPULL   (1'b1)
@@ -56,7 +56,7 @@ serial_recv i_serial_recv (
  .RSTXS        (RSTXS),
  .CLKS         (CLKS),
  .CLKSS        (CLKSS),
- .PHY_INIT     (phy_init),
+ .PHY_INIT     (PHY_INIT),
  .SERDESSTROBE (SERDESSTROBE),
  .DIN          (DIN),
  .DOUT         (dina),
@@ -69,7 +69,7 @@ wire dipushp, aligned;
 word_align i_word_align (
  .RSTX     (RSTXF),
  .CLK      (CLKF),
- .PHY_INIT (phy_init),
+ .PHY_INIT (PHY_INIT),
  .DIN      (INV ? ~dina : dina),
  .DIPUSH   (1'b1),
 
@@ -81,7 +81,7 @@ word_align i_word_align (
 parallel_recv i_parallel_recv (
  .RSTX     (RSTXF),
  .CLK      (CLKF),
- .INIT     (phy_init),
+ .INIT     (PHY_INIT),
  .DIN      (dinp),
  .DIPUSH   (dipushp),
  .ALIGNED  (aligned),

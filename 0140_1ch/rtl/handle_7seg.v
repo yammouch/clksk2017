@@ -3,6 +3,7 @@ module handle_7seg (
  input         CLK,
  input  [ 7:0] MAIN_MODE,
  input  [ 7:0] SUB_MODE,
+ input         PHY_INIT,
  input  [57:0] RECV_CNT,
  input  [63:0] ERR_CNT,
  output [ 3:0] DIGIT_SEL,
@@ -45,13 +46,20 @@ cnt_down #(.BW(2)) i_cnt_down_p (
  .CNT_NEXT (p_cnt_next)
 );
 
+reg [2:0] phy_init_d;
+always @(posedge CLK or negedge RSTX)
+  if (!RSTX) phy_init_d <= 3'b00;
+  else       phy_init_d <= {phy_init_d[1:0], PHY_INIT};
+
 wire [27:0] dig_ber;
+wire        ber_busy;
 ber_7seg i_ber_7seg (
  .RSTX     (RSTX),
  .CLK      (CLK),
- .START    (p_cnt_next == 2'd1 && p_cnt != 2'd1),
+ .START    (phy_init_d[2] && !phy_init_d[1] && !ber_busy && p_cnt != 2'd0),
  .RECV_CNT (RECV_CNT),
  .ERR_CNT  (ERR_CNT),
+ .BUSY     (ber_busy),
  .DIGIT0   (dig_ber[ 6: 0]),
  .DIGIT1   (dig_ber[13: 7]),
  .DIGIT2   (dig_ber[20:14]),

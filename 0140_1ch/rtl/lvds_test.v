@@ -81,12 +81,14 @@ button_ctrl i_button_ctrl (
 
 wire [57:0] recv_cnt;
 wire [63:0] err_cnt;
+wire        phy_init;
 
 handle_7seg i_handle_7seg (
  .RSTX      (rstxo),
  .CLK       (clk_bufg),
  .MAIN_MODE (main_mode),
  .SUB_MODE  (sub_mode),
+ .PHY_INIT  (phy_init),
  .RECV_CNT  (recv_cnt),
  .ERR_CNT   (err_cnt),
  .DIGIT_SEL (DIGIT_SEL),
@@ -110,6 +112,7 @@ stimulus i_stimulus (
  .SUB_MODE     (sub_mode),
  .CTRL         (ctrl),
  .DIN          (DIN),
+ .PHY_INIT     (phy_init),
  .DOUT         (DOUT),
  .RECV_CNT     (recv_cnt),
  .ERR_CNT      (err_cnt)
