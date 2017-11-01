@@ -4,6 +4,7 @@ module div #(
            BW_DSOR = 'd3) (
  input                RSTX,
  input                CLK,
+ input                CLR,
  input  [BW_DSOR-1:0] DIVISOR,
  input  [BW_DEND-1:0] DIVIDEND,
  input                START,
