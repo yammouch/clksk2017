@@ -83,6 +83,23 @@ begin
   else
     $fwrite(f_hdl, "[NG] @ %6.3f [ms]", $time*1e-9);
   $fwrite(f_hdl, " ber val: %e, exp [%e, %e]\n", ber, ber_exp*0.9, ber_exp*1.1);
+
+  wait (dut.i_handle_7seg.i_ber_7seg.BUSY == 1'b1);
+  wait (dut.i_handle_7seg.i_ber_7seg.BUSY == 1'b0);
+
+  dig0 = decode_7seg(dut.i_handle_7seg.i_ber_7seg.DIGIT0);
+  dig1 = decode_7seg(dut.i_handle_7seg.i_ber_7seg.DIGIT1);
+  dig2 = decode_7seg(dut.i_handle_7seg.i_ber_7seg.DIGIT2);
+  dig3 = decode_7seg(dut.i_handle_7seg.i_ber_7seg.DIGIT3);
+
+  ber = (dig3 + 0.1*dig2)*0.1**(10*dig1 + dig0);
+  ber_exp = 2.0 / (2048*16);
+
+  if (0.9*ber_exp <= ber && ber <= 1.1*ber_exp)
+    $fwrite(f_hdl, "[OK]");
+  else
+    $fwrite(f_hdl, "[NG] @ %6.3f [ms]", $time*1e-9);
+  $fwrite(f_hdl, " ber val: %e, exp [%e, %e]\n", ber, ber_exp*0.9, ber_exp*1.1);
 end
 endtask
 

@@ -2,7 +2,7 @@ module ber_7seg (
  input         RSTX,
  input         CLK,
  input         START,
- input  [57:0] RECV_CNT,
+ input  [59:0] RECV_CNT,
  input  [63:0] ERR_CNT,
  output        BUSY,
  output [ 6:0] DIGIT0,
@@ -18,10 +18,10 @@ localparam INIT       = 3'd0,
            DIV        = 3'd4,
            DIV10      = 3'd5;
 
-reg [57:0] rcnt;
+reg [59:0] rcnt;
 reg [63:0] ecnt;
 reg [ 4:0] exp_cnt;
-wire end10  = {rcnt, 6'd0} <= ecnt;
+wire end10  = {rcnt, 4'd0} <= ecnt;
 wire endexp = 5'd17 < exp_cnt;
 wire mbusy, dbusy, d10busy;
 reg [2:0] state, state_next;
@@ -60,7 +60,7 @@ always @*
 assign BUSY = state != INIT;
 
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)      rcnt <= 58'd0;
+  if (!RSTX)      rcnt <= 60'd0;
   else if (START) rcnt <= RECV_CNT;
 
 wire [67:0] prod;
@@ -91,7 +91,7 @@ div #(.BW_CNT(6), .BW_DEND(64), .BW_DSOR(64)) i_div (
  .RSTX     (RSTX),
  .CLK      (CLK),
  .DIVIDEND (prod[63:0]),
- .DIVISOR  ({rcnt, 6'd0}),
+ .DIVISOR  ({rcnt, 4'd0}),
  .START    (state_next == DIV && state == MUL10_LAST),
  .BUSY     (dbusy),
  .REM      (),

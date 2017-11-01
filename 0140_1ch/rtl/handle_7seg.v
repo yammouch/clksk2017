@@ -4,7 +4,7 @@ module handle_7seg (
  input  [ 7:0] MAIN_MODE,
  input  [ 7:0] SUB_MODE,
  input         PHY_INIT,
- input  [57:0] RECV_CNT,
+ input  [59:0] RECV_CNT,
  input  [63:0] ERR_CNT,
  output [ 3:0] DIGIT_SEL,
  output [ 7:0] DIGIT
@@ -56,7 +56,7 @@ wire        ber_busy;
 ber_7seg i_ber_7seg (
  .RSTX     (RSTX),
  .CLK      (CLK),
- .START    (phy_init_d[2] && !phy_init_d[1] && !ber_busy && p_cnt != 2'd0),
+ .START    (!phy_init_d[2] && phy_init_d[1] && !ber_busy && p_cnt != 2'd0),
  .RECV_CNT (RECV_CNT),
  .ERR_CNT  (ERR_CNT),
  .BUSY     (ber_busy),

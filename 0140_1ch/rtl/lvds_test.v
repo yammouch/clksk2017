@@ -79,7 +79,7 @@ button_ctrl i_button_ctrl (
  .CLR_SEQ  (clr_seq)
 );
 
-wire [57:0] recv_cnt;
+wire [59:0] recv_cnt;
 wire [63:0] err_cnt;
 wire        phy_init;
 

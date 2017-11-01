@@ -8,7 +8,7 @@ module parallel_recv (
  input             INIT,
 
  output reg [63:0] ERR_CNT,
- output reg [57:0] RECV_CNT
+ output reg [59:0] RECV_CNT
 );
 
 wire divalid = ALIGNED & DIPUSH;
@@ -66,8 +66,8 @@ always @(posedge CLK or negedge RSTX)
   else              ERR_CNT <= sum[63:0];
 
 always @(posedge CLK or negedge RSTX)
-  if (!RSTX)    RECV_CNT <= 58'd0;
-  else if (CLR) RECV_CNT <= 58'd0;
-  else          RECV_CNT <= RECV_CNT + {57'd0, recv};
+  if (!RSTX)    RECV_CNT <= 60'd0;
+  else if (CLR) RECV_CNT <= 60'd0;
+  else          RECV_CNT <= RECV_CNT + {59'd0, recv};
 
 endmodule

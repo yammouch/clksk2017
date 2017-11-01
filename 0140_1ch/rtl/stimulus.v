@@ -15,7 +15,7 @@ module stimulus (
  output     [ 1:0] DOUT,
  input      [ 1:0] DIN,
  output            PHY_INIT,
- output     [57:0] RECV_CNT,
+ output     [59:0] RECV_CNT,
  output     [63:0] ERR_CNT);
 
 localparam UNABLE = {30'd0, 1'b1};

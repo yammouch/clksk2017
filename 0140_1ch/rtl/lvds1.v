@@ -14,7 +14,7 @@ module lvds1 (
  output        PHY_INIT,
  output [ 1:0] DOUT,
  output [63:0] ERR_CNT,
- output [57:0] RECV_CNT
+ output [59:0] RECV_CNT
 );
 
 reg rstxf_d1, rstxf_d2;
