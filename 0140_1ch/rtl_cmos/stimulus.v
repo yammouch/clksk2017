@@ -12,8 +12,8 @@ module stimulus (
  input      [ 7:0] MAIN_MODE,
  input      [ 7:0] SUB_MODE,
  output reg [30:0] CTRL,
- output     [ 1:0] DOUT,
- input      [ 1:0] DIN,
+ inout      [ 1:0] DOUT,
+ inout      [ 1:0] DIN,
  output            PHY_INIT,
  output     [59:0] RECV_CNT,
  output     [63:0] ERR_CNT);
