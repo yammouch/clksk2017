@@ -46,15 +46,15 @@ case (main_mode)
 8'd32  : ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0000_0000_0000;
 8'd46  : 
   if (sub_mode[0])
-         ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0010_0000_0000;
+         ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0010_0010_0000;
   else
-         ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0000_0000_0000;
+         ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0010_0000_0000;
 8'd48  : ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0000_0000_1000;
 8'd62  : 
   if (sub_mode[0])
-         ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_1000_0000_1000;
+         ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0010_1000_1000;
   else
-         ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0000_0000_1000;
+         ctrl_signal_exp = 30'b1111_00_0000_00_0000_00_0010_0000_1000;
 endcase
 endfunction
 
@@ -120,30 +120,30 @@ begin
   #10e6; // 10us
   mode_change(0, 1, 1, 3); // MAIN_MODE -> 30
   mode_change(0, 1, 0, 2); // MAIN_MODE -> 32
-  #24e6; // 24us
+  #300e6; // 300us
   compare_ctrl(f_hdl, 32, 0);
 
   mode_change(0, 1, 1, 1); // MAIN_MODE -> 42
   mode_change(0, 1, 0, 4); // MAIN_MODE -> 46
-  #24e6; // 24us
+  #300e6; // 300us
   compare_ctrl(f_hdl, 46, 0);
 
   mode_change(1, 1, 0, 1); // SUB_MODE -> 1
-  #24e6; // 24us
+  #300e6; // 300us
   compare_ctrl(f_hdl, 46, 1);
   mode_change(1, 0, 0, 1); // SUB_MODE -> 0
 
   mode_change(0, 1, 0, 2); // MAIN_MODE -> 48
-  #24e6; // 24us
+  #300e6; // 300us
   compare_ctrl(f_hdl, 48, 0);
 
   mode_change(0, 1, 1, 1); // MAIN_MODE -> 58
   mode_change(0, 1, 0, 4); // MAIN_MODE -> 62
-  #24e6; // 24us
+  #300e6; // 300us
   compare_ctrl(f_hdl, 62, 0);
 
   mode_change(1, 1, 0, 1); // SUB_MODE -> 1
-  #24e6; // 24us
+  #300e6; // 300us
   compare_ctrl(f_hdl, 62, 1);
   mode_change(1, 0, 0, 1); // SUB_MODE -> 0
 end
