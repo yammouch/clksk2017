@@ -131,4 +131,40 @@ seq #(.BW_SEQ(3'd2), .SEQ_CNT(3'd6), .BW_SEQ_CNT(2'd3), .RV(2'd0),
         , 2'b00, 1'b0 } )
 );
 
+reg [7:0] vio_ctrl;
+
+assign DOUT[1] = vio_ctrl[7] ? vio_ctrl[6] : 1'bz;
+assign DOUT[0] = vio_ctrl[5] ? vio_ctrl[4] : 1'bz;
+assign DIN[1]  = vio_ctrl[3] ? vio_ctrl[2] : 1'bz;
+assign DIN[0]  = vio_ctrl[1] ? vio_ctrl[0] : 1'bz;
+
+always @(posedge CLK or negedge RSTX)
+  case (MAIN_MODE)
+  8'd1 : vio_ctrl <= 16'b10101010_00000000;
+  8'd2 : vio_ctrl <= 16'b10101010_00000000;
+  8'd3 : vio_ctrl <= 16'b10101010_00000000;
+  8'd4 : vio_ctrl <= 16'b10101010_00000000;
+  8'd5 : vio_ctrl <= 16'b10101010_00000000;
+  8'd6 : vio_ctrl <= 16'b10101010_00000000;
+  8'd7 : vio_ctrl <= { 1'b1, seq_32[1], 1'b1, seq_32[0], 12'b1010_00000000 };
+  8'd8 : vio_ctrl <= 16'b00000000_00000000;
+  8'd32: vio_ctrl <= { 1'b1, seq_32[1], 1'b1, seq_32[0], 12'b1010_00000000 };
+  8'd33: vio_ctrl <= { 1'b1, seq_32[1], 1'b1, seq_32[0], 12'b1010_00000000 };
+  8'd34: vio_ctrl <= { 1'b1, seq_32[1], 1'b1, seq_32[0], 12'b1010_00000000 };
+  8'd35: vio_ctrl <= { 1'b1, seq_32[1], 1'b1, seq_32[0], 12'b1010_00000000 };
+  8'd36: vio_ctrl <= { 1'b1, seq_32[1], 1'b1, seq_32[0], 12'b1010_00000000 };
+  8'd37: vio_ctrl <= { 1'b1, seq_32[1], 1'b1, seq_32[0], 12'b1010_00000000 };
+  8'd38: vio_ctrl <= { 1'b1, seq_32[1], 1'b1, seq_32[0], 12'b1010_00000000 };
+  8'd46: vio_ctrl <= 16'b00000000_00000000;
+  8'd48: vio_ctrl <= { 8'b00000000, 1'b1, seq_32[1], 1'b1, seq_32[0], 4'b0000 };
+  8'd49: vio_ctrl <= { 8'b00000000, 1'b1, seq_32[1], 1'b1, seq_32[0], 4'b0000 };
+  8'd50: vio_ctrl <= { 8'b00000000, 1'b1, seq_32[1], 1'b1, seq_32[0], 4'b0000 };
+  8'd51: vio_ctrl <= { 8'b00000000, 1'b1, seq_32[1], 1'b1, seq_32[0], 4'b0000 };
+  8'd52: vio_ctrl <= { 8'b00000000, 1'b1, seq_32[1], 1'b1, seq_32[0], 4'b0000 };
+  8'd53: vio_ctrl <= { 8'b00000000, 1'b1, seq_32[1], 1'b1, seq_32[0], 4'b0000 };
+  8'd54: vio_ctrl <= { 8'b00000000, 1'b1, seq_32[1], 1'b1, seq_32[0], 4'b0000 };
+  8'd62: vio_ctrl <= 16'b00000000_00000000;
+  default: vio_ctrl <= 16'b00000000_00000000;
+  endcase
+
 endmodule
