@@ -18,7 +18,9 @@ module stimulus (
  output     [59:0] RECV_CNT,
  output     [63:0] ERR_CNT);
 
-always @(posedge CLK)
+always @(posedge CLKF) CTRL[30] <= 1'b1;
+
+always @(posedge CLKF)
   case (MAIN_MODE)
   8'd1 : CTRL <= 30'b1111_01_0000_00_0000_00_0000_0000_1000;
   8'd2 : CTRL <= 30'b1111_01_0000_00_0000_00_0000_0000_0000;
@@ -121,14 +123,12 @@ always @(posedge CLK)
   default: CTRL <= 30'd0;
 
 wire [1:0] seq_32;
-seq #(.BW_SEQ(3'd2), .SEQ_CNT(3'd6), .BW_SEQ_CNT(2'd3), .RV(2'd0),
+seq #(.BW_SEQ(3'd2), .SEQ_CNT(2'd2), .BW_SEQ_CNT(2'd2), .RV(2'd0),
  .BW_TIMEOUT(1'b1) ) i_seq_32 (
- .RSTX(RSTX) .CLK(CLK), CLR(CLR), .SEQ(seq_32),
- .PTN ( { 2'b00, 1'b0
-        , 2'b01, 1'b0
-        , 2'b10, 1'b0
-        , 2'b11, 1'b0
-        , 2'b00, 1'b0 } )
+ .RSTX(RSTXF) .CLK(CLKF), CLR(CLR), .SEQ(seq_32),
+ .PTN ( { 2'b10, 1'b0
+        , 2'b01, 1'b1
+        , 2'b00, 1'b1 } )
 );
 
 reg [7:0] vio_ctrl;
@@ -138,7 +138,7 @@ assign DOUT[0] = vio_ctrl[5] ? vio_ctrl[4] : 1'bz;
 assign DIN[1]  = vio_ctrl[3] ? vio_ctrl[2] : 1'bz;
 assign DIN[0]  = vio_ctrl[1] ? vio_ctrl[0] : 1'bz;
 
-always @(posedge CLK or negedge RSTX)
+always @(posedge CLKF or negedge RSTXF)
   case (MAIN_MODE)
   8'd1 : vio_ctrl <= 16'b10101010_00000000;
   8'd2 : vio_ctrl <= 16'b10101010_00000000;
